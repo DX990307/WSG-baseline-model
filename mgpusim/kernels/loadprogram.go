@@ -39,7 +39,11 @@ func LoadProgram(filePath, kernelName string) *insts.HsaCo {
 
 	for _, symbol := range symbols {
 		if symbol.Name == kernelName {
-			offset := symbolOffsetInSection(symbol, textSection, len(textSectionData))
+			offset, ok := symbolOffsetInSection(symbol, textSection, len(textSectionData))
+			if !ok {
+				log.Fatalf(
+					"symbol %s range is outside .text section", kernelName)
+			}
 			hsacoData := textSectionData[offset : offset+symbol.Size]
 			hsaco := insts.NewHsaCoFromData(hsacoData)
 			hsaco.Symbol = &symbol
@@ -85,7 +89,11 @@ func LoadProgramFromMemory(data []byte, kernelName string) *insts.HsaCo {
 
 	for _, symbol := range symbols {
 		if symbol.Name == kernelName {
-			offset := symbolOffsetInSection(symbol, textSection, len(textSectionData))
+			offset, ok := symbolOffsetInSection(symbol, textSection, len(textSectionData))
+			if !ok {
+				log.Fatalf(
+					"symbol %s range is outside .text section", kernelName)
+			}
 			hsacoData := textSectionData[offset : offset+symbol.Size]
 			hsaco := insts.NewHsaCoFromData(hsacoData)
 			symbolCopy := symbol
@@ -104,28 +112,20 @@ func symbolOffsetInSection(
 	symbol elf.Symbol,
 	section *elf.Section,
 	sectionDataLen int,
-) uint64 {
+) (uint64, bool) {
+	candidates := make([]uint64, 0, 2)
 	if symbol.Value >= section.Addr {
-		offset := symbol.Value - section.Addr
-		if offset+symbol.Size <= uint64(sectionDataLen) {
-			return offset
-		}
+		candidates = append(candidates, symbol.Value-section.Addr)
 	}
-
 	if symbol.Value >= section.Offset {
-		offset := symbol.Value - section.Offset
-		if offset+symbol.Size <= uint64(sectionDataLen) {
-			return offset
+		candidates = append(candidates, symbol.Value-section.Offset)
+	}
+
+	sectionLen := uint64(sectionDataLen)
+	for _, offset := range candidates {
+		if offset <= sectionLen && symbol.Size <= sectionLen-offset {
+			return offset, true
 		}
 	}
-
-	if symbol.Value+symbol.Size <= uint64(sectionDataLen) {
-		return symbol.Value
-	}
-
-	log.Panicf(
-		"symbol %s is outside section %s: value=%#x size=%#x addr=%#x offset=%#x len=%#x",
-		symbol.Name, section.Name, symbol.Value, symbol.Size,
-		section.Addr, section.Offset, sectionDataLen)
-	return 0
+	return 0, false
 }

@@ -1,0 +1,1162 @@
+Monitoring simulation with http://localhost:51784
+total WG: 5242880 WG Per CU 3414
+[PF][demand] cycle=672 component=IOMMUTLB gpu=18 page_block=1 cacheline=14509 bitmap=[true true true true true true true true] state=pending unique=1/8
+[PF][demand] cycle=677 component=IOMMUTLB gpu=18 page_block=1 cacheline=14510 bitmap=[true true true true true true true true] state=pending unique=2/8
+[PF][demand] cycle=677 component=IOMMUTLB gpu=25 page_block=1 cacheline=20484 bitmap=[true true true true true true true true] state=pending unique=3/8
+[PF][demand] cycle=684 component=IOMMUTLB gpu=31 page_block=1 cacheline=25605 bitmap=[true true true true true true true true] state=pending unique=4/8
+[PF][demand] cycle=706 component=IOMMUTLB gpu=17 page_block=1 cacheline=13656 bitmap=[true true true true true true true true] state=pending unique=5/8
+[PF][demand] cycle=712 component=IOMMUTLB gpu=23 page_block=1 cacheline=18777 bitmap=[true true true true true true true true] state=pending unique=6/8
+[PF][demand] cycle=716 component=IOMMUTLB gpu=26 page_block=1 cacheline=21337 bitmap=[true true true true true true true true] state=pending unique=7/8
+[PF][demand] cycle=720 component=IOMMUTLB gpu=30 page_block=1 cacheline=24751 bitmap=[true true true true true true true true] state=active
+[PF][admit] cycle=720 component=IOMMUTLB page_block=1 window=[15 16 17 18] table=[[] [] [13656] [14509 14510]]
+[PF][window] cycle=720 component=IOMMUTLB page_block=1 window=[15 16 17 18] table=[[] [] [13656] [14509 14510]]
+[PF][demand] cycle=720 component=IOMMUTLB gpu=26 page_block=1 cacheline=21338 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=725 component=IOMMUTLB gpu=30 page_block=1 cacheline=24752 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=727 component=IOMMUTLB gpu=38 page_block=1 cacheline=31579 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=730 component=IOMMUTLB gpu=4 page_block=1 cacheline=2560 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=733 component=IOMMUTLB gpu=38 page_block=1 cacheline=31580 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=734 component=IOMMUTLB gpu=4 page_block=1 cacheline=2561 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=735 component=IOMMUTLB gpu=10 page_block=1 cacheline=7681 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=735 component=IOMMUTLB gpu=12 page_block=1 cacheline=9388 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=740 component=IOMMUTLB gpu=10 page_block=1 cacheline=7682 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=740 component=IOMMUTLB gpu=12 page_block=1 cacheline=9389 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=744 component=IOMMUTLB gpu=20 page_block=1 cacheline=16216 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=748 component=IOMMUTLB gpu=22 page_block=1 cacheline=17923 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=748 component=IOMMUTLB gpu=20 page_block=1 cacheline=16217 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=753 component=IOMMUTLB gpu=22 page_block=1 cacheline=17924 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=753 component=IOMMUTLB gpu=24 page_block=1 cacheline=19630 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=754 component=IOMMUTLB gpu=29 page_block=1 cacheline=23898 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=756 component=IOMMUTLB gpu=33 page_block=1 cacheline=27312 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=758 component=IOMMUTLB gpu=24 page_block=1 cacheline=19631 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=761 component=IOMMUTLB gpu=37 page_block=1 cacheline=30726 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=764 component=IOMMUTLB gpu=39 page_block=1 cacheline=32433 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=765 component=IOMMUTLB gpu=5 page_block=1 cacheline=3414 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=769 component=IOMMUTLB gpu=45 page_block=1 cacheline=37554 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=769 component=IOMMUTLB gpu=9 page_block=1 cacheline=6828 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=774 component=IOMMUTLB gpu=13 page_block=1 cacheline=10242 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=776 component=IOMMUTLB gpu=15 page_block=1 cacheline=11949 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=779 component=IOMMUTLB gpu=11 page_block=1 cacheline=8535 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=782 component=IOMMUTLB gpu=21 page_block=1 cacheline=17070 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=788 component=IOMMUTLB gpu=28 page_block=1 cacheline=23044 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=788 component=IOMMUTLB gpu=19 page_block=1 cacheline=15363 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=793 component=IOMMUTLB gpu=28 page_block=1 cacheline=23045 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=793 component=IOMMUTLB gpu=34 page_block=1 cacheline=28165 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=797 component=IOMMUTLB gpu=36 page_block=1 cacheline=29872 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=798 component=IOMMUTLB gpu=34 page_block=1 cacheline=28166 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=798 component=IOMMUTLB gpu=32 page_block=1 cacheline=26458 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=798 component=IOMMUTLB gpu=2 page_block=1 cacheline=853 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=802 component=IOMMUTLB gpu=6 page_block=1 cacheline=4267 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=803 component=IOMMUTLB gpu=36 page_block=1 cacheline=29873 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=804 component=IOMMUTLB gpu=2 page_block=1 cacheline=854 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=804 component=IOMMUTLB gpu=32 page_block=1 cacheline=26459 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=805 component=IOMMUTLB gpu=44 page_block=1 cacheline=36700 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=806 component=IOMMUTLB gpu=6 page_block=1 cacheline=4268 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=807 component=IOMMUTLB gpu=46 page_block=1 cacheline=38407 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=810 component=IOMMUTLB gpu=44 page_block=1 cacheline=36701 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=813 component=IOMMUTLB gpu=46 page_block=1 cacheline=38408 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=817 component=IOMMUTLB gpu=14 page_block=1 cacheline=11096 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=817 component=IOMMUTLB gpu=16 page_block=1 cacheline=12802 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=823 component=IOMMUTLB gpu=16 page_block=1 cacheline=12803 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=831 component=IOMMUTLB gpu=27 page_block=1 cacheline=22191 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=832 component=IOMMUTLB gpu=1 page_block=1 cacheline=0 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=838 component=IOMMUTLB gpu=41 page_block=1 cacheline=34140 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=838 component=IOMMUTLB gpu=7 page_block=1 cacheline=5121 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=844 component=IOMMUTLB gpu=47 page_block=1 cacheline=39261 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=844 component=IOMMUTLB gpu=3 page_block=1 cacheline=1707 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=876 component=IOMMUTLB gpu=42 page_block=1 cacheline=34993 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=876 component=IOMMUTLB gpu=40 page_block=1 cacheline=33286 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=881 component=IOMMUTLB gpu=42 page_block=1 cacheline=34994 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1178 component=IOMMUTLB gpu=8 page_block=1 cacheline=5974 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1183 component=IOMMUTLB gpu=8 page_block=1 cacheline=5975 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1183 component=IOMMUTLB gpu=35 page_block=1 cacheline=29019 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1190 component=IOMMUTLB gpu=43 page_block=1 cacheline=35847 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1212 component=IOMMUTLB gpu=48 page_block=1 cacheline=40114 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1218 component=IOMMUTLB gpu=48 page_block=1 cacheline=40115 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1222 component=IOMMUTLB gpu=25 page_block=1 cacheline=20485 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1226 component=IOMMUTLB gpu=31 page_block=1 cacheline=25606 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1226 component=IOMMUTLB gpu=11 page_block=1 cacheline=8536 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=1231 component=IOMMUTLB gpu=17 page_block=1 cacheline=13657 bitmap=[true true true true true true true true] state=active
+[PF][intra] cycle=1231 component=IOMMUTLB page_block=1 stride=1 table=[[11949] [12802 12803] [13656 13657] [14509 14510]]
+[PF][inter] cycle=1231 component=IOMMUTLB page_block=1 stride=853 support=2 base_gpu=15 base_min_cl=11949
+[PF][issue] cycle=1231 component=IOMMUTLB pid=1 gpu=17 page_block=1 cacheline=13658 reason=intra
+[PF][demand] cycle=1233 component=IOMMUTLB gpu=19 page_block=1 cacheline=15364 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1233 component=IOMMUTLB pid=1 gpu=19 target_gpu=19 page_block=1 cacheline=15364 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1236 component=IOMMUTLB gpu=23 page_block=1 cacheline=18778 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1236 component=IOMMUTLB pid=1 gpu=23 target_gpu=23 page_block=1 cacheline=18778 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1239 component=IOMMUTLB gpu=27 page_block=1 cacheline=22192 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1239 component=IOMMUTLB pid=1 gpu=27 target_gpu=27 page_block=1 cacheline=22192 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1240 component=IOMMUTLB gpu=29 page_block=1 cacheline=23899 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1240 component=IOMMUTLB pid=1 gpu=29 target_gpu=29 page_block=1 cacheline=23899 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1241 component=IOMMUTLB gpu=33 page_block=1 cacheline=27313 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1241 component=IOMMUTLB pid=1 gpu=33 target_gpu=33 page_block=1 cacheline=27313 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1241 component=IOMMUTLB gpu=37 page_block=1 cacheline=30727 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1241 component=IOMMUTLB pid=1 gpu=37 target_gpu=37 page_block=1 cacheline=30727 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1679 component=IOMMUTLB gpu=39 page_block=1 cacheline=32434 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1679 component=IOMMUTLB pid=1 gpu=39 target_gpu=39 page_block=1 cacheline=32434 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1684 component=IOMMUTLB gpu=3 page_block=1 cacheline=1708 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1684 component=IOMMUTLB pid=1 gpu=3 target_gpu=3 page_block=1 cacheline=1708 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1684 component=IOMMUTLB gpu=5 page_block=1 cacheline=3415 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1684 component=IOMMUTLB pid=1 gpu=5 target_gpu=5 page_block=1 cacheline=3415 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1691 component=IOMMUTLB gpu=9 page_block=1 cacheline=6829 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1691 component=IOMMUTLB pid=1 gpu=9 target_gpu=9 page_block=1 cacheline=6829 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1713 component=IOMMUTLB gpu=45 page_block=1 cacheline=37555 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1713 component=IOMMUTLB pid=1 gpu=45 target_gpu=45 page_block=1 cacheline=37555 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1719 component=IOMMUTLB gpu=13 page_block=1 cacheline=10243 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1719 component=IOMMUTLB pid=1 gpu=13 target_gpu=13 page_block=1 cacheline=10243 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1723 component=IOMMUTLB gpu=15 page_block=1 cacheline=11950 bitmap=[true true true true true true true true] state=active
+[PF][issue] cycle=1723 component=IOMMUTLB pid=1 gpu=15 page_block=1 cacheline=11951 reason=intra
+[PF][demand] cycle=1727 component=IOMMUTLB gpu=21 page_block=1 cacheline=17071 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1727 component=IOMMUTLB pid=1 gpu=21 target_gpu=21 page_block=1 cacheline=17071 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1727 component=IOMMUTLB gpu=14 page_block=2 cacheline=52055 bitmap=[true true true true true true true true] state=pending unique=1/8
+[PF][demand] cycle=1732 component=IOMMUTLB gpu=35 page_block=1 cacheline=29020 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1732 component=IOMMUTLB pid=1 gpu=35 target_gpu=35 page_block=1 cacheline=29020 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1734 component=IOMMUTLB gpu=1 page_block=2 cacheline=40960 bitmap=[true true true true true true true true] state=pending unique=2/8
+[PF][demand] cycle=1737 component=IOMMUTLB gpu=1 page_block=1 cacheline=1 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1737 component=IOMMUTLB pid=1 gpu=1 target_gpu=1 page_block=1 cacheline=1 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1740 component=IOMMUTLB gpu=41 page_block=1 cacheline=34141 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1740 component=IOMMUTLB pid=1 gpu=41 target_gpu=41 page_block=1 cacheline=34141 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1741 component=IOMMUTLB gpu=7 page_block=1 cacheline=5122 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1741 component=IOMMUTLB pid=1 gpu=7 target_gpu=7 page_block=1 cacheline=5122 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1742 component=IOMMUTLB gpu=43 page_block=1 cacheline=35848 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1742 component=IOMMUTLB pid=1 gpu=43 target_gpu=43 page_block=1 cacheline=35848 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=1742 component=IOMMUTLB gpu=47 page_block=1 cacheline=39262 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=1742 component=IOMMUTLB pid=1 gpu=47 target_gpu=47 page_block=1 cacheline=39262 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2180 component=IOMMUTLB gpu=27 page_block=2 cacheline=63151 bitmap=[true true true true true true true true] state=pending unique=3/8
+[PF][demand] cycle=2185 component=IOMMUTLB gpu=18 page_block=1 cacheline=14511 bitmap=[true true true true true true true true] state=active
+[PF][issue] cycle=2185 component=IOMMUTLB pid=1 gpu=18 page_block=1 cacheline=14512 reason=intra
+[PF][demand] cycle=2185 component=IOMMUTLB gpu=5 page_block=2 cacheline=44374 bitmap=[true true true true true true true true] state=pending unique=4/8
+[PF][demand] cycle=2192 component=IOMMUTLB gpu=31 page_block=2 cacheline=66565 bitmap=[true true true true true true true true] state=pending unique=5/8
+[PF][demand] cycle=2214 component=IOMMUTLB gpu=26 page_block=1 cacheline=21339 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2214 component=IOMMUTLB pid=1 gpu=26 target_gpu=26 page_block=1 cacheline=21339 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2220 component=IOMMUTLB gpu=38 page_block=1 cacheline=31581 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2220 component=IOMMUTLB pid=1 gpu=38 target_gpu=38 page_block=1 cacheline=31581 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2224 component=IOMMUTLB gpu=40 page_block=1 cacheline=33288 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2224 component=IOMMUTLB pid=1 gpu=40 target_gpu=40 page_block=1 cacheline=33288 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2228 component=IOMMUTLB gpu=44 page_block=1 cacheline=36702 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2228 component=IOMMUTLB pid=1 gpu=44 target_gpu=44 page_block=1 cacheline=36702 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2228 component=IOMMUTLB gpu=30 page_block=1 cacheline=24753 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2228 component=IOMMUTLB pid=1 gpu=30 target_gpu=30 page_block=1 cacheline=24753 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2233 component=IOMMUTLB gpu=4 page_block=1 cacheline=2562 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2233 component=IOMMUTLB pid=1 gpu=4 target_gpu=4 page_block=1 cacheline=2562 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2235 component=IOMMUTLB gpu=26 page_block=2 cacheline=62297 bitmap=[true true true true true true true true] state=pending unique=6/8
+[PF][demand] cycle=2238 component=IOMMUTLB gpu=18 page_block=2 cacheline=55469 bitmap=[true true true true true true true true] state=pending unique=7/8
+[PF][demand] cycle=2241 component=IOMMUTLB gpu=20 page_block=1 cacheline=16218 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2241 component=IOMMUTLB pid=1 gpu=20 target_gpu=20 page_block=1 cacheline=16218 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2242 component=IOMMUTLB gpu=12 page_block=1 cacheline=9390 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2242 component=IOMMUTLB pid=1 gpu=12 target_gpu=12 page_block=1 cacheline=9390 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2243 component=IOMMUTLB gpu=26 page_block=2 cacheline=62298 bitmap=[true true true true true true true true] state=active
+[PF][admit] cycle=2243 component=IOMMUTLB page_block=2 window=[24 25 26 27] table=[[] [] [62297 62298] [63151]]
+[PF][window] cycle=2243 component=IOMMUTLB page_block=2 window=[24 25 26 27] table=[[] [] [62297 62298] [63151]]
+[PF][demand] cycle=2243 component=IOMMUTLB gpu=39 page_block=1 cacheline=32435 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2243 component=IOMMUTLB pid=1 gpu=39 target_gpu=39 page_block=1 cacheline=32435 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2681 component=IOMMUTLB gpu=30 page_block=1 cacheline=24754 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2681 component=IOMMUTLB pid=1 gpu=30 target_gpu=30 page_block=1 cacheline=24754 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2686 component=IOMMUTLB gpu=4 page_block=1 cacheline=2563 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2686 component=IOMMUTLB pid=1 gpu=4 target_gpu=4 page_block=1 cacheline=2563 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2686 component=IOMMUTLB gpu=24 page_block=1 cacheline=19632 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2686 component=IOMMUTLB pid=1 gpu=24 target_gpu=24 page_block=1 cacheline=19632 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2693 component=IOMMUTLB gpu=10 page_block=1 cacheline=7683 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2693 component=IOMMUTLB pid=1 gpu=10 target_gpu=10 page_block=1 cacheline=7683 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2715 component=IOMMUTLB gpu=22 page_block=1 cacheline=17925 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2715 component=IOMMUTLB pid=1 gpu=22 target_gpu=22 page_block=1 cacheline=17925 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2721 component=IOMMUTLB gpu=13 page_block=1 cacheline=10244 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2721 component=IOMMUTLB pid=1 gpu=13 target_gpu=13 page_block=1 cacheline=10244 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2725 component=IOMMUTLB gpu=30 page_block=2 cacheline=65711 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=2729 component=IOMMUTLB gpu=30 page_block=2 cacheline=65712 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=2729 component=IOMMUTLB gpu=4 page_block=2 cacheline=43520 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=2734 component=IOMMUTLB gpu=39 page_block=2 cacheline=73393 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=2736 component=IOMMUTLB gpu=9 page_block=1 cacheline=6830 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2736 component=IOMMUTLB pid=1 gpu=9 target_gpu=9 page_block=1 cacheline=6830 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2739 component=IOMMUTLB gpu=4 page_block=2 cacheline=43521 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=2742 component=IOMMUTLB gpu=34 page_block=1 cacheline=28167 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2742 component=IOMMUTLB pid=1 gpu=34 target_gpu=34 page_block=1 cacheline=28167 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2743 component=IOMMUTLB gpu=32 page_block=1 cacheline=26460 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2743 component=IOMMUTLB pid=1 gpu=32 target_gpu=32 page_block=1 cacheline=26460 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2744 component=IOMMUTLB gpu=36 page_block=1 cacheline=29874 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2744 component=IOMMUTLB pid=1 gpu=36 target_gpu=36 page_block=1 cacheline=29874 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2744 component=IOMMUTLB gpu=28 page_block=1 cacheline=23046 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2744 component=IOMMUTLB pid=1 gpu=28 target_gpu=28 page_block=1 cacheline=23046 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2926 component=IOMMUTLB gpu=2 page_block=1 cacheline=855 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2926 component=IOMMUTLB pid=1 gpu=2 target_gpu=2 page_block=1 cacheline=855 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2935 component=IOMMUTLB gpu=46 page_block=1 cacheline=38409 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2935 component=IOMMUTLB pid=1 gpu=46 target_gpu=46 page_block=1 cacheline=38409 stage=scope reason=current-gpu-outside-window
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447545344
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447549440
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447553536
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447557632
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447561728
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447565824
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447569920
+[PF][push] cycle=2936 component=IOMMUTLB pid=1 gpu=17 vaddr=447574016
+[PF][demand] cycle=2982 component=IOMMUTLB gpu=14 page_block=1 cacheline=11097 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2982 component=IOMMUTLB pid=1 gpu=14 target_gpu=14 page_block=1 cacheline=11097 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2987 component=IOMMUTLB gpu=6 page_block=1 cacheline=4269 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2987 component=IOMMUTLB pid=1 gpu=6 target_gpu=6 page_block=1 cacheline=4269 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=2990 component=IOMMUTLB gpu=42 page_block=1 cacheline=34995 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=2990 component=IOMMUTLB pid=1 gpu=42 target_gpu=42 page_block=1 cacheline=34995 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=3077 component=IOMMUTLB gpu=16 page_block=1 cacheline=12804 bitmap=[true true true true true true true true] state=active
+[PF][issue] cycle=3077 component=IOMMUTLB pid=1 gpu=16 page_block=1 cacheline=12805 reason=intra
+[PF][demand] cycle=3134 component=IOMMUTLB gpu=25 page_block=1 cacheline=20486 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=3134 component=IOMMUTLB pid=1 gpu=25 target_gpu=25 page_block=1 cacheline=20486 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=3140 component=IOMMUTLB gpu=25 page_block=2 cacheline=61444 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3161 component=IOMMUTLB gpu=48 page_block=1 cacheline=40117 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=3161 component=IOMMUTLB pid=1 gpu=48 target_gpu=48 page_block=1 cacheline=40117 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=3185 component=IOMMUTLB gpu=33 page_block=1 cacheline=27314 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=3185 component=IOMMUTLB pid=1 gpu=33 target_gpu=33 page_block=1 cacheline=27314 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=3191 component=IOMMUTLB gpu=27 page_block=1 cacheline=22193 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=3191 component=IOMMUTLB pid=1 gpu=27 target_gpu=27 page_block=1 cacheline=22193 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=3248 component=IOMMUTLB gpu=31 page_block=1 cacheline=25607 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=3248 component=IOMMUTLB pid=1 gpu=31 target_gpu=31 page_block=1 cacheline=25607 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=3255 component=IOMMUTLB gpu=17 page_block=2 cacheline=54616 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3268 component=IOMMUTLB gpu=17 page_block=1 cacheline=13659 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3284 component=IOMMUTLB gpu=19 page_block=1 cacheline=15365 bitmap=[true true true true true true true true] state=active
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391610368
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391614464
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391618560
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391622656
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391626752
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391630848
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391634944
+[PF][push] cycle=3322 component=IOMMUTLB pid=1 gpu=15 vaddr=391639040
+[PF][demand] cycle=3328 component=IOMMUTLB gpu=29 page_block=1 cacheline=23900 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3346 component=IOMMUTLB gpu=11 page_block=1 cacheline=8537 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3358 component=IOMMUTLB gpu=23 page_block=1 cacheline=18779 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3363 component=IOMMUTLB gpu=23 page_block=2 cacheline=59737 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3383 component=IOMMUTLB gpu=35 page_block=1 cacheline=29021 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3410 component=IOMMUTLB gpu=41 page_block=1 cacheline=34142 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3410 component=IOMMUTLB gpu=8 page_block=1 cacheline=5976 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3425 component=IOMMUTLB gpu=45 page_block=1 cacheline=37556 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3435 component=IOMMUTLB gpu=37 page_block=1 cacheline=30728 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3502 component=IOMMUTLB gpu=21 page_block=1 cacheline=17072 bitmap=[true true true true true true true true] state=active
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475529216
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475533312
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475537408
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475541504
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475545600
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475549696
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475553792
+[PF][push] cycle=3588 component=IOMMUTLB pid=1 gpu=18 vaddr=475557888
+[PF][demand] cycle=3590 component=IOMMUTLB gpu=7 page_block=1 cacheline=5123 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3601 component=IOMMUTLB gpu=47 page_block=1 cacheline=39263 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3612 component=IOMMUTLB gpu=5 page_block=1 cacheline=3416 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3619 component=IOMMUTLB gpu=21 page_block=1 cacheline=17073 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3626 component=IOMMUTLB gpu=3 page_block=1 cacheline=1709 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3705 component=IOMMUTLB gpu=15 page_block=1 cacheline=11951 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3712 component=IOMMUTLB gpu=15 page_block=1 cacheline=11952 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3718 component=IOMMUTLB gpu=47 page_block=1 cacheline=39264 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3733 component=IOMMUTLB gpu=40 page_block=1 cacheline=33289 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3736 component=IOMMUTLB gpu=43 page_block=1 cacheline=35849 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3796 component=IOMMUTLB gpu=38 page_block=1 cacheline=31582 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3796 component=IOMMUTLB gpu=38 page_block=2 cacheline=72539 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3801 component=IOMMUTLB gpu=38 page_block=2 cacheline=72540 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3804 component=IOMMUTLB gpu=44 page_block=1 cacheline=36703 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3809 component=IOMMUTLB gpu=1 page_block=1 cacheline=2 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3811 component=IOMMUTLB gpu=44 page_block=2 cacheline=77660 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3817 component=IOMMUTLB gpu=26 page_block=1 cacheline=21340 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3851 component=IOMMUTLB gpu=43 page_block=1 cacheline=35850 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3854 component=IOMMUTLB gpu=20 page_block=1 cacheline=16219 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3859 component=IOMMUTLB gpu=20 page_block=2 cacheline=57176 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3866 component=IOMMUTLB gpu=18 page_block=2 cacheline=55470 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=3977 component=IOMMUTLB gpu=39 page_block=1 cacheline=32436 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4013 component=IOMMUTLB gpu=26 page_block=2 cacheline=62299 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4047 component=IOMMUTLB gpu=34 page_block=1 cacheline=28168 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4084 component=IOMMUTLB gpu=39 page_block=2 cacheline=73394 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4109 component=IOMMUTLB gpu=12 page_block=1 cacheline=9391 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4111 component=IOMMUTLB gpu=12 page_block=2 cacheline=50348 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4160 component=IOMMUTLB gpu=34 page_block=1 cacheline=28169 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4160 component=IOMMUTLB gpu=34 page_block=2 cacheline=69125 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4167 component=IOMMUTLB gpu=34 page_block=2 cacheline=69126 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4170 component=IOMMUTLB gpu=13 page_block=1 cacheline=10245 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4172 component=IOMMUTLB gpu=24 page_block=1 cacheline=19633 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4174 component=IOMMUTLB gpu=13 page_block=2 cacheline=51202 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4175 component=IOMMUTLB gpu=24 page_block=2 cacheline=60590 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4182 component=IOMMUTLB gpu=30 page_block=2 cacheline=65713 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4223 component=IOMMUTLB gpu=12 page_block=2 cacheline=50349 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4226 component=IOMMUTLB gpu=12 page_block=1 cacheline=9392 bitmap=[true true true true true true true true] state=active
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419594240
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419598336
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419602432
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419606528
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419610624
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419614720
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419618816
+[PF][push] cycle=4233 component=IOMMUTLB pid=1 gpu=16 vaddr=419622912
+[PF][demand] cycle=4249 component=IOMMUTLB gpu=10 page_block=1 cacheline=7684 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4249 component=IOMMUTLB gpu=10 page_block=2 cacheline=48641 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4271 component=IOMMUTLB gpu=22 page_block=1 cacheline=17926 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4274 component=IOMMUTLB gpu=48 page_block=1 cacheline=40118 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4283 component=IOMMUTLB gpu=33 page_block=1 cacheline=27315 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4287 component=IOMMUTLB gpu=33 page_block=2 cacheline=68272 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4291 component=IOMMUTLB gpu=46 page_block=1 cacheline=38410 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4302 component=IOMMUTLB gpu=4 page_block=1 cacheline=2564 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4304 component=IOMMUTLB gpu=32 page_block=1 cacheline=26461 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4310 component=IOMMUTLB gpu=4 page_block=2 cacheline=43522 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4334 component=IOMMUTLB gpu=9 page_block=1 cacheline=6831 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4335 component=IOMMUTLB gpu=9 page_block=2 cacheline=47788 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4386 component=IOMMUTLB gpu=36 page_block=1 cacheline=29875 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4386 component=IOMMUTLB gpu=27 page_block=1 cacheline=22194 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4427 component=IOMMUTLB gpu=14 page_block=1 cacheline=11098 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4451 component=IOMMUTLB gpu=25 page_block=1 cacheline=20487 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4457 component=IOMMUTLB gpu=31 page_block=1 cacheline=25608 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4457 component=IOMMUTLB gpu=28 page_block=1 cacheline=23047 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4464 component=IOMMUTLB gpu=42 page_block=1 cacheline=34996 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4487 component=IOMMUTLB gpu=6 page_block=1 cacheline=4270 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4569 component=IOMMUTLB gpu=25 page_block=1 cacheline=20488 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4578 component=IOMMUTLB gpu=16 page_block=1 cacheline=12805 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4586 component=IOMMUTLB gpu=41 page_block=1 cacheline=34143 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4610 component=IOMMUTLB gpu=2 page_block=1 cacheline=856 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4671 component=IOMMUTLB gpu=45 page_block=1 cacheline=37557 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4675 component=IOMMUTLB gpu=45 page_block=2 cacheline=78514 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4687 component=IOMMUTLB gpu=19 page_block=1 cacheline=15366 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4692 component=IOMMUTLB gpu=19 page_block=2 cacheline=56323 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4698 component=IOMMUTLB gpu=16 page_block=1 cacheline=12807 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4700 component=IOMMUTLB gpu=16 page_block=2 cacheline=53762 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4730 component=IOMMUTLB gpu=29 page_block=1 cacheline=23901 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4732 component=IOMMUTLB gpu=29 page_block=2 cacheline=64858 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4745 component=IOMMUTLB gpu=37 page_block=1 cacheline=30729 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4748 component=IOMMUTLB gpu=37 page_block=2 cacheline=71686 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4757 component=IOMMUTLB gpu=17 page_block=1 cacheline=13660 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4788 component=IOMMUTLB gpu=35 page_block=1 cacheline=29022 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4793 component=IOMMUTLB gpu=7 page_block=1 cacheline=5124 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4808 component=IOMMUTLB gpu=11 page_block=1 cacheline=8538 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4814 component=IOMMUTLB gpu=47 page_block=1 cacheline=39265 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4822 component=IOMMUTLB gpu=47 page_block=2 cacheline=80221 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4836 component=IOMMUTLB gpu=23 page_block=1 cacheline=18780 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4868 component=IOMMUTLB gpu=5 page_block=1 cacheline=3417 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4889 component=IOMMUTLB gpu=40 page_block=1 cacheline=33290 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4894 component=IOMMUTLB gpu=40 page_block=2 cacheline=74246 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4899 component=IOMMUTLB gpu=21 page_block=1 cacheline=17074 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4899 component=IOMMUTLB gpu=21 page_block=2 cacheline=58030 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=4951 component=IOMMUTLB gpu=7 page_block=1 cacheline=5125 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5029 component=IOMMUTLB gpu=7 page_block=2 cacheline=46081 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5033 component=IOMMUTLB gpu=8 page_block=1 cacheline=5978 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5042 component=IOMMUTLB gpu=38 page_block=1 cacheline=31583 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5044 component=IOMMUTLB gpu=44 page_block=1 cacheline=36704 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5089 component=IOMMUTLB gpu=44 page_block=2 cacheline=77661 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5094 component=IOMMUTLB gpu=26 page_block=1 cacheline=21341 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5094 component=IOMMUTLB gpu=20 page_block=2 cacheline=57177 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5101 component=IOMMUTLB gpu=43 page_block=1 cacheline=35851 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5123 component=IOMMUTLB gpu=20 page_block=1 cacheline=16220 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5137 component=IOMMUTLB gpu=3 page_block=1 cacheline=1710 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5137 component=IOMMUTLB gpu=15 page_block=1 cacheline=11953 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5147 component=IOMMUTLB gpu=15 page_block=2 cacheline=52909 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5226 component=IOMMUTLB gpu=39 page_block=1 cacheline=32437 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5228 component=IOMMUTLB gpu=34 page_block=1 cacheline=28170 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5235 component=IOMMUTLB gpu=3 page_block=1 cacheline=1711 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5297 component=IOMMUTLB gpu=1 page_block=1 cacheline=3 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5330 component=IOMMUTLB gpu=18 page_block=1 cacheline=14513 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5383 component=IOMMUTLB gpu=13 page_block=2 cacheline=51203 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5398 component=IOMMUTLB gpu=30 page_block=1 cacheline=24755 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5405 component=IOMMUTLB gpu=13 page_block=1 cacheline=10246 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5418 component=IOMMUTLB gpu=48 page_block=1 cacheline=40119 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5418 component=IOMMUTLB gpu=48 page_block=2 cacheline=81074 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5424 component=IOMMUTLB gpu=48 page_block=2 cacheline=81075 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5431 component=IOMMUTLB gpu=24 page_block=1 cacheline=19634 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5504 component=IOMMUTLB gpu=46 page_block=1 cacheline=38411 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5511 component=IOMMUTLB gpu=32 page_block=1 cacheline=26462 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5512 component=IOMMUTLB gpu=32 page_block=2 cacheline=67418 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5514 component=IOMMUTLB gpu=32 page_block=2 cacheline=67419 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5531 component=IOMMUTLB gpu=33 page_block=1 cacheline=27316 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5588 component=IOMMUTLB gpu=27 page_block=1 cacheline=22195 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5594 component=IOMMUTLB gpu=27 page_block=2 cacheline=63152 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5610 component=IOMMUTLB gpu=12 page_block=1 cacheline=9393 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5631 component=IOMMUTLB gpu=46 page_block=1 cacheline=38412 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5635 component=IOMMUTLB gpu=46 page_block=2 cacheline=79367 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5639 component=IOMMUTLB gpu=46 page_block=2 cacheline=79368 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5644 component=IOMMUTLB gpu=33 page_block=1 cacheline=27317 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5646 component=IOMMUTLB gpu=33 page_block=2 cacheline=68273 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5691 component=IOMMUTLB gpu=10 page_block=2 cacheline=48642 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5697 component=IOMMUTLB gpu=36 page_block=1 cacheline=29876 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5698 component=IOMMUTLB gpu=36 page_block=2 cacheline=70832 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5703 component=IOMMUTLB gpu=22 page_block=1 cacheline=17927 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5725 component=IOMMUTLB gpu=22 page_block=2 cacheline=58883 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5739 component=IOMMUTLB gpu=36 page_block=2 cacheline=70833 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5749 component=IOMMUTLB gpu=22 page_block=2 cacheline=58884 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5760 component=IOMMUTLB gpu=41 page_block=1 cacheline=34144 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5763 component=IOMMUTLB gpu=14 page_block=1 cacheline=11099 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5790 component=IOMMUTLB gpu=4 page_block=1 cacheline=2565 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5854 component=IOMMUTLB gpu=31 page_block=1 cacheline=25609 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5932 component=IOMMUTLB gpu=9 page_block=2 cacheline=47789 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5936 component=IOMMUTLB gpu=9 page_block=1 cacheline=6832 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5940 component=IOMMUTLB gpu=45 page_block=1 cacheline=37558 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5945 component=IOMMUTLB gpu=42 page_block=1 cacheline=34997 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5947 component=IOMMUTLB gpu=25 page_block=1 cacheline=20489 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5992 component=IOMMUTLB gpu=25 page_block=2 cacheline=61445 bitmap=[true true true true true true true true] state=active
+[PF][intra] cycle=5992 component=IOMMUTLB page_block=2 stride=1 table=[[60590] [61444 61445] [62297 62298 62299] [63151 63152]]
+[PF][inter] cycle=5992 component=IOMMUTLB page_block=2 stride=854 support=2 base_gpu=24 base_min_cl=60590
+[PF][issue] cycle=5992 component=IOMMUTLB pid=1 gpu=25 page_block=2 cacheline=61446 reason=intra
+[PF][demand] cycle=5997 component=IOMMUTLB gpu=6 page_block=1 cacheline=4271 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=5997 component=IOMMUTLB gpu=6 page_block=2 cacheline=45227 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=5997 component=IOMMUTLB pid=1 gpu=6 target_gpu=6 page_block=2 cacheline=45227 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6004 component=IOMMUTLB gpu=28 page_block=1 cacheline=23048 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6026 component=IOMMUTLB gpu=28 page_block=2 cacheline=64004 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6026 component=IOMMUTLB pid=1 gpu=28 target_gpu=28 page_block=2 cacheline=64004 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6040 component=IOMMUTLB gpu=19 page_block=1 cacheline=15367 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6050 component=IOMMUTLB gpu=42 page_block=1 cacheline=34998 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6053 component=IOMMUTLB gpu=42 page_block=2 cacheline=75953 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6053 component=IOMMUTLB pid=1 gpu=42 target_gpu=42 page_block=2 cacheline=75953 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6067 component=IOMMUTLB gpu=47 page_block=1 cacheline=39266 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6072 component=IOMMUTLB gpu=47 page_block=2 cacheline=80222 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6072 component=IOMMUTLB pid=1 gpu=47 target_gpu=47 page_block=2 cacheline=80222 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6155 component=IOMMUTLB gpu=16 page_block=2 cacheline=53763 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6155 component=IOMMUTLB pid=1 gpu=16 target_gpu=16 page_block=2 cacheline=53763 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6233 component=IOMMUTLB gpu=16 page_block=1 cacheline=12808 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6237 component=IOMMUTLB gpu=2 page_block=1 cacheline=857 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6241 component=IOMMUTLB gpu=2 page_block=2 cacheline=41813 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6241 component=IOMMUTLB pid=1 gpu=2 target_gpu=2 page_block=2 cacheline=41813 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6246 component=IOMMUTLB gpu=29 page_block=1 cacheline=23902 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6248 component=IOMMUTLB gpu=37 page_block=1 cacheline=30730 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6293 component=IOMMUTLB gpu=40 page_block=2 cacheline=74247 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6293 component=IOMMUTLB pid=1 gpu=40 target_gpu=40 page_block=2 cacheline=74247 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6298 component=IOMMUTLB gpu=35 page_block=1 cacheline=29023 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6298 component=IOMMUTLB gpu=21 page_block=1 cacheline=17075 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6305 component=IOMMUTLB gpu=21 page_block=2 cacheline=58031 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6305 component=IOMMUTLB pid=1 gpu=21 target_gpu=21 page_block=2 cacheline=58031 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6327 component=IOMMUTLB gpu=17 page_block=1 cacheline=13661 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6341 component=IOMMUTLB gpu=17 page_block=2 cacheline=54617 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6341 component=IOMMUTLB pid=1 gpu=17 target_gpu=17 page_block=2 cacheline=54617 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6351 component=IOMMUTLB gpu=37 page_block=1 cacheline=30731 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6354 component=IOMMUTLB gpu=37 page_block=2 cacheline=71687 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6354 component=IOMMUTLB pid=1 gpu=37 target_gpu=37 page_block=2 cacheline=71687 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6356 component=IOMMUTLB gpu=11 page_block=1 cacheline=8539 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6356 component=IOMMUTLB gpu=11 page_block=2 cacheline=49495 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6356 component=IOMMUTLB pid=1 gpu=11 target_gpu=11 page_block=2 cacheline=49495 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6456 component=IOMMUTLB gpu=23 page_block=1 cacheline=18781 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6534 component=IOMMUTLB gpu=5 page_block=1 cacheline=3418 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6538 component=IOMMUTLB gpu=7 page_block=1 cacheline=5126 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6542 component=IOMMUTLB gpu=38 page_block=1 cacheline=31584 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6547 component=IOMMUTLB gpu=44 page_block=1 cacheline=36705 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6549 component=IOMMUTLB gpu=34 page_block=1 cacheline=28171 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6557 component=IOMMUTLB gpu=34 page_block=2 cacheline=69127 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6557 component=IOMMUTLB pid=1 gpu=34 target_gpu=34 page_block=2 cacheline=69127 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6594 component=IOMMUTLB gpu=26 page_block=1 cacheline=21342 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6599 component=IOMMUTLB gpu=7 page_block=2 cacheline=46082 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6599 component=IOMMUTLB pid=1 gpu=7 target_gpu=7 page_block=2 cacheline=46082 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6599 component=IOMMUTLB gpu=39 page_block=1 cacheline=32438 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6606 component=IOMMUTLB gpu=43 page_block=1 cacheline=35852 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6628 component=IOMMUTLB gpu=43 page_block=2 cacheline=76807 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6628 component=IOMMUTLB pid=1 gpu=43 target_gpu=43 page_block=2 cacheline=76807 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6642 component=IOMMUTLB gpu=20 page_block=1 cacheline=16221 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6652 component=IOMMUTLB gpu=11 page_block=1 cacheline=8540 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6655 component=IOMMUTLB gpu=11 page_block=2 cacheline=49496 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6655 component=IOMMUTLB pid=1 gpu=11 target_gpu=11 page_block=2 cacheline=49496 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6664 component=IOMMUTLB gpu=48 page_block=2 cacheline=81076 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6664 component=IOMMUTLB pid=1 gpu=48 target_gpu=48 page_block=2 cacheline=81076 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6757 component=IOMMUTLB gpu=48 page_block=1 cacheline=40120 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6835 component=IOMMUTLB gpu=8 page_block=1 cacheline=5979 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6839 component=IOMMUTLB gpu=27 page_block=1 cacheline=22196 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6843 component=IOMMUTLB gpu=15 page_block=1 cacheline=11954 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6848 component=IOMMUTLB gpu=3 page_block=1 cacheline=1712 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6850 component=IOMMUTLB gpu=3 page_block=2 cacheline=42667 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6850 component=IOMMUTLB pid=1 gpu=3 target_gpu=3 page_block=2 cacheline=42667 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=6858 component=IOMMUTLB gpu=30 page_block=1 cacheline=24756 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6895 component=IOMMUTLB gpu=13 page_block=1 cacheline=10247 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6900 component=IOMMUTLB gpu=18 page_block=1 cacheline=14514 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6900 component=IOMMUTLB gpu=32 page_block=1 cacheline=26463 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6916 component=IOMMUTLB gpu=1 page_block=1 cacheline=4 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6945 component=IOMMUTLB gpu=46 page_block=1 cacheline=38413 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6992 component=IOMMUTLB gpu=24 page_block=1 cacheline=19636 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6992 component=IOMMUTLB gpu=33 page_block=1 cacheline=27318 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=6998 component=IOMMUTLB gpu=33 page_block=2 cacheline=68274 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=6998 component=IOMMUTLB pid=1 gpu=33 target_gpu=33 page_block=2 cacheline=68274 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7017 component=IOMMUTLB gpu=41 page_block=1 cacheline=34145 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7058 component=IOMMUTLB gpu=41 page_block=2 cacheline=75100 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7058 component=IOMMUTLB pid=1 gpu=41 target_gpu=41 page_block=2 cacheline=75100 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7136 component=IOMMUTLB gpu=12 page_block=1 cacheline=9394 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7147 component=IOMMUTLB gpu=41 page_block=1 cacheline=34146 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7147 component=IOMMUTLB gpu=41 page_block=2 cacheline=75101 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7147 component=IOMMUTLB pid=1 gpu=41 target_gpu=41 page_block=2 cacheline=75101 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7168 component=IOMMUTLB gpu=14 page_block=1 cacheline=11100 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7170 component=IOMMUTLB gpu=14 page_block=2 cacheline=52056 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7170 component=IOMMUTLB pid=1 gpu=14 target_gpu=14 page_block=2 cacheline=52056 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7174 component=IOMMUTLB gpu=36 page_block=1 cacheline=29877 bitmap=[true true true true true true true true] state=active
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013462528
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013466624
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013470720
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013474816
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013478912
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013483008
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013487104
+[PF][push] cycle=7195 component=IOMMUTLB pid=1 gpu=25 vaddr=2013491200
+[PF][demand] cycle=7210 component=IOMMUTLB gpu=10 page_block=1 cacheline=7685 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7269 component=IOMMUTLB gpu=31 page_block=2 cacheline=66566 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7269 component=IOMMUTLB pid=1 gpu=31 target_gpu=31 page_block=2 cacheline=66566 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7271 component=IOMMUTLB gpu=31 page_block=1 cacheline=25610 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7280 component=IOMMUTLB gpu=45 page_block=1 cacheline=37559 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7287 component=IOMMUTLB gpu=45 page_block=2 cacheline=78515 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7287 component=IOMMUTLB pid=1 gpu=45 target_gpu=45 page_block=2 cacheline=78515 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7300 component=IOMMUTLB gpu=22 page_block=1 cacheline=17928 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7312 component=IOMMUTLB gpu=4 page_block=1 cacheline=2566 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7371 component=IOMMUTLB gpu=25 page_block=1 cacheline=20490 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7422 component=IOMMUTLB gpu=47 page_block=2 cacheline=80223 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7422 component=IOMMUTLB pid=1 gpu=47 target_gpu=47 page_block=2 cacheline=80223 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7425 component=IOMMUTLB gpu=47 page_block=1 cacheline=39267 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7483 component=IOMMUTLB gpu=6 page_block=1 cacheline=4272 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7487 component=IOMMUTLB gpu=6 page_block=2 cacheline=45228 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7487 component=IOMMUTLB pid=1 gpu=6 target_gpu=6 page_block=2 cacheline=45228 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7487 component=IOMMUTLB gpu=19 page_block=1 cacheline=15368 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7487 component=IOMMUTLB gpu=19 page_block=2 cacheline=56324 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7487 component=IOMMUTLB pid=1 gpu=19 target_gpu=19 page_block=2 cacheline=56324 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7499 component=IOMMUTLB gpu=42 page_block=1 cacheline=34999 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7499 component=IOMMUTLB gpu=42 page_block=2 cacheline=75954 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7499 component=IOMMUTLB pid=1 gpu=42 target_gpu=42 page_block=2 cacheline=75954 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7513 component=IOMMUTLB gpu=45 page_block=1 cacheline=37560 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7523 component=IOMMUTLB gpu=28 page_block=2 cacheline=64005 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7523 component=IOMMUTLB pid=1 gpu=28 target_gpu=28 page_block=2 cacheline=64005 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7531 component=IOMMUTLB gpu=9 page_block=1 cacheline=6833 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7547 component=IOMMUTLB gpu=28 page_block=1 cacheline=23049 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7596 component=IOMMUTLB gpu=40 page_block=1 cacheline=33291 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7612 component=IOMMUTLB gpu=19 page_block=1 cacheline=15369 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7682 component=IOMMUTLB gpu=21 page_block=1 cacheline=17076 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7682 component=IOMMUTLB gpu=21 page_block=2 cacheline=58032 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7682 component=IOMMUTLB pid=1 gpu=21 target_gpu=21 page_block=2 cacheline=58032 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7732 component=IOMMUTLB gpu=29 page_block=1 cacheline=23903 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7732 component=IOMMUTLB gpu=29 page_block=2 cacheline=64859 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7732 component=IOMMUTLB pid=1 gpu=29 target_gpu=29 page_block=2 cacheline=64859 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7752 component=IOMMUTLB gpu=28 page_block=1 cacheline=23050 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7771 component=IOMMUTLB gpu=37 page_block=1 cacheline=30732 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7783 component=IOMMUTLB gpu=35 page_block=1 cacheline=29024 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7784 component=IOMMUTLB gpu=35 page_block=2 cacheline=69979 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7784 component=IOMMUTLB pid=1 gpu=35 target_gpu=35 page_block=2 cacheline=69979 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7797 component=IOMMUTLB gpu=16 page_block=1 cacheline=12809 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7801 component=IOMMUTLB gpu=16 page_block=2 cacheline=53764 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7801 component=IOMMUTLB pid=1 gpu=16 target_gpu=16 page_block=2 cacheline=53764 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7855 component=IOMMUTLB gpu=34 page_block=1 cacheline=28172 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7859 component=IOMMUTLB gpu=17 page_block=2 cacheline=54618 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7859 component=IOMMUTLB pid=1 gpu=17 target_gpu=17 page_block=2 cacheline=54618 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7868 component=IOMMUTLB gpu=17 page_block=1 cacheline=13662 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7871 component=IOMMUTLB gpu=2 page_block=2 cacheline=41814 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7871 component=IOMMUTLB pid=1 gpu=2 target_gpu=2 page_block=2 cacheline=41814 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7876 component=IOMMUTLB gpu=2 page_block=1 cacheline=858 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7897 component=IOMMUTLB gpu=34 page_block=2 cacheline=69128 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7897 component=IOMMUTLB pid=1 gpu=34 target_gpu=34 page_block=2 cacheline=69128 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7919 component=IOMMUTLB gpu=38 page_block=1 cacheline=31585 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7923 component=IOMMUTLB gpu=44 page_block=1 cacheline=36706 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=7961 component=IOMMUTLB gpu=38 page_block=2 cacheline=72541 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7961 component=IOMMUTLB pid=1 gpu=38 target_gpu=38 page_block=2 cacheline=72541 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=7961 component=IOMMUTLB gpu=44 page_block=2 cacheline=77662 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=7961 component=IOMMUTLB pid=1 gpu=44 target_gpu=44 page_block=2 cacheline=77662 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8039 component=IOMMUTLB gpu=39 page_block=2 cacheline=73395 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8039 component=IOMMUTLB pid=1 gpu=39 target_gpu=39 page_block=2 cacheline=73395 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8043 component=IOMMUTLB gpu=39 page_block=1 cacheline=32439 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8046 component=IOMMUTLB gpu=26 page_block=1 cacheline=21343 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8052 component=IOMMUTLB gpu=23 page_block=1 cacheline=18782 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8053 component=IOMMUTLB gpu=23 page_block=2 cacheline=59738 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8053 component=IOMMUTLB pid=1 gpu=23 target_gpu=23 page_block=2 cacheline=59738 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8099 component=IOMMUTLB gpu=7 page_block=1 cacheline=5127 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8104 component=IOMMUTLB gpu=48 page_block=1 cacheline=40121 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8104 component=IOMMUTLB gpu=48 page_block=2 cacheline=81077 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8104 component=IOMMUTLB pid=1 gpu=48 target_gpu=48 page_block=2 cacheline=81077 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8111 component=IOMMUTLB gpu=43 page_block=2 cacheline=76808 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8111 component=IOMMUTLB pid=1 gpu=43 target_gpu=43 page_block=2 cacheline=76808 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8133 component=IOMMUTLB gpu=43 page_block=1 cacheline=35853 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8147 component=IOMMUTLB gpu=5 page_block=1 cacheline=3419 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8157 component=IOMMUTLB gpu=5 page_block=2 cacheline=44375 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8157 component=IOMMUTLB pid=1 gpu=5 target_gpu=5 page_block=2 cacheline=44375 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8160 component=IOMMUTLB gpu=20 page_block=1 cacheline=16222 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8162 component=IOMMUTLB gpu=20 page_block=2 cacheline=57178 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8162 component=IOMMUTLB pid=1 gpu=20 target_gpu=20 page_block=2 cacheline=57178 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8162 component=IOMMUTLB gpu=2 page_block=1 cacheline=859 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8263 component=IOMMUTLB gpu=27 page_block=1 cacheline=22197 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8340 component=IOMMUTLB gpu=11 page_block=1 cacheline=8541 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8344 component=IOMMUTLB gpu=27 page_block=2 cacheline=63153 bitmap=[true true true true true true true true] state=active
+[PF][issue] cycle=8344 component=IOMMUTLB pid=1 gpu=27 page_block=2 cacheline=63154 reason=intra
+[PF][demand] cycle=8348 component=IOMMUTLB gpu=46 page_block=1 cacheline=38414 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8353 component=IOMMUTLB gpu=46 page_block=2 cacheline=79369 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8353 component=IOMMUTLB pid=1 gpu=46 target_gpu=46 page_block=2 cacheline=79369 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8355 component=IOMMUTLB gpu=33 page_block=1 cacheline=27319 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8400 component=IOMMUTLB gpu=27 page_block=1 cacheline=22198 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8405 component=IOMMUTLB gpu=30 page_block=1 cacheline=24757 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8405 component=IOMMUTLB gpu=13 page_block=1 cacheline=10248 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8412 component=IOMMUTLB gpu=13 page_block=2 cacheline=51204 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8412 component=IOMMUTLB pid=1 gpu=13 target_gpu=13 page_block=2 cacheline=51204 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8434 component=IOMMUTLB gpu=18 page_block=1 cacheline=14515 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8448 component=IOMMUTLB gpu=18 page_block=2 cacheline=55471 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8448 component=IOMMUTLB pid=1 gpu=18 target_gpu=18 page_block=2 cacheline=55471 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8458 component=IOMMUTLB gpu=32 page_block=1 cacheline=26465 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8461 component=IOMMUTLB gpu=41 page_block=1 cacheline=34147 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8463 component=IOMMUTLB gpu=41 page_block=2 cacheline=75102 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8463 component=IOMMUTLB pid=1 gpu=41 target_gpu=41 page_block=2 cacheline=75102 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8463 component=IOMMUTLB gpu=15 page_block=1 cacheline=11955 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8564 component=IOMMUTLB gpu=15 page_block=2 cacheline=52910 bitmap=[true true true true true true true true] state=active
+[PF][inter-drop] cycle=8564 component=IOMMUTLB pid=1 gpu=15 target_gpu=15 page_block=2 cacheline=52910 stage=scope reason=current-gpu-outside-window
+[PF][demand] cycle=8641 component=IOMMUTLB gpu=24 page_block=1 cacheline=19637 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8645 component=IOMMUTLB gpu=24 page_block=2 cacheline=60592 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8649 component=IOMMUTLB gpu=3 page_block=2 cacheline=42668 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8654 component=IOMMUTLB gpu=3 page_block=1 cacheline=1713 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8656 component=IOMMUTLB gpu=8 page_block=1 cacheline=5980 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8701 component=IOMMUTLB gpu=8 page_block=2 cacheline=46934 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8706 component=IOMMUTLB gpu=8 page_block=2 cacheline=46935 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8706 component=IOMMUTLB gpu=14 page_block=1 cacheline=11101 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8713 component=IOMMUTLB gpu=1 page_block=1 cacheline=5 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8735 component=IOMMUTLB gpu=1 page_block=2 cacheline=40961 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8735 component=IOMMUTLB gpu=31 page_block=1 cacheline=25610 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8749 component=IOMMUTLB gpu=31 page_block=1 cacheline=25611 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8759 component=IOMMUTLB gpu=12 page_block=1 cacheline=9395 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8762 component=IOMMUTLB gpu=12 page_block=2 cacheline=50350 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8764 component=IOMMUTLB gpu=47 page_block=1 cacheline=39268 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8764 component=IOMMUTLB gpu=47 page_block=2 cacheline=80224 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8846 component=IOMMUTLB gpu=36 page_block=1 cacheline=29878 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8865 component=IOMMUTLB gpu=25 page_block=1 cacheline=20491 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8942 component=IOMMUTLB gpu=25 page_block=2 cacheline=61447 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8950 component=IOMMUTLB gpu=14 page_block=1 cacheline=11102 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8955 component=IOMMUTLB gpu=14 page_block=2 cacheline=52057 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=8957 component=IOMMUTLB gpu=31 page_block=1 cacheline=25612 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9002 component=IOMMUTLB gpu=31 page_block=2 cacheline=66567 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9007 component=IOMMUTLB gpu=10 page_block=1 cacheline=7686 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9007 component=IOMMUTLB gpu=36 page_block=1 cacheline=29879 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9014 component=IOMMUTLB gpu=36 page_block=2 cacheline=70834 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9036 component=IOMMUTLB gpu=22 page_block=1 cacheline=17929 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9050 component=IOMMUTLB gpu=4 page_block=1 cacheline=2567 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9060 component=IOMMUTLB gpu=4 page_block=2 cacheline=43523 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9063 component=IOMMUTLB gpu=45 page_block=1 cacheline=37561 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9065 component=IOMMUTLB gpu=45 page_block=2 cacheline=78516 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9065 component=IOMMUTLB gpu=40 page_block=1 cacheline=33292 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9147 component=IOMMUTLB gpu=40 page_block=2 cacheline=74248 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9166 component=IOMMUTLB gpu=6 page_block=1 cacheline=4273 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9243 component=IOMMUTLB gpu=21 page_block=1 cacheline=17077 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9251 component=IOMMUTLB gpu=21 page_block=2 cacheline=58033 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9256 component=IOMMUTLB gpu=42 page_block=1 cacheline=35000 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9258 component=IOMMUTLB gpu=42 page_block=2 cacheline=75955 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9303 component=IOMMUTLB gpu=19 page_block=1 cacheline=15370 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9308 component=IOMMUTLB gpu=19 page_block=2 cacheline=56325 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9308 component=IOMMUTLB gpu=37 page_block=1 cacheline=30733 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9315 component=IOMMUTLB gpu=37 page_block=2 cacheline=71688 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9337 component=IOMMUTLB gpu=9 page_block=1 cacheline=6834 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9351 component=IOMMUTLB gpu=9 page_block=2 cacheline=47790 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9361 component=IOMMUTLB gpu=29 page_block=1 cacheline=23904 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9364 component=IOMMUTLB gpu=34 page_block=1 cacheline=28173 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9366 component=IOMMUTLB gpu=34 page_block=2 cacheline=69129 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9366 component=IOMMUTLB gpu=35 page_block=2 cacheline=69980 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9448 component=IOMMUTLB gpu=44 page_block=1 cacheline=36707 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9467 component=IOMMUTLB gpu=38 page_block=1 cacheline=31586 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9538 component=IOMMUTLB gpu=28 page_block=1 cacheline=23051 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9544 component=IOMMUTLB gpu=28 page_block=2 cacheline=64006 bitmap=[true true true true true true true true] state=active
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069430272
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069434368
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069438464
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069442560
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069446656
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069450752
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069454848
+[PF][push] cycle=9551 component=IOMMUTLB pid=1 gpu=27 vaddr=2069458944
+[PF][demand] cycle=9557 component=IOMMUTLB gpu=16 page_block=1 cacheline=12810 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9559 component=IOMMUTLB gpu=17 page_block=1 cacheline=13663 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9604 component=IOMMUTLB gpu=48 page_block=1 cacheline=40122 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9609 component=IOMMUTLB gpu=17 page_block=2 cacheline=54619 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9609 component=IOMMUTLB gpu=16 page_block=2 cacheline=53765 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9616 component=IOMMUTLB gpu=39 page_block=1 cacheline=32440 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9652 component=IOMMUTLB gpu=26 page_block=1 cacheline=21344 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9662 component=IOMMUTLB gpu=44 page_block=1 cacheline=36708 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9665 component=IOMMUTLB gpu=44 page_block=2 cacheline=77663 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9667 component=IOMMUTLB gpu=48 page_block=1 cacheline=40123 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9667 component=IOMMUTLB gpu=48 page_block=2 cacheline=81078 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9749 component=IOMMUTLB gpu=39 page_block=1 cacheline=32441 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9768 component=IOMMUTLB gpu=39 page_block=2 cacheline=73396 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9839 component=IOMMUTLB gpu=43 page_block=2 cacheline=76809 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9845 component=IOMMUTLB gpu=7 page_block=1 cacheline=5128 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9853 component=IOMMUTLB gpu=7 page_block=2 cacheline=46083 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9858 component=IOMMUTLB gpu=23 page_block=1 cacheline=18783 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9860 component=IOMMUTLB gpu=20 page_block=1 cacheline=16223 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9905 component=IOMMUTLB gpu=46 page_block=1 cacheline=38415 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9910 component=IOMMUTLB gpu=5 page_block=1 cacheline=3420 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9910 component=IOMMUTLB gpu=41 page_block=1 cacheline=34148 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9917 component=IOMMUTLB gpu=33 page_block=1 cacheline=27320 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9953 component=IOMMUTLB gpu=27 page_block=1 cacheline=22199 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9963 component=IOMMUTLB gpu=33 page_block=2 cacheline=68275 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9966 component=IOMMUTLB gpu=11 page_block=1 cacheline=8542 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9968 component=IOMMUTLB gpu=2 page_block=1 cacheline=860 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=9968 component=IOMMUTLB gpu=5 page_block=1 cacheline=3421 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10050 component=IOMMUTLB gpu=2 page_block=2 cacheline=41815 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10069 component=IOMMUTLB gpu=5 page_block=2 cacheline=44376 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10140 component=IOMMUTLB gpu=32 page_block=1 cacheline=26466 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10146 component=IOMMUTLB gpu=30 page_block=2 cacheline=65714 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10154 component=IOMMUTLB gpu=30 page_block=1 cacheline=24758 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10159 component=IOMMUTLB gpu=13 page_block=1 cacheline=10249 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10161 component=IOMMUTLB gpu=18 page_block=1 cacheline=14516 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10206 component=IOMMUTLB gpu=18 page_block=2 cacheline=55472 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10211 component=IOMMUTLB gpu=13 page_block=1 cacheline=10250 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10211 component=IOMMUTLB gpu=13 page_block=2 cacheline=51205 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10218 component=IOMMUTLB gpu=47 page_block=1 cacheline=39269 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10254 component=IOMMUTLB gpu=18 page_block=1 cacheline=14517 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10264 component=IOMMUTLB gpu=24 page_block=1 cacheline=19638 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10267 component=IOMMUTLB gpu=15 page_block=1 cacheline=11956 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10269 component=IOMMUTLB gpu=15 page_block=2 cacheline=52911 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10269 component=IOMMUTLB gpu=47 page_block=1 cacheline=39270 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10351 component=IOMMUTLB gpu=3 page_block=1 cacheline=1714 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10370 component=IOMMUTLB gpu=12 page_block=2 cacheline=50351 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10441 component=IOMMUTLB gpu=12 page_block=1 cacheline=9396 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10447 component=IOMMUTLB gpu=8 page_block=1 cacheline=5981 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10455 component=IOMMUTLB gpu=8 page_block=2 cacheline=46936 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10460 component=IOMMUTLB gpu=25 page_block=1 cacheline=20492 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10462 component=IOMMUTLB gpu=14 page_block=1 cacheline=11103 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10507 component=IOMMUTLB gpu=45 page_block=1 cacheline=37562 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10512 component=IOMMUTLB gpu=31 page_block=1 cacheline=25613 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10512 component=IOMMUTLB gpu=36 page_block=1 cacheline=29880 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10519 component=IOMMUTLB gpu=1 page_block=1 cacheline=7 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10582 component=IOMMUTLB gpu=40 page_block=1 cacheline=33294 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10584 component=IOMMUTLB gpu=40 page_block=2 cacheline=74249 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10584 component=IOMMUTLB gpu=10 page_block=1 cacheline=7687 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10606 component=IOMMUTLB gpu=22 page_block=1 cacheline=17930 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10606 component=IOMMUTLB gpu=22 page_block=2 cacheline=58885 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10652 component=IOMMUTLB gpu=4 page_block=1 cacheline=2568 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10671 component=IOMMUTLB gpu=21 page_block=1 cacheline=17078 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10742 component=IOMMUTLB gpu=34 page_block=1 cacheline=28174 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10748 component=IOMMUTLB gpu=10 page_block=1 cacheline=7688 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10756 component=IOMMUTLB gpu=10 page_block=2 cacheline=48643 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10761 component=IOMMUTLB gpu=42 page_block=1 cacheline=35001 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10763 component=IOMMUTLB gpu=6 page_block=1 cacheline=4274 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10808 component=IOMMUTLB gpu=6 page_block=2 cacheline=45229 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10813 component=IOMMUTLB gpu=37 page_block=1 cacheline=30734 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10813 component=IOMMUTLB gpu=4 page_block=1 cacheline=2569 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10820 component=IOMMUTLB gpu=21 page_block=1 cacheline=17079 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10856 component=IOMMUTLB gpu=4 page_block=2 cacheline=43524 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10866 component=IOMMUTLB gpu=21 page_block=2 cacheline=58034 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10869 component=IOMMUTLB gpu=19 page_block=1 cacheline=15371 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10871 component=IOMMUTLB gpu=34 page_block=1 cacheline=28175 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10871 component=IOMMUTLB gpu=34 page_block=2 cacheline=69130 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10953 component=IOMMUTLB gpu=29 page_block=1 cacheline=23905 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=10972 component=IOMMUTLB gpu=29 page_block=2 cacheline=64860 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11043 component=IOMMUTLB gpu=48 page_block=1 cacheline=40124 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11049 component=IOMMUTLB gpu=48 page_block=2 cacheline=81079 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11057 component=IOMMUTLB gpu=38 page_block=1 cacheline=31587 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11062 component=IOMMUTLB gpu=38 page_block=2 cacheline=72542 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11064 component=IOMMUTLB gpu=35 page_block=1 cacheline=29025 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11109 component=IOMMUTLB gpu=9 page_block=1 cacheline=6835 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11114 component=IOMMUTLB gpu=26 page_block=1 cacheline=21345 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11114 component=IOMMUTLB gpu=26 page_block=2 cacheline=62300 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11121 component=IOMMUTLB gpu=44 page_block=1 cacheline=36709 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11157 component=IOMMUTLB gpu=9 page_block=1 cacheline=6836 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11167 component=IOMMUTLB gpu=28 page_block=1 cacheline=23052 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11170 component=IOMMUTLB gpu=39 page_block=1 cacheline=32442 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11172 component=IOMMUTLB gpu=16 page_block=1 cacheline=12811 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11172 component=IOMMUTLB gpu=26 page_block=1 cacheline=21346 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11254 component=IOMMUTLB gpu=16 page_block=2 cacheline=53766 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11273 component=IOMMUTLB gpu=41 page_block=1 cacheline=34149 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11315 component=IOMMUTLB gpu=41 page_block=2 cacheline=75103 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11344 component=IOMMUTLB gpu=17 page_block=1 cacheline=13665 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11350 component=IOMMUTLB gpu=46 page_block=2 cacheline=79370 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11358 component=IOMMUTLB gpu=46 page_block=1 cacheline=38416 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11363 component=IOMMUTLB gpu=43 page_block=1 cacheline=35854 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11365 component=IOMMUTLB gpu=20 page_block=1 cacheline=16224 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11410 component=IOMMUTLB gpu=20 page_block=2 cacheline=57179 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11415 component=IOMMUTLB gpu=27 page_block=1 cacheline=22200 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11422 component=IOMMUTLB gpu=7 page_block=1 cacheline=5129 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11458 component=IOMMUTLB gpu=33 page_block=2 cacheline=68276 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11468 component=IOMMUTLB gpu=7 page_block=2 cacheline=46084 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11471 component=IOMMUTLB gpu=33 page_block=1 cacheline=27321 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11473 component=IOMMUTLB gpu=23 page_block=1 cacheline=18784 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11486 component=IOMMUTLB gpu=11 page_block=2 cacheline=49497 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11555 component=IOMMUTLB gpu=11 page_block=1 cacheline=8543 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11574 component=IOMMUTLB gpu=5 page_block=1 cacheline=3422 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11616 component=IOMMUTLB gpu=32 page_block=1 cacheline=26467 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11645 component=IOMMUTLB gpu=32 page_block=2 cacheline=67421 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11651 component=IOMMUTLB gpu=47 page_block=2 cacheline=80225 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11659 component=IOMMUTLB gpu=47 page_block=1 cacheline=39271 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11664 component=IOMMUTLB gpu=2 page_block=1 cacheline=861 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11666 component=IOMMUTLB gpu=30 page_block=1 cacheline=24759 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11711 component=IOMMUTLB gpu=13 page_block=1 cacheline=10251 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11717 component=IOMMUTLB gpu=30 page_block=1 cacheline=24760 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11739 component=IOMMUTLB gpu=18 page_block=1 cacheline=14518 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11759 component=IOMMUTLB gpu=24 page_block=1 cacheline=19639 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11769 component=IOMMUTLB gpu=24 page_block=2 cacheline=60593 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11802 component=IOMMUTLB gpu=45 page_block=1 cacheline=37563 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11802 component=IOMMUTLB gpu=45 page_block=2 cacheline=78517 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11857 component=IOMMUTLB gpu=40 page_block=1 cacheline=33295 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11867 component=IOMMUTLB gpu=15 page_block=2 cacheline=52912 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11875 component=IOMMUTLB gpu=25 page_block=1 cacheline=20493 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11917 component=IOMMUTLB gpu=15 page_block=1 cacheline=11957 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11946 component=IOMMUTLB gpu=25 page_block=2 cacheline=61448 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11952 component=IOMMUTLB gpu=14 page_block=1 cacheline=11104 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11960 component=IOMMUTLB gpu=14 page_block=2 cacheline=52058 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11965 component=IOMMUTLB gpu=12 page_block=1 cacheline=9397 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=11967 component=IOMMUTLB gpu=12 page_block=2 cacheline=50352 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12012 component=IOMMUTLB gpu=31 page_block=1 cacheline=25614 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12017 component=IOMMUTLB gpu=31 page_block=2 cacheline=66568 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12024 component=IOMMUTLB gpu=3 page_block=1 cacheline=1715 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12060 component=IOMMUTLB gpu=3 page_block=2 cacheline=42669 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12070 component=IOMMUTLB gpu=36 page_block=1 cacheline=29881 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12073 component=IOMMUTLB gpu=36 page_block=2 cacheline=70835 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12075 component=IOMMUTLB gpu=8 page_block=1 cacheline=5982 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12083 component=IOMMUTLB gpu=8 page_block=2 cacheline=46937 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12157 component=IOMMUTLB gpu=12 page_block=1 cacheline=9398 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12176 component=IOMMUTLB gpu=22 page_block=1 cacheline=17931 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12218 component=IOMMUTLB gpu=34 page_block=1 cacheline=28176 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12247 component=IOMMUTLB gpu=1 page_block=1 cacheline=8 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12253 component=IOMMUTLB gpu=21 page_block=1 cacheline=17080 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12261 component=IOMMUTLB gpu=42 page_block=1 cacheline=35002 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12266 component=IOMMUTLB gpu=42 page_block=2 cacheline=75956 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12268 component=IOMMUTLB gpu=37 page_block=1 cacheline=30735 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12313 component=IOMMUTLB gpu=37 page_block=2 cacheline=71689 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12318 component=IOMMUTLB gpu=21 page_block=2 cacheline=58035 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12325 component=IOMMUTLB gpu=48 page_block=1 cacheline=40125 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12361 component=IOMMUTLB gpu=6 page_block=1 cacheline=4275 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12371 component=IOMMUTLB gpu=48 page_block=2 cacheline=81080 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12374 component=IOMMUTLB gpu=48 page_block=1 cacheline=40126 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12376 component=IOMMUTLB gpu=10 page_block=1 cacheline=7689 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12376 component=IOMMUTLB gpu=19 page_block=1 cacheline=15372 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12458 component=IOMMUTLB gpu=19 page_block=2 cacheline=56326 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12477 component=IOMMUTLB gpu=4 page_block=1 cacheline=2570 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12519 component=IOMMUTLB gpu=38 page_block=1 cacheline=31588 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12548 component=IOMMUTLB gpu=29 page_block=1 cacheline=23906 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12554 component=IOMMUTLB gpu=44 page_block=1 cacheline=36710 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12562 component=IOMMUTLB gpu=44 page_block=2 cacheline=77664 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12567 component=IOMMUTLB gpu=39 page_block=1 cacheline=32443 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12569 component=IOMMUTLB gpu=39 page_block=2 cacheline=73397 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12614 component=IOMMUTLB gpu=35 page_block=1 cacheline=29026 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12619 component=IOMMUTLB gpu=26 page_block=1 cacheline=21347 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12626 component=IOMMUTLB gpu=35 page_block=2 cacheline=69981 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12662 component=IOMMUTLB gpu=38 page_block=1 cacheline=31589 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12672 component=IOMMUTLB gpu=26 page_block=2 cacheline=62301 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12675 component=IOMMUTLB gpu=38 page_block=2 cacheline=72543 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12677 component=IOMMUTLB gpu=41 page_block=1 cacheline=34150 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12677 component=IOMMUTLB gpu=41 page_block=2 cacheline=75104 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12759 component=IOMMUTLB gpu=46 page_block=2 cacheline=79371 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12778 component=IOMMUTLB gpu=28 page_block=1 cacheline=23053 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12820 component=IOMMUTLB gpu=28 page_block=2 cacheline=64007 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12849 component=IOMMUTLB gpu=9 page_block=1 cacheline=6837 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12855 component=IOMMUTLB gpu=27 page_block=1 cacheline=22201 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12863 component=IOMMUTLB gpu=27 page_block=2 cacheline=63155 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12868 component=IOMMUTLB gpu=43 page_block=1 cacheline=35855 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12870 component=IOMMUTLB gpu=43 page_block=2 cacheline=76810 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12915 component=IOMMUTLB gpu=20 page_block=1 cacheline=16225 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12920 component=IOMMUTLB gpu=33 page_block=2 cacheline=68277 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12927 component=IOMMUTLB gpu=16 page_block=2 cacheline=53767 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12963 component=IOMMUTLB gpu=16 page_block=1 cacheline=12812 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12973 component=IOMMUTLB gpu=17 page_block=1 cacheline=13666 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12976 component=IOMMUTLB gpu=7 page_block=1 cacheline=5130 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12978 component=IOMMUTLB gpu=47 page_block=2 cacheline=80226 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=12978 component=IOMMUTLB gpu=33 page_block=1 cacheline=27323 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13060 component=IOMMUTLB gpu=47 page_block=1 cacheline=39272 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13079 component=IOMMUTLB gpu=16 page_block=1 cacheline=12813 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13121 component=IOMMUTLB gpu=23 page_block=2 cacheline=59739 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13150 component=IOMMUTLB gpu=23 page_block=1 cacheline=18785 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13156 component=IOMMUTLB gpu=32 page_block=1 cacheline=26468 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13164 component=IOMMUTLB gpu=32 page_block=2 cacheline=67422 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13169 component=IOMMUTLB gpu=7 page_block=1 cacheline=5131 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13171 component=IOMMUTLB gpu=7 page_block=2 cacheline=46085 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13216 component=IOMMUTLB gpu=11 page_block=1 cacheline=8544 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13221 component=IOMMUTLB gpu=40 page_block=1 cacheline=33296 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13228 component=IOMMUTLB gpu=40 page_block=2 cacheline=74250 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13264 component=IOMMUTLB gpu=5 page_block=1 cacheline=3423 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13274 component=IOMMUTLB gpu=5 page_block=2 cacheline=44377 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13277 component=IOMMUTLB gpu=45 page_block=1 cacheline=37564 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13279 component=IOMMUTLB gpu=13 page_block=1 cacheline=10252 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13279 component=IOMMUTLB gpu=30 page_block=1 cacheline=24761 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13361 component=IOMMUTLB gpu=18 page_block=1 cacheline=14519 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13380 component=IOMMUTLB gpu=24 page_block=1 cacheline=19640 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13422 component=IOMMUTLB gpu=2 page_block=1 cacheline=862 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13451 component=IOMMUTLB gpu=25 page_block=1 cacheline=20494 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13457 component=IOMMUTLB gpu=14 page_block=1 cacheline=11105 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13465 component=IOMMUTLB gpu=31 page_block=1 cacheline=25615 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13510 component=IOMMUTLB gpu=15 page_block=1 cacheline=11958 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13521 component=IOMMUTLB gpu=34 page_block=2 cacheline=69131 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13523 component=IOMMUTLB gpu=36 page_block=1 cacheline=29882 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13530 component=IOMMUTLB gpu=36 page_block=2 cacheline=70836 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13608 component=IOMMUTLB gpu=48 page_block=2 cacheline=81081 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13614 component=IOMMUTLB gpu=48 page_block=1 cacheline=40127 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13632 component=IOMMUTLB gpu=21 page_block=1 cacheline=17081 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13642 component=IOMMUTLB gpu=12 page_block=1 cacheline=9399 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13642 component=IOMMUTLB gpu=12 page_block=2 cacheline=50353 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13655 component=IOMMUTLB gpu=3 page_block=1 cacheline=1716 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13662 component=IOMMUTLB gpu=3 page_block=2 cacheline=42670 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13689 component=IOMMUTLB gpu=37 page_block=1 cacheline=30736 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13723 component=IOMMUTLB gpu=21 page_block=2 cacheline=58036 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13752 component=IOMMUTLB gpu=21 page_block=1 cacheline=17082 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13758 component=IOMMUTLB gpu=8 page_block=1 cacheline=5983 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13766 component=IOMMUTLB gpu=42 page_block=1 cacheline=35003 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13771 component=IOMMUTLB gpu=42 page_block=2 cacheline=75957 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13773 component=IOMMUTLB gpu=37 page_block=2 cacheline=71690 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13818 component=IOMMUTLB gpu=22 page_block=1 cacheline=17932 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13823 component=IOMMUTLB gpu=22 page_block=2 cacheline=58886 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13830 component=IOMMUTLB gpu=8 page_block=1 cacheline=5984 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13866 component=IOMMUTLB gpu=8 page_block=2 cacheline=46938 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13876 component=IOMMUTLB gpu=6 page_block=1 cacheline=4276 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13879 component=IOMMUTLB gpu=6 page_block=2 cacheline=45230 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13906 component=IOMMUTLB gpu=19 page_block=1 cacheline=15373 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13909 component=IOMMUTLB gpu=19 page_block=2 cacheline=56327 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13963 component=IOMMUTLB gpu=1 page_block=1 cacheline=9 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=13982 component=IOMMUTLB gpu=39 page_block=1 cacheline=32444 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14024 component=IOMMUTLB gpu=10 page_block=1 cacheline=7690 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14053 component=IOMMUTLB gpu=44 page_block=1 cacheline=36711 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14059 component=IOMMUTLB gpu=10 page_block=2 cacheline=48644 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14067 component=IOMMUTLB gpu=44 page_block=2 cacheline=77665 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14072 component=IOMMUTLB gpu=41 page_block=2 cacheline=75105 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14074 component=IOMMUTLB gpu=41 page_block=1 cacheline=34151 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14119 component=IOMMUTLB gpu=26 page_block=1 cacheline=21348 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14124 component=IOMMUTLB gpu=29 page_block=1 cacheline=23907 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14131 component=IOMMUTLB gpu=4 page_block=1 cacheline=2571 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14167 component=IOMMUTLB gpu=29 page_block=2 cacheline=64861 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14177 component=IOMMUTLB gpu=38 page_block=1 cacheline=31590 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14180 component=IOMMUTLB gpu=46 page_block=1 cacheline=38417 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14182 component=IOMMUTLB gpu=46 page_block=2 cacheline=79372 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14182 component=IOMMUTLB gpu=35 page_block=1 cacheline=29027 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14264 component=IOMMUTLB gpu=29 page_block=1 cacheline=23908 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14283 component=IOMMUTLB gpu=27 page_block=1 cacheline=22202 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14325 component=IOMMUTLB gpu=27 page_block=2 cacheline=63156 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14354 component=IOMMUTLB gpu=47 page_block=1 cacheline=39273 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14360 component=IOMMUTLB gpu=47 page_block=2 cacheline=80227 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14368 component=IOMMUTLB gpu=43 page_block=1 cacheline=35856 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14373 component=IOMMUTLB gpu=28 page_block=1 cacheline=23054 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14375 component=IOMMUTLB gpu=33 page_block=1 cacheline=27324 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14420 component=IOMMUTLB gpu=20 page_block=1 cacheline=16226 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14425 component=IOMMUTLB gpu=20 page_block=2 cacheline=57180 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14432 component=IOMMUTLB gpu=28 page_block=2 cacheline=64008 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14468 component=IOMMUTLB gpu=33 page_block=2 cacheline=68279 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14478 component=IOMMUTLB gpu=9 page_block=1 cacheline=6838 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14481 component=IOMMUTLB gpu=20 page_block=1 cacheline=16227 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14485 component=IOMMUTLB gpu=16 page_block=2 cacheline=53768 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14493 component=IOMMUTLB gpu=17 page_block=2 cacheline=54621 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14565 component=IOMMUTLB gpu=17 page_block=1 cacheline=13667 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14584 component=IOMMUTLB gpu=40 page_block=1 cacheline=33297 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14626 component=IOMMUTLB gpu=40 page_block=2 cacheline=74251 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14655 component=IOMMUTLB gpu=32 page_block=1 cacheline=26469 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14661 component=IOMMUTLB gpu=32 page_block=2 cacheline=67423 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14669 component=IOMMUTLB gpu=16 page_block=2 cacheline=53769 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14674 component=IOMMUTLB gpu=45 page_block=2 cacheline=78518 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14676 component=IOMMUTLB gpu=7 page_block=2 cacheline=46086 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14721 component=IOMMUTLB gpu=23 page_block=1 cacheline=18786 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14727 component=IOMMUTLB gpu=30 page_block=1 cacheline=24762 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14733 component=IOMMUTLB gpu=13 page_block=1 cacheline=10253 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14769 component=IOMMUTLB gpu=30 page_block=2 cacheline=65715 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14779 component=IOMMUTLB gpu=13 page_block=2 cacheline=51206 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14782 component=IOMMUTLB gpu=11 page_block=1 cacheline=8545 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14784 component=IOMMUTLB gpu=11 page_block=2 cacheline=49498 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14784 component=IOMMUTLB gpu=7 page_block=1 cacheline=5132 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14866 component=IOMMUTLB gpu=7 page_block=2 cacheline=46087 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14885 component=IOMMUTLB gpu=48 page_block=2 cacheline=81082 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14927 component=IOMMUTLB gpu=34 page_block=1 cacheline=28177 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14956 component=IOMMUTLB gpu=34 page_block=2 cacheline=69132 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14962 component=IOMMUTLB gpu=5 page_block=1 cacheline=3424 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14970 component=IOMMUTLB gpu=18 page_block=1 cacheline=14520 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14975 component=IOMMUTLB gpu=18 page_block=2 cacheline=55473 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=14977 component=IOMMUTLB gpu=24 page_block=2 cacheline=60594 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15022 component=IOMMUTLB gpu=25 page_block=1 cacheline=20495 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15027 component=IOMMUTLB gpu=14 page_block=2 cacheline=52059 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15034 component=IOMMUTLB gpu=31 page_block=2 cacheline=66569 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15070 component=IOMMUTLB gpu=36 page_block=1 cacheline=29883 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15080 component=IOMMUTLB gpu=25 page_block=2 cacheline=61450 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15083 component=IOMMUTLB gpu=36 page_block=2 cacheline=70837 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15085 component=IOMMUTLB gpu=2 page_block=1 cacheline=863 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15085 component=IOMMUTLB gpu=2 page_block=2 cacheline=41816 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15167 component=IOMMUTLB gpu=15 page_block=1 cacheline=11959 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15186 component=IOMMUTLB gpu=12 page_block=2 cacheline=50354 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15228 component=IOMMUTLB gpu=15 page_block=2 cacheline=52913 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15257 component=IOMMUTLB gpu=21 page_block=2 cacheline=58037 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15263 component=IOMMUTLB gpu=21 page_block=1 cacheline=17083 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15271 component=IOMMUTLB gpu=37 page_block=2 cacheline=71691 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15276 component=IOMMUTLB gpu=37 page_block=1 cacheline=30737 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15277 component=IOMMUTLB gpu=42 page_block=2 cacheline=75958 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15322 component=IOMMUTLB gpu=42 page_block=1 cacheline=35004 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15328 component=IOMMUTLB gpu=3 page_block=2 cacheline=42671 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15335 component=IOMMUTLB gpu=3 page_block=1 cacheline=1717 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15370 component=IOMMUTLB gpu=39 page_block=2 cacheline=73398 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15381 component=IOMMUTLB gpu=19 page_block=2 cacheline=56328 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15384 component=IOMMUTLB gpu=19 page_block=1 cacheline=15374 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15386 component=IOMMUTLB gpu=41 page_block=2 cacheline=75106 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15386 component=IOMMUTLB gpu=6 page_block=1 cacheline=4277 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15468 component=IOMMUTLB gpu=6 page_block=2 cacheline=45231 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15487 component=IOMMUTLB gpu=22 page_block=1 cacheline=17933 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15529 component=IOMMUTLB gpu=22 page_block=2 cacheline=58887 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15558 component=IOMMUTLB gpu=44 page_block=2 cacheline=77666 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15563 component=IOMMUTLB gpu=46 page_block=1 cacheline=38418 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15572 component=IOMMUTLB gpu=46 page_block=2 cacheline=79373 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15577 component=IOMMUTLB gpu=8 page_block=2 cacheline=46939 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15579 component=IOMMUTLB gpu=26 page_block=1 cacheline=21349 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15624 component=IOMMUTLB gpu=26 page_block=2 cacheline=62302 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15628 component=IOMMUTLB gpu=38 page_block=2 cacheline=72544 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15636 component=IOMMUTLB gpu=10 page_block=1 cacheline=7691 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15671 component=IOMMUTLB gpu=8 page_block=2 cacheline=46940 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15682 component=IOMMUTLB gpu=8 page_block=1 cacheline=5985 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15685 component=IOMMUTLB gpu=1 page_block=1 cacheline=10 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15687 component=IOMMUTLB gpu=47 page_block=2 cacheline=80228 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15687 component=IOMMUTLB gpu=27 page_block=2 cacheline=63157 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15769 component=IOMMUTLB gpu=35 page_block=1 cacheline=29028 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15787 component=IOMMUTLB gpu=29 page_block=2 cacheline=64862 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15830 component=IOMMUTLB gpu=38 page_block=2 cacheline=72545 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15837 component=IOMMUTLB gpu=35 page_block=2 cacheline=69982 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15858 component=IOMMUTLB gpu=38 page_block=1 cacheline=31591 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15865 component=IOMMUTLB gpu=4 page_block=2 cacheline=43525 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15872 component=IOMMUTLB gpu=4 page_block=1 cacheline=2572 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15878 component=IOMMUTLB gpu=43 page_block=1 cacheline=35857 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15880 component=IOMMUTLB gpu=43 page_block=2 cacheline=76811 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15925 component=IOMMUTLB gpu=33 page_block=2 cacheline=68280 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15930 component=IOMMUTLB gpu=33 page_block=1 cacheline=27325 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15973 component=IOMMUTLB gpu=20 page_block=2 cacheline=57181 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15983 component=IOMMUTLB gpu=43 page_block=2 cacheline=76812 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15985 component=IOMMUTLB gpu=28 page_block=1 cacheline=23055 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15988 component=IOMMUTLB gpu=40 page_block=2 cacheline=74252 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=15988 component=IOMMUTLB gpu=28 page_block=2 cacheline=64009 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16070 component=IOMMUTLB gpu=17 page_block=2 cacheline=54622 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16089 component=IOMMUTLB gpu=45 page_block=2 cacheline=78519 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16130 component=IOMMUTLB gpu=45 page_block=1 cacheline=37565 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16138 component=IOMMUTLB gpu=32 page_block=2 cacheline=67424 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16160 component=IOMMUTLB gpu=9 page_block=2 cacheline=47792 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16166 component=IOMMUTLB gpu=9 page_block=1 cacheline=6839 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16174 component=IOMMUTLB gpu=17 page_block=1 cacheline=13668 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16178 component=IOMMUTLB gpu=48 page_block=2 cacheline=81083 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16181 component=IOMMUTLB gpu=48 page_block=1 cacheline=40128 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16226 component=IOMMUTLB gpu=30 page_block=1 cacheline=24763 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16231 component=IOMMUTLB gpu=16 page_block=2 cacheline=53770 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16274 component=IOMMUTLB gpu=16 page_block=1 cacheline=12814 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16283 component=IOMMUTLB gpu=13 page_block=2 cacheline=51207 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16286 component=IOMMUTLB gpu=23 page_block=1 cacheline=18787 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16289 component=IOMMUTLB gpu=23 page_block=2 cacheline=59740 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16289 component=IOMMUTLB gpu=34 page_block=1 cacheline=28178 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16371 component=IOMMUTLB gpu=34 page_block=2 cacheline=69133 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16390 component=IOMMUTLB gpu=34 page_block=1 cacheline=28179 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16432 component=IOMMUTLB gpu=11 page_block=2 cacheline=49499 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16439 component=IOMMUTLB gpu=7 page_block=2 cacheline=46088 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16461 component=IOMMUTLB gpu=7 page_block=1 cacheline=5133 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16467 component=IOMMUTLB gpu=14 page_block=2 cacheline=52060 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16475 component=IOMMUTLB gpu=14 page_block=1 cacheline=11106 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16480 component=IOMMUTLB gpu=31 page_block=2 cacheline=66570 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16482 component=IOMMUTLB gpu=31 page_block=1 cacheline=25616 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16527 component=IOMMUTLB gpu=24 page_block=2 cacheline=60595 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16532 component=IOMMUTLB gpu=18 page_block=2 cacheline=55474 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16575 component=IOMMUTLB gpu=5 page_block=2 cacheline=44378 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16585 component=IOMMUTLB gpu=25 page_block=2 cacheline=61451 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16588 component=IOMMUTLB gpu=25 page_block=1 cacheline=20496 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16590 component=IOMMUTLB gpu=36 page_block=2 cacheline=70838 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16612 component=IOMMUTLB gpu=21 page_block=2 cacheline=58038 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16672 component=IOMMUTLB gpu=41 page_block=2 cacheline=75107 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16691 component=IOMMUTLB gpu=41 page_block=1 cacheline=34152 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16733 component=IOMMUTLB gpu=12 page_block=2 cacheline=50355 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16740 component=IOMMUTLB gpu=12 page_block=1 cacheline=9400 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16762 component=IOMMUTLB gpu=37 page_block=2 cacheline=71692 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16768 component=IOMMUTLB gpu=39 page_block=1 cacheline=32445 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16776 component=IOMMUTLB gpu=39 page_block=2 cacheline=73399 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16781 component=IOMMUTLB gpu=2 page_block=2 cacheline=41817 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16783 component=IOMMUTLB gpu=42 page_block=2 cacheline=75959 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16828 component=IOMMUTLB gpu=41 page_block=2 cacheline=75108 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16833 component=IOMMUTLB gpu=37 page_block=2 cacheline=71693 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16876 component=IOMMUTLB gpu=37 page_block=1 cacheline=30738 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16886 component=IOMMUTLB gpu=15 page_block=2 cacheline=52914 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16889 component=IOMMUTLB gpu=19 page_block=2 cacheline=56329 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16891 component=IOMMUTLB gpu=42 page_block=2 cacheline=75960 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16891 component=IOMMUTLB gpu=46 page_block=2 cacheline=79374 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16973 component=IOMMUTLB gpu=46 page_block=1 cacheline=38419 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=16992 component=IOMMUTLB gpu=44 page_block=1 cacheline=36712 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17034 component=IOMMUTLB gpu=44 page_block=2 cacheline=77667 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17041 component=IOMMUTLB gpu=3 page_block=2 cacheline=42672 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17063 component=IOMMUTLB gpu=6 page_block=2 cacheline=45232 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17069 component=IOMMUTLB gpu=47 page_block=2 cacheline=80229 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17077 component=IOMMUTLB gpu=47 page_block=1 cacheline=39274 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17082 component=IOMMUTLB gpu=42 page_block=1 cacheline=35005 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17084 component=IOMMUTLB gpu=26 page_block=2 cacheline=62303 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17129 component=IOMMUTLB gpu=27 page_block=1 cacheline=22203 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17134 component=IOMMUTLB gpu=27 page_block=2 cacheline=63158 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17177 component=IOMMUTLB gpu=3 page_block=2 cacheline=42673 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17187 component=IOMMUTLB gpu=3 page_block=1 cacheline=1718 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17190 component=IOMMUTLB gpu=22 page_block=1 cacheline=17934 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17192 component=IOMMUTLB gpu=22 page_block=2 cacheline=58888 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17192 component=IOMMUTLB gpu=10 page_block=1 cacheline=7692 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17274 component=IOMMUTLB gpu=10 page_block=2 cacheline=48645 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17293 component=IOMMUTLB gpu=38 page_block=2 cacheline=72546 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17335 component=IOMMUTLB gpu=35 page_block=1 cacheline=29029 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17335 component=IOMMUTLB gpu=33 page_block=1 cacheline=27325 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17342 component=IOMMUTLB gpu=33 page_block=2 cacheline=68281 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17364 component=IOMMUTLB gpu=33 page_block=1 cacheline=27326 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17370 component=IOMMUTLB gpu=29 page_block=2 cacheline=64863 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17378 component=IOMMUTLB gpu=29 page_block=1 cacheline=23909 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17383 component=IOMMUTLB gpu=40 page_block=1 cacheline=33298 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17385 component=IOMMUTLB gpu=40 page_block=2 cacheline=74253 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17430 component=IOMMUTLB gpu=8 page_block=2 cacheline=46941 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17435 component=IOMMUTLB gpu=8 page_block=1 cacheline=5986 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17478 component=IOMMUTLB gpu=35 page_block=2 cacheline=69983 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17488 component=IOMMUTLB gpu=1 page_block=2 cacheline=40963 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17491 component=IOMMUTLB gpu=20 page_block=2 cacheline=57182 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17493 component=IOMMUTLB gpu=29 page_block=2 cacheline=64864 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17493 component=IOMMUTLB gpu=43 page_block=1 cacheline=35858 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17575 component=IOMMUTLB gpu=43 page_block=2 cacheline=76813 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17594 component=IOMMUTLB gpu=48 page_block=2 cacheline=81084 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17636 component=IOMMUTLB gpu=48 page_block=1 cacheline=40129 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17643 component=IOMMUTLB gpu=4 page_block=2 cacheline=43526 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17665 component=IOMMUTLB gpu=45 page_block=2 cacheline=78520 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17671 component=IOMMUTLB gpu=20 page_block=1 cacheline=16228 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17679 component=IOMMUTLB gpu=20 page_block=2 cacheline=57183 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17684 component=IOMMUTLB gpu=28 page_block=2 cacheline=64010 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17686 component=IOMMUTLB gpu=32 page_block=2 cacheline=67425 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17731 component=IOMMUTLB gpu=48 page_block=2 cacheline=81085 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17736 component=IOMMUTLB gpu=17 page_block=2 cacheline=54623 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17776 component=IOMMUTLB gpu=34 page_block=2 cacheline=69134 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17779 component=IOMMUTLB gpu=30 page_block=2 cacheline=65716 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17789 component=IOMMUTLB gpu=13 page_block=2 cacheline=51208 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17792 component=IOMMUTLB gpu=13 page_block=1 cacheline=10254 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17794 component=IOMMUTLB gpu=9 page_block=2 cacheline=47793 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17816 component=IOMMUTLB gpu=23 page_block=2 cacheline=59741 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17895 component=IOMMUTLB gpu=16 page_block=1 cacheline=12815 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17937 component=IOMMUTLB gpu=16 page_block=2 cacheline=53771 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17937 component=IOMMUTLB gpu=16 page_block=1 cacheline=12816 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17944 component=IOMMUTLB gpu=14 page_block=2 cacheline=52061 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17966 component=IOMMUTLB gpu=7 page_block=2 cacheline=46089 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17972 component=IOMMUTLB gpu=31 page_block=2 cacheline=66571 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17980 component=IOMMUTLB gpu=7 page_block=1 cacheline=5134 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17985 component=IOMMUTLB gpu=11 page_block=2 cacheline=49500 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=17987 component=IOMMUTLB gpu=11 page_block=1 cacheline=8546 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18032 component=IOMMUTLB gpu=21 page_block=2 cacheline=58039 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18077 component=IOMMUTLB gpu=25 page_block=1 cacheline=20497 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18080 component=IOMMUTLB gpu=25 page_block=2 cacheline=61452 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18090 component=IOMMUTLB gpu=24 page_block=2 cacheline=60596 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18093 component=IOMMUTLB gpu=18 page_block=2 cacheline=55475 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18095 component=IOMMUTLB gpu=18 page_block=1 cacheline=14521 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18095 component=IOMMUTLB gpu=36 page_block=2 cacheline=70839 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18196 component=IOMMUTLB gpu=36 page_block=1 cacheline=29884 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18238 component=IOMMUTLB gpu=41 page_block=2 cacheline=75109 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18238 component=IOMMUTLB gpu=41 page_block=1 cacheline=34153 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18245 component=IOMMUTLB gpu=5 page_block=2 cacheline=44379 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18267 component=IOMMUTLB gpu=5 page_block=1 cacheline=3425 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18273 component=IOMMUTLB gpu=39 page_block=2 cacheline=73400 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18281 component=IOMMUTLB gpu=37 page_block=2 cacheline=71694 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18286 component=IOMMUTLB gpu=46 page_block=2 cacheline=79375 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18288 component=IOMMUTLB gpu=12 page_block=1 cacheline=9401 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18333 component=IOMMUTLB gpu=12 page_block=2 cacheline=50356 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18378 component=IOMMUTLB gpu=19 page_block=2 cacheline=56330 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18381 component=IOMMUTLB gpu=47 page_block=2 cacheline=80230 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18391 component=IOMMUTLB gpu=19 page_block=1 cacheline=15375 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18394 component=IOMMUTLB gpu=42 page_block=2 cacheline=75961 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18410 component=IOMMUTLB gpu=2 page_block=2 cacheline=41818 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18412 component=IOMMUTLB gpu=44 page_block=2 cacheline=77668 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18497 component=IOMMUTLB gpu=44 page_block=1 cacheline=36713 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18539 component=IOMMUTLB gpu=19 page_block=2 cacheline=56331 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18539 component=IOMMUTLB gpu=26 page_block=2 cacheline=62304 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18546 component=IOMMUTLB gpu=27 page_block=2 cacheline=63159 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18568 component=IOMMUTLB gpu=15 page_block=2 cacheline=52915 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18574 component=IOMMUTLB gpu=15 page_block=1 cacheline=11960 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18582 component=IOMMUTLB gpu=6 page_block=1 cacheline=4278 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18587 component=IOMMUTLB gpu=6 page_block=2 cacheline=45233 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18589 component=IOMMUTLB gpu=27 page_block=1 cacheline=22204 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18634 component=IOMMUTLB gpu=27 page_block=2 cacheline=63160 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18679 component=IOMMUTLB gpu=38 page_block=2 cacheline=72547 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18682 component=IOMMUTLB gpu=33 page_block=2 cacheline=68282 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18692 component=IOMMUTLB gpu=40 page_block=2 cacheline=74254 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18752 component=IOMMUTLB gpu=22 page_block=2 cacheline=58889 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18756 component=IOMMUTLB gpu=10 page_block=2 cacheline=48646 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18769 component=IOMMUTLB gpu=3 page_block=2 cacheline=42674 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18868 component=IOMMUTLB gpu=48 page_block=2 cacheline=81086 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18868 component=IOMMUTLB gpu=48 page_block=1 cacheline=40130 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18908 component=IOMMUTLB gpu=43 page_block=1 cacheline=35859 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18919 component=IOMMUTLB gpu=43 page_block=2 cacheline=76814 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18926 component=IOMMUTLB gpu=48 page_block=1 cacheline=40131 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18958 component=IOMMUTLB gpu=35 page_block=2 cacheline=69984 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18973 component=IOMMUTLB gpu=35 page_block=1 cacheline=29030 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18975 component=IOMMUTLB gpu=29 page_block=2 cacheline=64865 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18978 component=IOMMUTLB gpu=29 page_block=1 cacheline=23910 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18984 component=IOMMUTLB gpu=45 page_block=2 cacheline=78521 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=18987 component=IOMMUTLB gpu=45 page_block=1 cacheline=37566 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19017 component=IOMMUTLB gpu=8 page_block=2 cacheline=46942 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19066 component=IOMMUTLB gpu=32 page_block=2 cacheline=67426 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19079 component=IOMMUTLB gpu=34 page_block=2 cacheline=69135 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19084 component=IOMMUTLB gpu=20 page_block=2 cacheline=57184 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19090 component=IOMMUTLB gpu=20 page_block=1 cacheline=16229 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19102 component=IOMMUTLB gpu=45 page_block=2 cacheline=78522 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19144 component=IOMMUTLB gpu=1 page_block=2 cacheline=40964 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19181 component=IOMMUTLB gpu=32 page_block=2 cacheline=67427 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19185 component=IOMMUTLB gpu=32 page_block=1 cacheline=26471 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19192 component=IOMMUTLB gpu=4 page_block=2 cacheline=43527 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19196 component=IOMMUTLB gpu=4 page_block=1 cacheline=2573 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19204 component=IOMMUTLB gpu=28 page_block=2 cacheline=64011 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19210 component=IOMMUTLB gpu=28 page_block=1 cacheline=23056 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19234 component=IOMMUTLB gpu=30 page_block=2 cacheline=65717 bitmap=[true true true true true true true true] state=active
+[PF][demand] cycle=19238 component=IOMMUTLB gpu=13 page_block=2 cacheline=51209 bitmap=[true true true true true true true true] state=active
+[PF][summary] cycle=19238 component=IOMMUTLB demands=1000 pending=14 active=986 admissions=2 window=2 intra=2 inter=2 issue_passes=983 no_unit=14 no_candidates=977 candidates=12 inter_candidates=0 inter_offset_unavailable=0 inter_predict_unavailable=0 inter_dedup_skipped=0 frontier_skipped=0 inter_frontier_skipped=0 skip_page_not_found=0 skip_page_block_mismatch=0 skip_resident=0 skip_mshr=0 skip_responding=0 skip_inflight=0 inter_skip_page_not_found=0 inter_skip_page_block_mismatch=0 inter_skip_resident=0 inter_skip_mshr=0 inter_skip_responding=0 inter_skip_inflight=0 issue_send_failed=0 inter_issue_send_failed=0 issued=6 inter_issued=0 inter_quota_dropped=0 wait_on_inflight=0 fill_complete=6 useful_hits=0 resident_miss_invalidation=2 precision=0.0000

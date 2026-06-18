@@ -49,8 +49,6 @@ type GPUOperator struct {
 	avgPoolingForwardKernel             *insts.HsaCo
 	avgPoolingBackwardKernel            *insts.HsaCo
 	gemmKernel                          *insts.HsaCo
-	gemmSplitKKernel                    *insts.HsaCo
-	gemmSplitKReduceKernel              *insts.HsaCo
 	crossEntropyDerivativeKernel        *insts.HsaCo
 	softmaxCrossEntropyDerivativeKernel *insts.HsaCo
 }
@@ -177,8 +175,6 @@ func (o *GPUOperator) loadKernels() {
 	loadKernel(&o.avgPoolingForwardKernel, avgPoolingKernelBytes, "AvgPoolForward")
 	loadKernel(&o.avgPoolingBackwardKernel, avgPoolingKernelBytes, "AvgPoolBackward")
 	loadKernel(&o.gemmKernel, gemmKernelBytes, "gemm_old")
-	loadKernel(&o.gemmSplitKKernel, gemmKernelBytes, "gemm_split_k")
-	loadKernel(&o.gemmSplitKReduceKernel, gemmKernelBytes, "gemm_split_k_reduce")
 	loadKernel(&o.crossEntropyDerivativeKernel, crossEntropyKernelBytes, "cross_entropy_derivative")
 	loadKernel(&o.softmaxCrossEntropyDerivativeKernel, crossEntropyKernelBytes, "softmax_cross_entropy_derivative")
 }
@@ -733,20 +729,6 @@ type gemmKernArgs struct {
 	OffsetX, OffsetY, OffsetZ int32
 }
 
-type gemmSplitKKernArgs struct {
-	M, N, K, SplitK           int32
-	Alpha, Padding            float32
-	A, B, Partials            driver.Ptr
-	OffsetX, OffsetY, OffsetZ int32
-}
-
-type gemmSplitKReduceKernArgs struct {
-	M, N, SplitK              int32
-	Beta                      float32
-	Partials, C, D            driver.Ptr
-	OffsetX, OffsetY, OffsetZ int32
-}
-
 // Gemm performs alpha * A * B + beta * C operation.
 func (o *GPUOperator) Gemm(
 	transA, transB bool,
@@ -781,54 +763,6 @@ func (o *GPUOperator) Gemm(
 			transA, transB, alpha, beta, cpuA, cpuB, cpuC)
 		o.tensorMustMatch(cpuOut, d)
 		fmt.Println("Gemm verified.")
-	}
-
-	return d
-}
-
-// SplitKGemm performs alpha * A * B + beta * C while exposing the K dimension
-// as an additional grid dimension. It first writes one partial [M, N] matrix
-// per K split, then reduces those partials back to a regular [M, N] output.
-func (o *GPUOperator) SplitKGemm(
-	transA, transB bool,
-	alpha, beta float64,
-	a, b, c tensor.Tensor,
-	splitK int,
-) tensor.Tensor {
-	if splitK <= 0 {
-		panic("splitK must be positive")
-	}
-
-	tempA := a
-	if transA {
-		tempA = o.Transpose(a, []int{1, 0})
-	}
-
-	tempB := b
-	if transB {
-		tempB = o.Transpose(b, []int{1, 0})
-	}
-
-	partials := o.matrixMultiplicationSplitK(alpha, tempA, tempB, c, splitK)
-	d := o.reduceSplitKPartials(partials, c, beta)
-	o.Free(partials)
-
-	if transA {
-		o.Free(tempA)
-	}
-
-	if transB {
-		o.Free(tempB)
-	}
-
-	if o.verification {
-		cpuA := o.gpuTensorToCPUTensor(a)
-		cpuB := o.gpuTensorToCPUTensor(b)
-		cpuC := o.gpuTensorToCPUTensor(c)
-		cpuOut := o.cpuOperator.Gemm(
-			transA, transB, alpha, beta, cpuA, cpuB, cpuC)
-		o.tensorMustMatch(cpuOut, d)
-		fmt.Println("SplitKGemm verified.")
 	}
 
 	return d
@@ -871,88 +805,6 @@ func (o *GPUOperator) matrixMultiplication(
 		&kernArg,
 	)
 	o.timerEnd("Gemm")
-
-	return d
-}
-
-func (o *GPUOperator) matrixMultiplicationSplitK(
-	alpha float64,
-	a, b, c tensor.Tensor,
-	splitK int,
-) tensor.Tensor {
-	o.gemmDimMustBeValid(a, b, c)
-
-	m := a.Size()[0]
-	n := b.Size()[1]
-	k := b.Size()[0]
-
-	blockSize := 16
-	wiWidth := ((n-1)/blockSize + 1) * blockSize
-	wiHeight := ((m-1)/blockSize + 1) * blockSize
-
-	partials := o.Create([]int{splitK, m, n})
-
-	kernArg := gemmSplitKKernArgs{
-		M:        int32(m),
-		N:        int32(n),
-		K:        int32(k),
-		SplitK:   int32(splitK),
-		Alpha:    float32(alpha),
-		A:        a.(*Tensor).ptr,
-		B:        b.(*Tensor).ptr,
-		Partials: partials.(*Tensor).ptr,
-	}
-
-	o.timerStart()
-	o.driver.LaunchKernel(
-		o.ctx,
-		o.gemmSplitKKernel,
-		[3]uint32{uint32(wiWidth), uint32(wiHeight), uint32(splitK)},
-		[3]uint16{uint16(blockSize), uint16(blockSize), 1},
-		&kernArg,
-	)
-	o.timerEnd("SplitKGemmPartial")
-
-	return partials
-}
-
-func (o *GPUOperator) reduceSplitKPartials(
-	partials, c tensor.Tensor,
-	beta float64,
-) tensor.Tensor {
-	size := partials.Size()
-	if len(size) != 3 {
-		panic("split-k partials must be a 3D tensor")
-	}
-
-	splitK := size[0]
-	m := size[1]
-	n := size[2]
-	d := o.Create([]int{m, n})
-
-	blockSize := 16
-	wiWidth := ((n-1)/blockSize + 1) * blockSize
-	wiHeight := ((m-1)/blockSize + 1) * blockSize
-
-	kernArg := gemmSplitKReduceKernArgs{
-		M:        int32(m),
-		N:        int32(n),
-		SplitK:   int32(splitK),
-		Beta:     float32(beta),
-		Partials: partials.(*Tensor).ptr,
-		C:        c.(*Tensor).ptr,
-		D:        d.(*Tensor).ptr,
-	}
-
-	o.timerStart()
-	o.driver.LaunchKernel(
-		o.ctx,
-		o.gemmSplitKReduceKernel,
-		[3]uint32{uint32(wiWidth), uint32(wiHeight), 1},
-		[3]uint16{uint16(blockSize), uint16(blockSize), 1},
-		&kernArg,
-	)
-	o.timerEnd("SplitKGemmReduce")
 
 	return d
 }

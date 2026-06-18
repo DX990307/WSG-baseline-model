@@ -17,8 +17,6 @@ type Benchmark struct {
 	gpus    []int
 
 	X, Y, Z                   uint32
-	WorkGroupSizeX            uint16
-	WorkGroupSizeY            uint16
 	MatrixA, MatrixB, MatrixC *Matrix
 	useUnifiedMemory          bool
 }
@@ -28,18 +26,6 @@ func NewBenchmark(driver *driver.Driver) *Benchmark {
 	b := new(Benchmark)
 	b.driver = driver
 	b.context = driver.Init()
-	b.WorkGroupSizeX = 8
-	b.WorkGroupSizeY = 8
-	return b
-}
-
-// NewMiddleTileBenchmark keeps the same matrix problem size, but uses a
-// middle-sized 8x4 workgroup. It doubles WG count without dropping to the
-// 16-work-item small-tile shape.
-func NewMiddleTileBenchmark(driver *driver.Driver) *Benchmark {
-	b := NewBenchmark(driver)
-	b.WorkGroupSizeX = 8
-	b.WorkGroupSizeY = 4
 	return b
 }
 
@@ -84,8 +70,6 @@ func (b *Benchmark) exec() {
 	m := NewGPUMatrixMultiplier(b.driver, b.context)
 	m.SelectGPU(b.gpus)
 	m.useUnifiedMemory = b.useUnifiedMemory
-	m.WorkGroupSizeX = b.WorkGroupSizeX
-	m.WorkGroupSizeY = b.WorkGroupSizeY
 	b.MatrixC = m.Multiply(b.MatrixA, b.MatrixB)
 }
 

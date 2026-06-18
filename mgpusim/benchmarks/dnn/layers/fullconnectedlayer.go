@@ -1,19 +1,10 @@
 package layers
 
 import (
-	"fmt"
 	"math/rand"
 
 	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/tensor"
 )
-
-var fullConnectedLayerSubTaskLogging bool
-
-// SetFullConnectedLayerSubTaskLogging enables or disables full-layer subtask
-// progress logs. It is intended for benchmark debugging.
-func SetFullConnectedLayerSubTaskLogging(enabled bool) {
-	fullConnectedLayerSubTaskLogging = enabled
-}
 
 // A FullyConnectedLayer implements a fully connected layer.
 type FullyConnectedLayer struct {
@@ -80,33 +71,19 @@ func (l *FullyConnectedLayer) Randomize() {
 func (l *FullyConnectedLayer) Forward(
 	input tensor.Tensor,
 ) tensor.Tensor {
-	l.logSubTask("Forward: clone input %v", input.Size())
 	l.forwardInput = l.to.Clone(input)
 
-	l.logSubTask("Forward: reshape input to [%d,%d]",
-		input.Size()[0], l.InputSize)
 	in := l.to.Reshape(input, []int{input.Size()[0], l.InputSize})
-	l.logSubTask("Forward: reshape weight to [%d,%d]",
-		l.InputSize, l.OutputSize)
 	weightMat := l.to.Reshape(l.weights, []int{l.InputSize, l.OutputSize})
-	l.logSubTask("Forward: repeat bias %d times", input.Size()[0])
 	biasMat := l.to.Repeat(l.bias, input.Size()[0])
-	l.logSubTask("Forward: reshape repeated bias to [%d,%d]",
-		input.Size()[0], l.OutputSize)
 	biasMatReshape := l.to.Reshape(biasMat,
 		[]int{input.Size()[0], l.OutputSize})
 
-	l.logSubTask("Forward: GEMM [%d,%d] x [%d,%d]",
-		input.Size()[0], l.InputSize, l.InputSize, l.OutputSize)
 	out := l.to.Gemm(false, false, 1, 1, in, weightMat, biasMatReshape)
 
-	l.logSubTask("Forward: free temporary input reshape")
 	l.to.Free(in)
-	l.logSubTask("Forward: free temporary weight reshape")
 	l.to.Free(weightMat)
-	l.logSubTask("Forward: free repeated bias")
 	l.to.Free(biasMat)
-	l.logSubTask("Forward: free temporary bias reshape")
 	l.to.Free(biasMatReshape)
 
 	return out
@@ -116,21 +93,16 @@ func (l *FullyConnectedLayer) Forward(
 func (l *FullyConnectedLayer) Backward(
 	input tensor.Tensor,
 ) tensor.Tensor {
-	l.logSubTask("Backward: clear gradients")
 	l.to.Clear(l.gradients)
 
-	l.logSubTask("Backward: calculate weight gradients")
 	l.calculateWeightGradients(input)
-	l.logSubTask("Backward: calculate bias gradients")
 	l.calculateBiasGradients(input)
 	var output tensor.Tensor
 
 	if l.layerIndex > 0 {
-		l.logSubTask("Backward: calculate input gradients")
 		output = l.calculateInputGradients(input)
 	}
 
-	l.logSubTask("Backward: free cloned forward input")
 	l.to.Free(l.forwardInput)
 
 	return output
@@ -192,11 +164,4 @@ func (l FullyConnectedLayer) Parameters() tensor.Tensor {
 // Gradients returns the gradients of the layer.
 func (l FullyConnectedLayer) Gradients() tensor.Tensor {
 	return l.gradients
-}
-
-func (l *FullyConnectedLayer) logSubTask(format string, args ...interface{}) {
-	if !fullConnectedLayerSubTaskLogging {
-		return
-	}
-	fmt.Printf("[FullLayer] "+format+"\n", args...)
 }

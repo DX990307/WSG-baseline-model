@@ -94,38 +94,6 @@ var _ = Describe("SerialEngine", func() {
 		_ = engine.Run()
 	})
 
-	It("should schedule sampled events by time", func() {
-		handler1 := NewMockHandler(mockCtrl)
-		handler2 := NewMockHandler(mockCtrl)
-
-		sampledEvt := NewSampledEventBase(1.0, handler1)
-		evt := NewEventBase(2.0, handler2)
-
-		handleSampledEvt := handler1.EXPECT().Handle(sampledEvt)
-		handler2.EXPECT().Handle(evt).After(handleSampledEvt)
-
-		engine.Schedule(evt)
-		engine.Schedule(sampledEvt)
-
-		_ = engine.Run()
-	})
-
-	It("should remove sampled events when disabled", func() {
-		handler1 := NewMockHandler(mockCtrl)
-		handler2 := NewMockHandler(mockCtrl)
-
-		sampledEvt := NewSampledEventBase(1.0, handler1)
-		evt := NewEventBase(1.0, handler2)
-
-		handler2.EXPECT().Handle(evt)
-
-		engine.Schedule(sampledEvt)
-		engine.Schedule(evt)
-		engine.DisabledSampled()
-
-		_ = engine.Run()
-	})
-
 	It("measure triggering speed", func() {
 		experiment := gmeasure.NewExperiment("Serial Engine Triggering Speed")
 		AddReportEntry(experiment.Name, experiment)

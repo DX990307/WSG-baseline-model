@@ -1,0 +1,15 @@
+benchmark,remote_iommu_mmu_ptw_avg_util_percent,local_gmmu_ptw_avg_util_percent
+spmv,99.452479,2.009147
+matrixtranspose,99.434092,0.437419
+kmeans,97.122848,21.770783
+im2col,96.920548,0.498761
+pagerank,22.827456,12.008014
+matrixmultiplication,8.713631,3.760506
+floydwarshall,2.599529,14.961236
+simpleconvolution,0.018473,42.993236
+fir,0.014840,11.250290
+aes,0.005037,2.722764
+fastwalshtransform,0.000000,98.916313
+relu,0.000000,97.789101
+bitonicsort,0.000000,95.498162
+fft,0.000000,91.880459

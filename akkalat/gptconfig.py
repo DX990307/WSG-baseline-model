@@ -46,18 +46,18 @@ PROFILES = {
         "layers": 32,
         "intermediate": 8192,
     },
-    "gpt-7b": {
-        "batch": 1,
-        "seq_len": 32,
-        "hidden": 4096,
+	"gpt-7b": {
+		"batch": 1,
+		"seq_len": 5120,
+		"hidden": 4096,
         "heads": 32,
         "layers": 32,
         "intermediate": 11008,
     },
-    "gpt-7b-proxy": {
-        "batch": 1,
-        "seq_len": 32,
-        "hidden": 4096,
+	"gpt-7b-proxy": {
+		"batch": 1,
+		"seq_len": 5120,
+		"hidden": 4096,
         "heads": 32,
         "layers": 32,
         "intermediate": 11008,

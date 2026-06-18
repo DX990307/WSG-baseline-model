@@ -16,7 +16,7 @@ var (
 	modeFlag = flag.String(
 		"bert-mode", "block", "BERT mode: block or full.")
 	sizeFlag = flag.String(
-		"bert-size", "tiny", "BERT size: tiny, base, large, or custom.")
+		"bert-size", "7b-proxy", "BERT size: tiny, base, large, 7b-proxy, or custom.")
 	batchSizeFlag = flag.Int(
 		"bert-batch-size", 0, "BERT batch size override.")
 	seqLenFlag = flag.Int(
@@ -134,6 +134,12 @@ func bertConfig() config {
 		cfg.numHeads = 16
 		cfg.numLayers = 24
 		cfg.intermediate = 4096
+	case "7b-proxy":
+		cfg.seqLen = 5120
+		cfg.hidden = 4096
+		cfg.numHeads = 32
+		cfg.numLayers = 1
+		cfg.intermediate = 11008
 	case "custom":
 	default:
 		log.Panicf("unknown -bert-size %q", cfg.size)

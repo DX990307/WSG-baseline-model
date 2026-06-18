@@ -448,12 +448,8 @@ func (d *Driver) distributeWGToGPUs(
 	for i, devID := range actualGPUs {
 		cuCount := d.devices[devID].Properties.CUCount
 		wgToAllocate := cuCount * wgPerCU
-		nextWG := wgAllocated + wgToAllocate
-		if nextWG > totalWGCount {
-			nextWG = totalWGCount
-		}
-		wgDist[i+1] = nextWG
-		wgAllocated = nextWG
+		wgDist[i+1] = wgAllocated + wgToAllocate
+		wgAllocated += wgToAllocate
 	}
 
 	if wgAllocated < totalWGCount {

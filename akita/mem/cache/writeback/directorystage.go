@@ -5,7 +5,6 @@ import (
 
 	"github.com/sarchlab/akita/v3/mem/cache"
 	"github.com/sarchlab/akita/v3/mem/mem"
-	memtrace "github.com/sarchlab/akita/v3/mem/trace"
 	"github.com/sarchlab/akita/v3/mem/vm"
 	"github.com/sarchlab/akita/v3/pipelining"
 	"github.com/sarchlab/akita/v3/sim"
@@ -130,7 +129,6 @@ func (ds *directoryStage) handleReadMSHRHit(
 		ds.cache,
 		"read-mshr-hit",
 	)
-	ds.recordL2AccessSource(now, trans, "l2_mshr")
 
 	return true
 }
@@ -159,11 +157,7 @@ func (ds *directoryStage) handleReadHit(
 	// 	nil,
 	// )
 
-	ok := ds.readFromBank(trans, block)
-	if ok {
-		ds.recordL2AccessSource(now, trans, "l2_cache")
-	}
-	return ok
+	return ds.readFromBank(trans, block)
 }
 
 func (ds *directoryStage) handleReadMiss(
@@ -240,9 +234,6 @@ func (ds *directoryStage) doWrite(
 			ds.cache,
 			"write-mshr-hit",
 		)
-		if ok {
-			ds.recordL2AccessSource(now, trans, "l2_mshr")
-		}
 
 		return ok
 	}
@@ -256,7 +247,6 @@ func (ds *directoryStage) doWrite(
 				ds.cache,
 				"write-hit",
 			)
-			ds.recordL2AccessSource(now, trans, "l2_cache")
 		}
 
 		return ok
@@ -319,18 +309,10 @@ func (ds *directoryStage) writeFullLineMiss(now sim.VTimeInSec, trans *transacti
 	}
 
 	if ds.needEviction(victim) {
-		ok := ds.evict(now, trans, victim)
-		if ok {
-			ds.recordL2AccessSource(now, trans, "write_allocate")
-		}
-		return ok
+		return ds.evict(now, trans, victim)
 	}
 
-	ok := ds.writeToBank(trans, victim)
-	if ok {
-		ds.recordL2AccessSource(now, trans, "write_allocate")
-	}
-	return ok
+	return ds.writeToBank(trans, victim)
 }
 
 func (ds *directoryStage) writePartialLineMiss(
@@ -592,49 +574,4 @@ func (ds *directoryStage) isWritingFullLine(write *mem.WriteReq) bool {
 
 func (ds *directoryStage) needEviction(victim *cache.Block) bool {
 	return victim.IsValid && victim.IsDirty
-}
-
-func (ds *directoryStage) recordL2AccessSource(
-	now sim.VTimeInSec,
-	trans *transaction,
-	sourceBase string,
-) {
-	req := trans.accessReq()
-	if req == nil {
-		return
-	}
-	cacheLineID, _ := getCacheLineID(req.GetAddress(), ds.cache.log2BlockSize)
-
-	memtrace.RecordL2AccessSource(
-		ds.cache.Name(),
-		accessReqInfo(req),
-		cacheLineID,
-		req.GetByteSize(),
-		0,
-		now,
-		accessReqOp(req),
-		sourceBase,
-	)
-}
-
-func accessReqInfo(req mem.AccessReq) interface{} {
-	switch req := req.(type) {
-	case *mem.ReadReq:
-		return req.Info
-	case *mem.WriteReq:
-		return req.Info
-	default:
-		return nil
-	}
-}
-
-func accessReqOp(req mem.AccessReq) string {
-	switch req.(type) {
-	case *mem.ReadReq:
-		return "read"
-	case *mem.WriteReq:
-		return "write"
-	default:
-		return "unknown"
-	}
 }

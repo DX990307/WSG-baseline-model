@@ -41,9 +41,6 @@ func (a *greedyAlgorithm) HasNext() bool {
 func (a *greedyAlgorithm) Next() (location dispatchLocation) {
 	if a.currWG == nil {
 		a.currWG = a.gridBuilder.NextWG()
-		if a.currWG == nil {
-			return dispatchLocation{}
-		}
 	}
 
 	for i := 0; i < a.cuPool.NumCU(); i++ {

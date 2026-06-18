@@ -5,6 +5,7 @@ import (
 	"reflect"
 
 	"github.com/sarchlab/akita/v3/mem/vm"
+	"github.com/sarchlab/akita/v3/mem/vm/translationtrace"
 	"github.com/sarchlab/akita/v3/sim"
 	"github.com/sarchlab/akita/v3/tracing"
 )
@@ -49,6 +50,18 @@ type GMMU struct {
 	isPrediction bool
 }
 
+func (gmmu *GMMU) HasFreePTW() bool {
+	return len(gmmu.walkingTranslations) < gmmu.maxRequestsInFlight
+}
+
+func (gmmu *GMMU) PTWInflight() int {
+	return len(gmmu.walkingTranslations)
+}
+
+func (gmmu *GMMU) PTWCapacity() int {
+	return gmmu.maxRequestsInFlight
+}
+
 // Tick defines how the gmmu update state each cycle
 func (gmmu *GMMU) Tick(now sim.VTimeInSec) bool {
 	madeProgress := false
@@ -60,11 +73,23 @@ func (gmmu *GMMU) Tick(now sim.VTimeInSec) bool {
 	madeProgress = gmmu.walkPageTable(now) || madeProgress
 	madeProgress = gmmu.fetchFromBottom(now) || madeProgress
 
+	translationtrace.ObserveLocalGMMU(
+		now,
+		gmmu.Name(),
+		len(gmmu.walkingTranslations),
+		gmmu.maxRequestsInFlight,
+		len(gmmu.walkingTranslations) >= gmmu.maxRequestsInFlight,
+	)
+
 	return madeProgress
 }
 
 func (gmmu *GMMU) parseFromTop(now sim.VTimeInSec) bool {
 	if len(gmmu.walkingTranslations) >= gmmu.maxRequestsInFlight {
+		msg := gmmu.topPort.Peek()
+		if req, ok := msg.(*vm.TranslationReq); ok && req != nil && !req.IsPrefetch {
+			translationtrace.BeginStage(req.ID, "local_gmmu_ptw_queue_wait", now)
+		}
 		return false
 	}
 
@@ -77,6 +102,9 @@ func (gmmu *GMMU) parseFromTop(now sim.VTimeInSec) bool {
 
 	switch req := req.(type) {
 	case *vm.TranslationReq:
+		if !req.IsPrefetch {
+			translationtrace.EndStage(req.ID, "local_gmmu_ptw_queue_wait", now)
+		}
 		gmmu.startWalking(req, now)
 		tracing.StartTask(req.TaskID, "", gmmu, "GMMU", "TranslationReq", req)
 
@@ -94,6 +122,13 @@ func (gmmu *GMMU) startWalking(req *vm.TranslationReq, now sim.VTimeInSec) {
 	}
 
 	gmmu.walkingTranslations = append(gmmu.walkingTranslations, translationInPipeline)
+	if req != nil && !req.IsPrefetch {
+		translationtrace.AddStageCycles(
+			req.ID,
+			"local_gmmu_ptw_service",
+			uint64(gmmu.latency),
+		)
+	}
 }
 
 func (gmmu *GMMU) sendReqToBottomPort(now sim.VTimeInSec) {
@@ -163,7 +198,9 @@ func (gmmu *GMMU) processRemoteMemReq(now sim.VTimeInSec, walkingIndex int) bool
 		WithDeviceID(walking.DeviceID).
 		WithTaskID(walking.TaskID).
 		WithOriginPort(walking.OriginPort).
+		WithPrefetch(walking.IsPrefetch).
 		Build()
+	translationtrace.LinkRequest(req.ID, walking.ID)
 
 	err := gmmu.bottomPort.Send(req)
 
@@ -221,6 +258,7 @@ func (gmmu *GMMU) doPageWalkHit(
 		WithPage(walking.page).
 		WithTaskID(walking.req.TaskID).
 		WithOriginPort(walking.req.OriginPort).
+		WithPrefetch(walking.req.IsPrefetch).
 		Build()
 
 	gmmu.topSender.Send(rsp)
@@ -275,10 +313,11 @@ func (gmmu *GMMU) handleTranslationRsp(now sim.VTimeInSec, rsponse *vm.Translati
 		WithSendTime(now).
 		WithSrc(gmmu.topPort).
 		WithDst(reqTransaction.req.Src).
-		WithRspTo(rsponse.ID).
+		WithRspTo(reqTransaction.req.ID).
 		WithPage(rsponse.Page).
 		WithTaskID(reqTransaction.req.TaskID).
 		WithOriginPort(reqTransaction.req.OriginPort).
+		WithPrefetch(reqTransaction.req.IsPrefetch || rsponse.IsPrefetch).
 		Build()
 
 	gmmu.topSender.Send(rsp)
@@ -292,23 +331,50 @@ func (gmmu *GMMU) GetDeviceID() uint64 {
 }
 
 func (gmmu *GMMU) sendToGMMU(now sim.VTimeInSec, walking transaction) bool {
-	if !gmmu.topSender.CanSend(1) {
-		return false
+	madeProgress := false
+
+	cacheLine := gmmu.getCacheLine(walking.req.VAddr)
+
+	for i := 0; i < 8; i++ {
+		vpn := cacheLine[i]
+		newVAddr := vpn << gmmu.log2PageSize
+
+		page, found := gmmu.pageTable.Find(walking.req.PID, newVAddr)
+		if !found {
+			page = vm.Page{
+				PID:      walking.req.PID,
+				VAddr:    newVAddr,
+				Valid:    true,
+				IsPinned: false,
+			}
+		}
+
+		taskID := sim.GetIDGenerator().Generate()
+
+		req := walking.req
+		Rsp := vm.TranslationRspBuilder{}.
+			WithSendTime(now).
+			WithSrc(gmmu.topPort).
+			WithDst(req.Src).
+			WithRspTo(req.ID).
+			WithPage(page).
+			WithOriginPort(walking.req.OriginPort).
+			WithTaskID(taskID).
+			WithPrefetch(walking.req.IsPrefetch).
+			Build()
+
+		if !gmmu.topSender.CanSend(1) {
+			return madeProgress
+		}
+		gmmu.topSender.Send(Rsp)
+		madeProgress = true
+
 	}
+	return madeProgress
+}
 
-	taskID := sim.GetIDGenerator().Generate()
-
-	req := walking.req
-	rsp := vm.TranslationRspBuilder{}.
-		WithSendTime(now).
-		WithSrc(gmmu.topPort).
-		WithDst(req.Src).
-		WithPage(walking.page).
-		WithOriginPort(walking.req.OriginPort).
-		WithTaskID(taskID).
-		Build()
-
-	gmmu.topSender.Send(rsp)
-
-	return true
+func (gmmu *GMMU) getCacheLine(vaddr uint64) []uint64 {
+	currentVPN := vaddr >> gmmu.log2PageSize
+	baseVPN := currentVPN &^ 0x7 // 8 entries per cache line
+	return []uint64{baseVPN, baseVPN + 1, baseVPN + 2, baseVPN + 3, baseVPN + 4, baseVPN + 5, baseVPN + 6, baseVPN + 7}
 }

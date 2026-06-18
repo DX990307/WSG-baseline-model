@@ -16,7 +16,7 @@ var (
 	modeFlag = flag.String(
 		"gpt-mode", "block", "GPT mode: block or full.")
 	sizeFlag = flag.String(
-		"gpt-size", "tiny", "GPT size: tiny, gpt2-small, gpt2-medium, 7b-proxy, or custom.")
+		"gpt-size", "7b-proxy", "GPT size: tiny, gpt2-small, gpt2-medium, 7b-proxy, or custom.")
 	batchSizeFlag = flag.Int(
 		"gpt-batch-size", 0, "GPT batch size override.")
 	seqLenFlag = flag.Int(
@@ -135,10 +135,10 @@ func gptConfig() config {
 		cfg.numLayers = 24
 		cfg.intermediate = 4096
 	case "7b-proxy":
-		cfg.seqLen = 32
+		cfg.seqLen = 5120
 		cfg.hidden = 4096
 		cfg.numHeads = 32
-		cfg.numLayers = 32
+		cfg.numLayers = 1
 		cfg.intermediate = 11008
 	case "custom":
 	default:

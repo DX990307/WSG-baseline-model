@@ -156,7 +156,14 @@ func (a *memoryAllocatorImpl) allocatePages(
 	currentPageBlock := pageBlockNum + 1
 
 	for i := 0; i < numPages; i++ {
-		pAddr := device.allocatePage()
+		// Previous unified-GPU policy:
+		// pAddr := device.allocatePage()
+		//
+		// For a unified GPU, device.allocatePage() selects the next actual GPU
+		// after every page, which creates page-level round-robin placement.
+		// Keep the old line above for quick rollback, but use contiguous
+		// distribute-style placement for multi-tile experiments.
+		pAddr := a.allocatePageWithDistributePolicy(device, i, numPages)
 		vAddr := nextVAddr + uint64(i)*pageSize
 
 		page := vm.Page{
@@ -188,6 +195,104 @@ func (a *memoryAllocatorImpl) allocatePages(
 
 	return nextVAddr
 }
+
+func (a *memoryAllocatorImpl) allocatePageWithDistributePolicy(
+	device *Device,
+	pageIndex int,
+	numPages int,
+) uint64 {
+	if device.Type != DeviceTypeUnifiedGPU {
+		return device.allocatePage()
+	}
+
+	actualGPU := a.selectActualGPUForDistributedPage(
+		device, pageIndex, numPages)
+	return actualGPU.allocatePage()
+}
+
+func (a *memoryAllocatorImpl) selectActualGPUForDistributedPage(
+	device *Device,
+	pageIndex int,
+	numPages int,
+) *Device {
+	numGPUs := len(device.ActualGPUs)
+	if numGPUs == 0 {
+		panic("unified GPU has no actual GPUs")
+	}
+
+	numPagesPerGPU := numPages / numGPUs
+	if numPagesPerGPU == 0 {
+		return device.ActualGPUs[0]
+	}
+
+	gpuIndex := pageIndex / numPagesPerGPU
+	if gpuIndex >= numGPUs {
+		gpuIndex = numGPUs - 1
+	}
+
+	return device.ActualGPUs[gpuIndex]
+}
+
+// func (a *memoryAllocatorImpl) allocatePages(
+// 	numPages int,
+// 	pid vm.PID,
+// 	deviceID int,
+// 	unified bool,
+// ) (firstPageVAddr uint64) {
+// 	pState, found := a.processMemoryStates[pid]
+// 	if !found {
+// 		a.processMemoryStates[pid] = &processMemoryState{
+// 			pid:       pid,
+// 			nextVAddr: uint64(1 << a.log2PageSize),
+// 		}
+// 		pState = a.processMemoryStates[pid]
+// 	}
+// 	device := a.devices[deviceID]
+
+// 	pageSize := uint64(1 << a.log2PageSize)
+// 	nextVAddr := pState.nextVAddr
+// 	// initVPN := nextVAddr >> a.log2PageSize
+// 	currentPage, exists := a.pageTable.GetLastPage(pid)
+// 	pageBlockNum := uint64(0)
+// 	if exists {
+// 		pageBlockNum = currentPage.PageBlock
+// 	}
+
+// 	currentPageBlock := pageBlockNum + 1
+
+// 	for i := 0; i < numPages; i++ {
+// 		pAddr := device.allocatePage()
+// 		vAddr := nextVAddr + uint64(i)*pageSize
+
+// 		page := vm.Page{
+// 			PID:          pid,
+// 			VAddr:        vAddr,
+// 			PAddr:        pAddr,
+// 			PageSize:     pageSize,
+// 			Valid:        true,
+// 			Unified:      unified,
+// 			AccessCounts: 0,
+// 			DeviceID:     uint64(a.deviceIDByPAddr(pAddr)),
+// 			PageBlock:    currentPageBlock,
+// 		}
+
+// 		// fmt.Printf("page.addr is %x page.vAddr is %d page.Device ID is %d \n", page.PAddr, page.VAddr>>12, page.DeviceID)
+// 		// debug.PrintStack()
+// 		a.pageTable.Insert(page)
+// 		a.vAddrToPageMapping[page.VAddr] = page
+// 	}
+
+// 	pState.nextVAddr += pageSize * uint64(numPages)
+// 	// finalVPN := (pState.nextVAddr - 1) >> a.log2PageSize
+
+// 	// startVPN := nextVAddr >> a.log2PageSize
+// 	// endVPN := (pState.nextVAddr - 1) >> a.log2PageSize
+
+// 	// fmt.Printf("Allocating %d pages for process %d on device %d. VPN: %d - %d, currentPageBlock: %d\n",
+// 	// numPages, pid, deviceID, startVPN, endVPN, currentPageBlock)
+
+// 	return nextVAddr
+// }
 
 func (a *memoryAllocatorImpl) Remap(
 	pid vm.PID,

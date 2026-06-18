@@ -3,7 +3,6 @@ package writeback
 import (
 	"github.com/sarchlab/akita/v3/mem/cache"
 	"github.com/sarchlab/akita/v3/mem/mem"
-	memtrace "github.com/sarchlab/akita/v3/mem/trace"
 	"github.com/sarchlab/akita/v3/sim"
 	"github.com/sarchlab/akita/v3/tracing"
 )
@@ -133,7 +132,6 @@ func (wb *writeBufferStage) fetchFromBottom(
 		WithPID(trans.fetchPID).
 		WithAddress(trans.fetchAddress).
 		WithByteSize(1 << wb.cache.log2BlockSize).
-		WithInfo(accessReqInfo(trans.accessReq())).
 		Build()
 	wb.cache.bottomSender.Send(read)
 
@@ -302,24 +300,6 @@ func (wb *writeBufferStage) processDataReadyRsp(
 	trans.action = bankWriteFetched
 	trans.mshrEntry.Data = dataReady.Data
 	wb.combineData(trans.mshrEntry)
-	memtrace.RecordL2LocalDRAMFill(
-		wb.cache.Name(),
-		uint64(len(dataReady.Data)),
-		now-trans.fetchReadReq.SendTime,
-		now,
-		"read",
-	)
-	req := trans.accessReq()
-	memtrace.RecordL2AccessSource(
-		wb.cache.Name(),
-		accessReqInfo(req),
-		trans.fetchAddress,
-		uint64(len(dataReady.Data)),
-		now-trans.fetchReadReq.SendTime,
-		now,
-		accessReqOp(req),
-		"dram",
-	)
 
 	wb.cache.mshr.Remove(trans.mshrEntry.PID, trans.mshrEntry.Address)
 
@@ -406,13 +386,6 @@ func (wb *writeBufferStage) processWriteDoneRsp(
 			wb.inflightEviction = append(
 				wb.inflightEviction[:i],
 				wb.inflightEviction[i+1:]...,
-			)
-			memtrace.RecordL2LocalDRAMAccess(
-				wb.cache.Name(),
-				uint64(len(e.evictionWriteReq.Data)),
-				now-e.evictionWriteReq.SendTime,
-				now,
-				"write",
 			)
 			wb.cache.bottomPort.Retrieve(now)
 			tracing.TraceReqFinalize(e.evictionWriteReq, wb.cache)

@@ -17,7 +17,10 @@ type TranslationReq struct {
 	NeedTranslate bool
 	Hops          int
 	StartGPUID    int // The GPU ID that starts the translation
+	PrefetchNums  int // The number of prefetches to be sent
+	IsPrefetch    bool
 	TransLatency  uint64
+	BitMap        [8]bool
 }
 
 // Meta returns the meta data associated with the message.
@@ -36,13 +39,35 @@ type TranslationReqBuilder struct {
 	origPort      sim.Port
 	translate     bool
 	needTranslate bool
+	bitMap        [8]bool
 	transLatency  uint64
+	prefetchNums  int
+	isPrefetch    bool
 }
 
 func (b TranslationReqBuilder) WithTransLatency(
 	latency uint64,
 ) TranslationReqBuilder {
 	b.transLatency = latency
+	return b
+}
+
+func (b TranslationReqBuilder) WithBitMap(bitMap [8]bool) TranslationReqBuilder {
+	b.bitMap = bitMap
+	return b
+}
+
+// WithPrefetchNums sets the number of prefetches to be sent.
+func (b TranslationReqBuilder) WithPrefetchNums(
+	prefetchNums int,
+) TranslationReqBuilder {
+	b.prefetchNums = prefetchNums
+	return b
+}
+
+// WithPrefetch marks whether the request is a synthetic prefetch.
+func (b TranslationReqBuilder) WithPrefetch(isPrefetch bool) TranslationReqBuilder {
+	b.isPrefetch = isPrefetch
 	return b
 }
 
@@ -123,6 +148,9 @@ func (b TranslationReqBuilder) Build() *TranslationReq {
 	r.OriginPort = b.origPort
 	r.Translate = b.translate
 	r.NeedTranslate = b.needTranslate
+	r.PrefetchNums = b.prefetchNums
+	r.IsPrefetch = b.isPrefetch
+	r.BitMap = b.bitMap
 	r.TransLatency = b.transLatency
 	return r
 }
@@ -135,6 +163,7 @@ type TranslationRsp struct {
 	Page             Page
 	TaskID           string
 	OriginPort       sim.Port
+	IsPrefetch       bool
 	AvailableWalkers int // The number of available walkers to handle the request
 }
 
@@ -156,6 +185,7 @@ type TranslationRspBuilder struct {
 	page             Page
 	taskID           string
 	origPort         sim.Port
+	isPrefetch       bool
 	availableWalkers int
 }
 
@@ -170,6 +200,13 @@ func (b TranslationRspBuilder) WithAvailableWalkers(
 // WithOriginPort sets the origin port of the respond to build.
 func (b TranslationRspBuilder) WithOriginPort(port sim.Port) TranslationRspBuilder {
 	b.origPort = port
+	return b
+}
+
+func (b TranslationRspBuilder) WithPrefetch(
+	isPrefetch bool,
+) TranslationRspBuilder {
+	b.isPrefetch = isPrefetch
 	return b
 }
 
@@ -221,6 +258,7 @@ func (b TranslationRspBuilder) Build() *TranslationRsp {
 	r.Page = b.page
 	r.TaskID = b.taskID
 	r.OriginPort = b.origPort
+	r.IsPrefetch = b.isPrefetch
 	r.AvailableWalkers = b.availableWalkers
 	return r
 }
@@ -446,5 +484,87 @@ func (b PageLoadMsgBuilder) Build() *PageLoadMsg {
 	r.OriginPort = b.origPort
 	r.TaskID = b.taskID
 	r.LocalFlag = b.localFlag
+	return r
+}
+
+type TranslationFinished struct {
+	sim.MsgMeta
+	PID              PID
+	VAddr            uint64
+	TranslatedBitmap [8]bool
+	TaskID           string
+}
+
+func (r *TranslationFinished) Meta() *sim.MsgMeta {
+	return &r.MsgMeta
+}
+
+type TranslationFinishedBuilder struct {
+	sendTime         sim.VTimeInSec
+	src, dst         sim.Port
+	vaddr            uint64
+	pID              PID
+	taskID           string
+	TranslatedBitmap [8]bool
+}
+
+func (b TranslationFinishedBuilder) WithTranslatedBitmap(
+	bitmap [8]bool,
+) TranslationFinishedBuilder {
+	b.TranslatedBitmap = bitmap
+	return b
+}
+
+func (b TranslationFinishedBuilder) WithSendTime(
+	t sim.VTimeInSec,
+) TranslationFinishedBuilder {
+	b.sendTime = t
+	return b
+}
+
+func (b TranslationFinishedBuilder) WithPID(
+	pID PID,
+) TranslationFinishedBuilder {
+	b.pID = pID
+	return b
+}
+
+func (b TranslationFinishedBuilder) WithSrc(
+	src sim.Port,
+) TranslationFinishedBuilder {
+	b.src = src
+	return b
+}
+func (b TranslationFinishedBuilder) WithDst(
+	dst sim.Port,
+) TranslationFinishedBuilder {
+	b.dst = dst
+	return b
+}
+
+func (b TranslationFinishedBuilder) WithVAddr(
+	VAddr uint64,
+) TranslationFinishedBuilder {
+	b.vaddr = VAddr
+	return b
+}
+
+func (b TranslationFinishedBuilder) WithTaskID(
+	taskID string,
+) TranslationFinishedBuilder {
+	b.taskID = taskID
+	return b
+}
+
+func (b TranslationFinishedBuilder) Build() *TranslationFinished {
+	r := &TranslationFinished{}
+	r.ID = sim.GetIDGenerator().Generate()
+	r.Src = b.src
+	r.Dst = b.dst
+	r.SendTime = b.sendTime
+	r.VAddr = b.vaddr
+	r.TaskID = b.taskID
+	r.PID = b.pID
+	r.TranslatedBitmap = b.TranslatedBitmap
 	return r
 }

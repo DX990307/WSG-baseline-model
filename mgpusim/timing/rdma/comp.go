@@ -6,7 +6,6 @@ import (
 	"reflect"
 
 	"github.com/sarchlab/akita/v3/mem/mem"
-	memtrace "github.com/sarchlab/akita/v3/mem/trace"
 	"github.com/sarchlab/akita/v3/sim"
 	"github.com/sarchlab/akita/v3/tracing"
 )
@@ -210,7 +209,6 @@ func (c *Comp) processReqFromL1(
 	cloned.Meta().Src = c.ToOutside
 	cloned.Meta().Dst = dst
 	cloned.Meta().SendTime = now
-	c.markReqAsRemote(cloned, dst)
 
 	err := c.ToOutside.Send(cloned)
 	if err == nil {
@@ -312,7 +310,6 @@ func (c *Comp) processRspFromOutside(
 		c.ToOutside.Retrieve(now)
 
 		c.traceInsideOutEnd(trans)
-		c.recordRemoteGPMAccess(now, trans, rsp)
 
 		//fmt.Printf("%s rsp outside %s -> inside %s\n",
 		//e.Name(), rsp.GetID(), rspToInside.GetID())
@@ -325,45 +322,6 @@ func (c *Comp) processRspFromOutside(
 	}
 
 	return false
-}
-
-func (c *Comp) recordRemoteGPMAccess(
-	now sim.VTimeInSec,
-	trans transaction,
-	rsp mem.AccessRsp,
-) {
-	if !memtrace.L2SourceStatsEnabled() {
-		return
-	}
-
-	var bytes uint64
-	op := "unknown"
-	switch rsp := rsp.(type) {
-	case *mem.DataReadyRsp:
-		bytes = uint64(len(rsp.Data))
-		op = "read"
-	case *mem.WriteDoneRsp:
-		if req, ok := trans.fromInside.(mem.AccessReq); ok {
-			bytes = req.GetByteSize()
-		}
-		op = "write"
-	default:
-		return
-	}
-
-	providerName := ""
-	if trans.toOutside != nil && trans.toOutside.Meta().Dst != nil {
-		providerName = trans.toOutside.Meta().Dst.Name()
-	}
-
-	memtrace.RecordRemoteGPMAccess(
-		c.Name(),
-		providerName,
-		bytes,
-		now-trans.fromInside.Meta().SendTime,
-		now,
-		op,
-	)
 }
 
 func (c *Comp) findTransactionByRspToID(
@@ -393,10 +351,7 @@ func (c *Comp) cloneReq(origin mem.AccessReq) mem.AccessReq {
 			WithDst(origin.Dst).
 			WithAddress(origin.Address).
 			WithByteSize(origin.AccessByteSize).
-			WithPID(origin.PID).
-			WithInfo(origin.Info).
 			Build()
-		read.CanWaitForCoalesce = origin.CanWaitForCoalesce
 		return read
 	case *mem.WriteReq:
 		write := mem.WriteReqBuilder{}.
@@ -406,34 +361,13 @@ func (c *Comp) cloneReq(origin mem.AccessReq) mem.AccessReq {
 			WithAddress(origin.Address).
 			WithData(origin.Data).
 			WithDirtyMask(origin.DirtyMask).
-			WithPID(origin.PID).
-			WithInfo(origin.Info).
 			Build()
-		write.CanWaitForCoalesce = origin.CanWaitForCoalesce
 		return write
 	default:
 		log.Panicf("cannot clone request of type %s",
 			reflect.TypeOf(origin))
 	}
 	return nil
-}
-
-func (c *Comp) markReqAsRemote(req mem.AccessReq, dst sim.Port) {
-	if !memtrace.L2SourceStatsEnabled() {
-		return
-	}
-
-	providerName := ""
-	if dst != nil {
-		providerName = dst.Name()
-	}
-
-	switch req := req.(type) {
-	case *mem.ReadReq:
-		req.Info = memtrace.WithL2RemoteInfo(req.Info, c.Name(), providerName)
-	case *mem.WriteReq:
-		req.Info = memtrace.WithL2RemoteInfo(req.Info, c.Name(), providerName)
-	}
 }
 
 func (c *Comp) cloneRsp(origin mem.AccessRsp, rspTo string) mem.AccessRsp {

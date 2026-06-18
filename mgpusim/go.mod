@@ -4,7 +4,6 @@ require (
 	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.16.0
 	github.com/golang/mock v1.6.0
-	github.com/google/btree v1.0.0
 	github.com/gorilla/mux v1.8.1
 	github.com/onsi/ginkgo/v2 v2.16.0
 	github.com/onsi/gomega v1.31.1

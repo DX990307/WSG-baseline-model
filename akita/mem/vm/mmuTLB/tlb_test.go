@@ -31,7 +31,7 @@ var _ = Describe("TLB", func() {
 
 		tlb = MakeBuilder().
 			WithEngine(engine).
-			WithLookupLatencyCycles(0).
+			WithPTCLReturnLatencyCycles(0).
 			Build("TLB")
 		tlb.topPort = topPort
 		tlb.bottomPort = bottomPort

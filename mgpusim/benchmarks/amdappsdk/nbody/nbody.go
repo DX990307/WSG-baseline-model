@@ -71,14 +71,18 @@ func NewBenchmark(driver *driver.Driver) *Benchmark {
 	b.espSqr = 500.0
 	b.exchange = true
 
+	b.normalizeNumBodies()
+
+	return b
+}
+
+func (b *Benchmark) normalizeNumBodies() {
 	if b.NumParticles < b.groupSize {
 		b.NumParticles = b.groupSize
 	}
 
 	b.NumParticles = (b.NumParticles / b.groupSize) * b.groupSize
 	b.numBodies = b.NumParticles
-
-	return b
 }
 
 // SelectGPU select GPU
@@ -107,6 +111,7 @@ func (b *Benchmark) Run() {
 		b.driver.SelectGPU(b.context, gpu)
 		b.queues = append(b.queues, b.driver.CreateCommandQueue(b.context))
 	}
+	b.normalizeNumBodies()
 	b.initMem()
 	b.exec()
 }

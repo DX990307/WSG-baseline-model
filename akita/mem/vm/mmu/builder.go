@@ -54,11 +54,6 @@ func (b Builder) WithGMMUCacheTable(gmmuCacheTable *mem.MultiPageFinder) Builder
 	return b
 }
 
-func (b Builder) WithL2TLBTable(l2TLBTable *mem.MultiPageFinder) Builder {
-	b.GMMUCacheTable = l2TLBTable
-	return b
-}
-
 func (b Builder) WithWalkCoalescing(enabled bool) Builder {
 	b.walkCoalescingEnabled = enabled
 	return b

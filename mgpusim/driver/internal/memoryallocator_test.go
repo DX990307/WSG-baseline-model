@@ -21,6 +21,10 @@ var _ = Describe("MemoryAllocatorImpl", func() {
 
 		allocator = NewMemoryAllocator(pageTable, 12).(*memoryAllocatorImpl)
 		configAFourGPUSystem(allocator)
+		pageTable.EXPECT().
+			GetLastPage(gomock.Any()).
+			Return(vm.Page{}, false).
+			AnyTimes()
 
 	})
 
@@ -31,12 +35,13 @@ var _ = Describe("MemoryAllocatorImpl", func() {
 	It("should allocate memory", func() {
 		pageTable.EXPECT().Insert(
 			vm.Page{
-				PID:      1,
-				PAddr:    0x1_0000_1000,
-				VAddr:    4096,
-				PageSize: 4096,
-				DeviceID: 1,
-				Valid:    true,
+				PID:       1,
+				PAddr:     0x1_0000_1000,
+				VAddr:     4096,
+				PageSize:  4096,
+				DeviceID:  1,
+				Valid:     true,
+				PageBlock: 1,
 			})
 
 		ptr := allocator.Allocate(1, 8, 1)
@@ -46,13 +51,14 @@ var _ = Describe("MemoryAllocatorImpl", func() {
 	It("should allocate unified memory", func() {
 		pageTable.EXPECT().Insert(
 			vm.Page{
-				PID:      1,
-				PAddr:    0x1_0000_1000,
-				VAddr:    4096,
-				PageSize: 4096,
-				DeviceID: 1,
-				Valid:    true,
-				Unified:  true,
+				PID:       1,
+				PAddr:     0x1_0000_1000,
+				VAddr:     4096,
+				PageSize:  4096,
+				DeviceID:  1,
+				Valid:     true,
+				Unified:   true,
+				PageBlock: 1,
 			})
 
 		ptr := allocator.AllocateUnified(1, 8)
@@ -63,12 +69,13 @@ var _ = Describe("MemoryAllocatorImpl", func() {
 		for i := uint64(0); i < 3; i++ {
 			pageTable.EXPECT().Insert(
 				vm.Page{
-					PID:      1,
-					PAddr:    0x1_0000_1000 + 0x1000*i,
-					VAddr:    4096 + 0x1000*i,
-					DeviceID: 1,
-					PageSize: 4096,
-					Valid:    true,
+					PID:       1,
+					PAddr:     0x1_0000_1000 + 0x1000*i,
+					VAddr:     4096 + 0x1000*i,
+					DeviceID:  1,
+					PageSize:  4096,
+					Valid:     true,
+					PageBlock: 1,
 				})
 		}
 
@@ -78,12 +85,13 @@ var _ = Describe("MemoryAllocatorImpl", func() {
 
 	It("should remap page to another device", func() {
 		page := vm.Page{
-			PID:      1,
-			PAddr:    0x1_0000_1000,
-			VAddr:    4096,
-			PageSize: 4096,
-			DeviceID: 1,
-			Valid:    true,
+			PID:       1,
+			PAddr:     0x1_0000_1000,
+			VAddr:     4096,
+			PageSize:  4096,
+			DeviceID:  1,
+			Valid:     true,
+			PageBlock: 1,
 		}
 		pageTable.EXPECT().Insert(page)
 		ptr := allocator.Allocate(1, 4000, 1)
@@ -91,6 +99,7 @@ var _ = Describe("MemoryAllocatorImpl", func() {
 		updatedPage := page
 		updatedPage.PAddr = 0x2_0000_1000
 		updatedPage.DeviceID = 2
+		updatedPage.PageBlock = 0
 		pageTable.EXPECT().Update(updatedPage)
 		allocator.Remap(1, ptr, 4000, 2)
 	})

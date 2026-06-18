@@ -352,8 +352,8 @@ func (o *Operator) LayerNorm(
 		Epsilon: 1e-5,
 	}
 	o.driver.LaunchKernel(o.ctx, o.layerNormKernel,
-		launch1DSize(rows*256),
-		[3]uint16{256, 1, 1},
+		launch1DSize(rows*hidden),
+		[3]uint16{64, 1, 1},
 		&args)
 	return out
 }

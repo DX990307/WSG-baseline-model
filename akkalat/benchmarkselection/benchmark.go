@@ -4,6 +4,7 @@ import (
 	"github.com/sarchlab/mgpusim/v3/benchmarks"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/LLMbenchmarks/bert"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/LLMbenchmarks/gpt"
+	"github.com/sarchlab/mgpusim/v3/benchmarks/LLMbenchmarks/inference"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/LLMbenchmarks/llmop"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/LLMbenchmarks/resnet"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/TensorParallelismSample/layer_benchmarks/conv2d"
@@ -25,10 +26,7 @@ import (
 	"github.com/sarchlab/mgpusim/v3/benchmarks/concurrentRunning/spmvmt"
 
 	// "github.com/sarchlab/mgpusim/v3/benchmarks/dnn/layer_benchmarks/conv2d"
-	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/layer_benchmarks/avgpooling"
-	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/layer_benchmarks/fulllayer"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/layer_benchmarks/im2col"
-	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/layer_benchmarks/maxpooling"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/layer_benchmarks/relu"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/training_benchmarks/lenet"
 	"github.com/sarchlab/mgpusim/v3/benchmarks/dnn/training_benchmarks/minerva"
@@ -48,13 +46,8 @@ import (
 )
 
 const (
-	// oneMiB = int(1024 * 1024 * 0.8)
-	oneMiB = 1024 * 800
-
-	// These sizes keep each standalone run around the 1GB footprint range.
-	// Some workloads need power-of-two or square dimensions, so "around" is
-	// intentionally a stability target instead of an exact byte count.
-	oneGBScale = 6
+	oneGiB = 1 << 30
+	oneMiB = 1 << 20
 )
 
 func SelectBenchmark(name string, driver *driver.Driver) benchmarks.Benchmark {
@@ -62,32 +55,30 @@ func SelectBenchmark(name string, driver *driver.Driver) benchmarks.Benchmark {
 	switch name {
 	case "aes":
 		aes := aes.NewBenchmark(driver)
-		aes.Length = oneMiB * 512
+		aes.Length = oneGiB
 		benchmark = aes
 	case "atax":
 		atax := atax.NewBenchmark(driver)
-		atax.NX = 12288
-		atax.NY = 12288
+		atax.NX = 4096
+		atax.NY = 4096
 		benchmark = atax
 	case "bicg":
 		bicg := bicg.NewBenchmark(driver)
-		bicg.NX = 12288
-		bicg.NY = 12288
+		bicg.NX = 4096 * 4
+		bicg.NY = 4096 * 4
 		benchmark = bicg
 	case "bitonicsort":
 		bitonicsort := bitonicsort.NewBenchmark(driver)
-		// Bitonic sort requires a power-of-two length. 64M is the
-		// closest practical size to the 6x 3x3-to-7x7 scaling target.
-		bitonicsort.Length = 1048576 * 64
+		bitonicsort.Length = oneGiB / 4
 		benchmark = bitonicsort
 	case "bert":
 		benchmark = bert.NewBenchmark(driver)
 	case "conv2d":
 		conv2d := conv2d.NewBenchmark(driver)
-		conv2d.N = 1
+		conv2d.N = 8 / 8
 		conv2d.C = 3
-		conv2d.H = 3072
-		conv2d.W = 3072
+		conv2d.H = 300 * 8
+		conv2d.W = 300 * 8
 		conv2d.KernelChannel = 3
 		conv2d.KernelHeight = 4
 		conv2d.KernelWidth = 4
@@ -96,116 +87,29 @@ func SelectBenchmark(name string, driver *driver.Driver) benchmarks.Benchmark {
 		conv2d.StrideX = 1
 		conv2d.StrideY = 1
 		benchmark = conv2d
-	case "maxpooling":
-		maxpooling := maxpooling.NewBenchmark(driver)
-		maxpooling.N = 1
-		maxpooling.C = 64
-		maxpooling.H = 112
-		maxpooling.W = 112
-		maxpooling.KernelHeight = 2
-		maxpooling.KernelWidth = 2
-		maxpooling.PadX = 0
-		maxpooling.PadY = 0
-		maxpooling.StrideX = 2
-		maxpooling.StrideY = 2
-		benchmark = maxpooling
-	case "avgpooling":
-		avgpooling := avgpooling.NewBenchmark(driver)
-		avgpooling.N = 1
-		avgpooling.C = 512
-		avgpooling.H = 7
-		avgpooling.W = 7
-		avgpooling.KernelHeight = 7
-		avgpooling.KernelWidth = 7
-		avgpooling.PadX = 0
-		avgpooling.PadY = 0
-		avgpooling.StrideX = 1
-		avgpooling.StrideY = 1
-		benchmark = avgpooling
-	case "fulllayer":
-		fulllayer := fulllayer.NewBenchmark(driver)
-		fulllayer.N = 1
-		fulllayer.InputDim = 1024
-		fulllayer.OutputDim = 100
-		benchmark = fulllayer
-	case "fulllayer-large":
-		fulllayer := fulllayer.NewBenchmark(driver)
-		// A runnable large full-layer case for Photon validation. It is
-		// much smaller than fulllayer-1gb but still has enough GEMM WGs:
-		// ceil(512/16) * ceil(4096/16) = 8192.
-		fulllayer.N = 512
-		fulllayer.InputDim = 4096
-		fulllayer.OutputDim = 4096
-		fulllayer.RandomizeParameters = false
-		benchmark = fulllayer
-	case "fulllayer-gemm-tiny":
-		fulllayer := fulllayer.NewBenchmark(driver)
-		// A tiny smoke-test case for checking whether the fully connected
-		// GEMM path completes at all. The old scalar GEMM kernel is very
-		// slow in timing simulation, so keep K small here.
-		// Compute: 1 * 128 * 128 = 16K MACs.
-		// GEMM workgroups: ceil(1/16) * ceil(128/16) = 8.
-		fulllayer.N = 1
-		fulllayer.InputDim = 4096
-		fulllayer.OutputDim = 4096
-		fulllayer.RandomizeParameters = false
-		benchmark = fulllayer
-	case "fulllayer-gemm-debug":
-		fulllayer := fulllayer.NewBenchmark(driver)
-		// A small full-layer case for debugging whether GEMM itself
-		// completes. Compute: 128 * 2048 * 2048 = 0.54B MACs.
-		// GEMM workgroups: ceil(128/16) * ceil(2048/16) = 1024.
-		fulllayer.N = 128
-		fulllayer.InputDim = 2048
-		fulllayer.OutputDim = 2048
-		fulllayer.RandomizeParameters = false
-		benchmark = fulllayer
-	case "fulllayer-7bcompute":
-		fulllayer := fulllayer.NewBenchmark(driver)
-		// LLaMA-7B-style decode does roughly 6.5B linear-layer MACs per
-		// generated token across all transformer layers. This single-GEMM
-		// proxy is close to that scale:
-		// 416 * 4096 * 4096 = 6.98B MACs.
-		// GEMM workgroups: ceil(416/16) * ceil(4096/16) = 6656.
-		fulllayer.N = 416
-		fulllayer.InputDim = 4096
-		fulllayer.OutputDim = 4096
-		fulllayer.RandomizeParameters = false
-		benchmark = fulllayer
-	case "fulllayer-1gb":
-		fulllayer := fulllayer.NewBenchmark(driver)
-		// This shape uses the generic fully connected layer path. Its
-		// persistent parameters and gradients are about 512MiB, while
-		// forward-time clone/reshape/GEMM temporaries push peak footprint
-		// close to 1GiB.
-		fulllayer.N = 1024
-		fulllayer.InputDim = 16384
-		fulllayer.OutputDim = 4096
-		fulllayer.RandomizeParameters = false
-		benchmark = fulllayer
 	case "fastwalshtransform":
 		fastwalshtransform := fastwalshtransform.NewBenchmark(driver)
-		fastwalshtransform.Length = 1048576 * 64
+		fastwalshtransform.Length = oneGiB / 4
 		benchmark = fastwalshtransform
 	case "fir":
 		fir := fir.NewBenchmark(driver)
-		fir.Length = oneMiB * 85
+		fir.Length = oneGiB / 8
 		benchmark = fir
 	case "fft":
 		fft := fft.NewBenchmark(driver)
-		fft.Bytes = 384
+		fft.Bytes = oneGiB
 		fft.Passes = 4
 		benchmark = fft
 	case "floydwarshall":
 		floydwarshall := floydwarshall.NewBenchmark(driver)
-		floydwarshall.NumNodes = 8192
+		floydwarshall.NumNodes = 11520
 		floydwarshall.NumIterations = 1
 		benchmark = floydwarshall
 	case "gpt":
 		benchmark = gpt.NewBenchmark(driver)
 	case "im2col":
 		im2col := im2col.NewBenchmark(driver)
-		im2col.N = 1
+		im2col.N = 16 / 8
 		im2col.C = 3
 		im2col.H = 2048
 		im2col.W = 2048
@@ -220,22 +124,23 @@ func SelectBenchmark(name string, driver *driver.Driver) benchmarks.Benchmark {
 		benchmark = im2col
 	case "kmeans":
 		kmeans := kmeans.NewBenchmark(driver)
-		kmeans.NumPoints = oneMiB * 4
-		kmeans.NumClusters = 8
-		kmeans.NumFeatures = 16
-		kmeans.MaxIter = 8
+		kmeans.NumPoints = 52 * oneMiB
+		kmeans.NumClusters = 8 / 4
+		kmeans.NumFeatures = 32 / 16
+		kmeans.MaxIter = 3 * 6
 		benchmark = kmeans
 	case "kvcache":
 		kvcache := kvcache.NewBenchmark(driver)
-		kvcache.NumLayers = 8
-		kvcache.NumHeads = 16
+		kvcache.NumLayers = 16
+		kvcache.NumHeads = 32
+		kvcache.NumKVHeads = 32
 		kvcache.SeqLen = 2048
 		kvcache.HeadDim = 128
 		kvcache.DecodeStep = 1
 		benchmark = kvcache
 	case "kvcache-decode":
 		kvcache := kvcache.NewDecodeBenchmark(driver)
-		kvcache.NumLayers = 32
+		kvcache.NumLayers = 16
 		kvcache.NumHeads = 32
 		kvcache.NumKVHeads = 32
 		kvcache.SeqLen = 2048
@@ -248,32 +153,41 @@ func SelectBenchmark(name string, driver *driver.Driver) benchmarks.Benchmark {
 		kvcache.NumLayers = 60
 		kvcache.NumHeads = 52
 		kvcache.NumKVHeads = 52
-		kvcache.SeqLen = 2048
+		kvcache.SeqLen = 384
 		kvcache.HeadDim = 128
 		kvcache.SeqBlock = 64
 		kvcache.DecodeStep = 1
 		benchmark = kvcache
+	case "llminference":
+		benchmark = inference.NewBenchmark(driver)
 	case "llmop":
 		benchmark = llmop.NewBenchmarkFromFlags(driver)
 	case "matrixmultiplication":
 		matrixmultiplication := matrixmultiplication.NewBenchmark(driver)
-		matrixmultiplication.X = 256
-		matrixmultiplication.Y = 2048 * 128
-		matrixmultiplication.Z = 256
+		matrixmultiplication.X = 2048 / 16
+		matrixmultiplication.Y = 2048 * 512
+		matrixmultiplication.Z = 2048 / 16
 		benchmark = matrixmultiplication
-	case "matrixmultiplication-middletile":
-		matrixmultiplication := matrixmultiplication.NewMiddleTileBenchmark(driver)
-		matrixmultiplication.X = 256
-		matrixmultiplication.Y = 2048 * 128
-		matrixmultiplication.Z = 256
+	case "matrixmultiplication-ptw":
+		matrixmultiplication := matrixmultiplication.NewBenchmark(driver)
+		// Keep the output footprint close to matrixmultiplication, but reduce
+		// the inner dimension to the kernel's one-loop minimum. This lowers
+		// compute reuse per translated page and makes page walks more visible.
+		matrixmultiplication.X = 32
+		matrixmultiplication.Y = 2048 * 512
+		matrixmultiplication.Z = 2048 / 16
+		benchmark = matrixmultiplication
+	case "matrixmultiplication-ptw-heavy":
+		matrixmultiplication := matrixmultiplication.NewBenchmark(driver)
+		// Heavier PTW stress: low compute reuse plus twice the C-matrix page
+		// footprint. Use this when the light PTW variant is still too muted.
+		matrixmultiplication.X = 32
+		matrixmultiplication.Y = 2048 * 512
+		matrixmultiplication.Z = 2048 / 8
 		benchmark = matrixmultiplication
 	case "matrixtranspose":
 		matrixtranspose := matrixtranspose.NewBenchmark(driver)
-		matrixtranspose.Width = 8192 * 2
-		benchmark = matrixtranspose
-	case "matrixtranspose-middletile":
-		matrixtranspose := matrixtranspose.NewMiddleTileBenchmark(driver)
-		matrixtranspose.Width = 8192 * 2
+		matrixtranspose.Width = 11520
 		benchmark = matrixtranspose
 	case "nbody":
 		nbody := nbody.NewBenchmark(driver)
@@ -282,37 +196,35 @@ func SelectBenchmark(name string, driver *driver.Driver) benchmarks.Benchmark {
 		benchmark = nbody
 	case "nw":
 		nw := nw.NewBenchmark(driver)
-		nw.SetLength(6144)
+		nw.SetLength(8192 * 2)
 		benchmark = nw
 	case "pagerank":
 		pagerank := pagerank.NewBenchmark(driver)
-		pagerank.NumNodes = oneMiB * 4
-		pagerank.NumConnections = oneMiB * 64
+		pagerank.NumNodes = 85 * oneMiB
+		pagerank.NumConnections = 1048576
 		pagerank.MaxIterations = 1
 		benchmark = pagerank
 	case "relu":
 		relu := relu.NewBenchmark(driver)
-		// relu.Length = 10485760 * 32
-		// relu.Length = 10485760 * 8
-		relu.Length = 10485760 * oneGBScale
+		relu.Length = oneGiB / 8
 		benchmark = relu
 	case "resnet":
 		benchmark = resnet.NewBenchmark(driver)
 	case "simpleconvolution":
 		simpleconvolution := simpleconvolution.NewBenchmark(driver)
 		simpleconvolution.Height = 2048
-		simpleconvolution.Width = 2048 * 16
+		simpleconvolution.Width = 2048 * 32
 		simpleconvolution.SetMaskSize(3)
 		benchmark = simpleconvolution
 	case "spmv":
 		spmv := spmv.NewBenchmark(driver)
-		spmv.Dim = 1024 * 1024 * 8
-		spmv.Sparsity = 8.0 / float64(spmv.Dim)
+		spmv.Dim = 85 * oneMiB
+		spmv.Sparsity = 0.000000001
 		benchmark = spmv
 	case "stencil2d":
 		stencil2d := stencil2d.NewBenchmark(driver)
-		stencil2d.NumRows = 8192
-		stencil2d.NumCols = 8192
+		stencil2d.NumRows = 4096 * 2
+		stencil2d.NumCols = 4096
 		stencil2d.NumIteration = 3
 		benchmark = stencil2d
 	case "lenet":

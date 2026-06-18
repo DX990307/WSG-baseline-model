@@ -6,6 +6,7 @@ import (
 
 	"github.com/sarchlab/akita/v3/mem/mem"
 	"github.com/sarchlab/akita/v3/mem/vm"
+	"github.com/sarchlab/akita/v3/mem/vm/translationtrace"
 	"github.com/sarchlab/akita/v3/sim"
 	"github.com/sarchlab/akita/v3/tracing"
 )
@@ -71,7 +72,28 @@ func (mmu *MMU) Tick(now sim.VTimeInSec) bool {
 	madeProgress = mmu.walkPageTable(now) || madeProgress
 	madeProgress = mmu.processMigrationReturn(now) || madeProgress
 
+	translationtrace.ObserveSharedMMU(
+		now,
+		mmu.Name(),
+		len(mmu.walkingTranslations),
+		mmu.maxRequestsInFlight,
+		len(mmu.PWqueue),
+		len(mmu.walkingTranslations) >= mmu.maxRequestsInFlight,
+	)
+
 	return madeProgress
+}
+
+func (mmu *MMU) HasFreePTW() bool {
+	return len(mmu.walkingTranslations) < mmu.maxRequestsInFlight
+}
+
+func (mmu *MMU) PTWInflight() int {
+	return len(mmu.walkingTranslations)
+}
+
+func (mmu *MMU) PTWCapacity() int {
+	return mmu.maxRequestsInFlight
 }
 
 func (mmu *MMU) walkPageTable(now sim.VTimeInSec) bool {
@@ -127,6 +149,10 @@ func (mmu *MMU) doPageWalkHit(
 	walkingIndex int,
 ) bool {
 	walking := mmu.walkingTranslations[walkingIndex]
+	if mmu.hasBitmap(walking.req.BitMap) {
+		return mmu.doPTCLPageWalkHit(now, walkingIndex)
+	}
+
 	madeProgress := false
 
 	if !mmu.topSender.CanSend(1) {
@@ -141,6 +167,7 @@ func (mmu *MMU) doPageWalkHit(
 		WithPage(walking.page).
 		WithTaskID(walking.req.TaskID).
 		WithOriginPort(walking.req.OriginPort).
+		WithPrefetch(walking.req.IsPrefetch).
 		Build()
 
 	if !mmu.topSender.CanSend(1) {
@@ -157,6 +184,21 @@ func (mmu *MMU) doPageWalkHit(
 	tracing.TraceReqComplete(walking.req, mmu)
 
 	return madeProgress
+}
+
+func (mmu *MMU) doPTCLPageWalkHit(
+	now sim.VTimeInSec,
+	walkingIndex int,
+) bool {
+	walking := mmu.walkingTranslations[walkingIndex]
+	if !mmu.sendPTCLResponses(now, walking.req) {
+		return false
+	}
+
+	mmu.toRemoveFromPTW = append(mmu.toRemoveFromPTW, walkingIndex)
+	tracing.TraceReqComplete(walking.req, mmu)
+
+	return true
 }
 
 func (mmu *MMU) addTransactionToMigrationQueue(walkingIndex int) bool {
@@ -176,6 +218,10 @@ func (mmu *MMU) addTransactionToMigrationQueue(walkingIndex int) bool {
 }
 
 func (mmu *MMU) pageNeedMigrate(walking transaction) bool {
+	if walking.req.IsPrefetch {
+		return false
+	}
+
 	if walking.req.DeviceID == walking.page.DeviceID {
 		return false
 	}
@@ -280,6 +326,10 @@ func (mmu *MMU) sendTranlationRsp(
 	trans transaction,
 ) (madeProgress bool) {
 	req := trans.req
+	if mmu.hasBitmap(req.BitMap) {
+		return mmu.sendPTCLResponses(now, req)
+	}
+
 	page := trans.page
 
 	rsp := vm.TranslationRspBuilder{}.
@@ -310,14 +360,20 @@ func (mmu *MMU) processMigrationReturn(now sim.VTimeInSec) bool {
 		panic("page not found")
 	}
 
-	rsp := vm.TranslationRspBuilder{}.
-		WithSendTime(now).
-		WithSrc(mmu.topPort).
-		WithDst(req.OriginPort).
-		WithRspTo(req.ID).
-		WithPage(page).
-		Build()
-	mmu.topSender.Send(rsp)
+	if mmu.hasBitmap(req.BitMap) {
+		if !mmu.sendPTCLResponses(now, req) {
+			return false
+		}
+	} else {
+		rsp := vm.TranslationRspBuilder{}.
+			WithSendTime(now).
+			WithSrc(mmu.topPort).
+			WithDst(req.OriginPort).
+			WithRspTo(req.ID).
+			WithPage(page).
+			Build()
+		mmu.topSender.Send(rsp)
+	}
 
 	mmu.isDoingMigration = false
 
@@ -362,6 +418,9 @@ func (mmu *MMU) parseFromTop(now sim.VTimeInSec) bool {
 
 		mmu.PWqueue = append(mmu.PWqueue, PWqueue{req: req})
 		mmu.topPort.Retrieve(now)
+		if !req.IsPrefetch {
+			translationtrace.BeginStage(req.ID, "shared_mmu_pwqueue_wait", now)
+		}
 
 		mmu.mockBuffer = mmu.mockBuffer[1:]
 		tracing.TraceReqReceive(req, mmu)
@@ -395,7 +454,14 @@ func (mmu *MMU) processTranslationReqs(now sim.VTimeInSec) bool {
 
 		tracing.TraceReqReceive(pw.req, mmu)
 
-		mmu.startWalking(pw.req, pw.req.TransLatency)
+		// switch req := pw.req.(type) {
+		// case *vm.TranslationReq:
+		// 	mmu.startWalking(req)
+		// default:
+		// 	log.Panicf("MMU canot handle request of type %s", reflect.TypeOf(req))
+		// }
+
+		mmu.startWalking(pw.req, mmu.coalescedUpperLatency(pw.req), now)
 		madeProgress = true
 
 		if len(mmu.walkingTranslations) >= mmu.maxRequestsInFlight {
@@ -406,7 +472,11 @@ func (mmu *MMU) processTranslationReqs(now sim.VTimeInSec) bool {
 	return madeProgress
 }
 
-func (mmu *MMU) startWalking(req *vm.TranslationReq, upperLatency uint64) {
+func (mmu *MMU) startWalking(
+	req *vm.TranslationReq,
+	upperLatency uint64,
+	now sim.VTimeInSec,
+) {
 	l := upperLatency + 100
 
 	translationInPipeline := transaction{
@@ -415,10 +485,99 @@ func (mmu *MMU) startWalking(req *vm.TranslationReq, upperLatency uint64) {
 	}
 
 	mmu.walkingTranslations = append(mmu.walkingTranslations, translationInPipeline)
+	if req != nil && !req.IsPrefetch {
+		translationtrace.EndStage(req.ID, "shared_mmu_pwqueue_wait", now)
+		translationtrace.AddStageCycles(
+			req.ID,
+			"shared_mmu_ptw_service",
+			l,
+		)
+	}
+}
+
+func (mmu *MMU) hasBitmap(bitmap [8]bool) bool {
+	for i := 0; i < 8; i++ {
+		if bitmap[i] {
+			return true
+		}
+	}
+	return false
 }
 
 func (mmu *MMU) lookupRequestPage(req *vm.TranslationReq) (vm.Page, bool) {
-	return mmu.pageTable.Find(req.PID, req.VAddr)
+	if !mmu.hasBitmap(req.BitMap) {
+		return mmu.pageTable.Find(req.PID, req.VAddr)
+	}
+
+	baseVAddr := mmu.getBaseVAddr(req.VAddr)
+	for i := 0; i < 8; i++ {
+		if !req.BitMap[i] {
+			continue
+		}
+
+		pageVAddr := baseVAddr + (uint64(i) << mmu.log2PageSize)
+		page, found := mmu.pageTable.Find(req.PID, pageVAddr)
+		if found {
+			return page, true
+		}
+	}
+
+	return vm.Page{}, false
+}
+
+func (mmu *MMU) collectRequestedPages(req *vm.TranslationReq) []vm.Page {
+	baseVAddr := mmu.getBaseVAddr(req.VAddr)
+	pages := make([]vm.Page, 0, 8)
+
+	for i := 0; i < 8; i++ {
+		if !req.BitMap[i] {
+			continue
+		}
+
+		pageVAddr := baseVAddr + (uint64(i) << mmu.log2PageSize)
+		page, found := mmu.pageTable.Find(req.PID, pageVAddr)
+		if !found {
+			panic("requested ptcl page not found")
+		}
+
+		pages = append(pages, page)
+	}
+
+	return pages
+}
+
+func (mmu *MMU) sendPTCLResponses(now sim.VTimeInSec, req *vm.TranslationReq) bool {
+	pages := mmu.collectRequestedPages(req)
+	if len(pages) == 0 {
+		panic("ptcl walk returned no requested pages")
+	}
+
+	if !mmu.topSender.CanSend(len(pages)) {
+		return false
+	}
+
+	for _, page := range pages {
+		rsp := vm.TranslationRspBuilder{}.
+			WithSendTime(now).
+			WithSrc(mmu.topPort).
+			WithDst(req.Src).
+			WithRspTo(req.ID).
+			WithPage(page).
+			WithTaskID(req.TaskID).
+			WithOriginPort(req.OriginPort).
+			WithPrefetch(req.IsPrefetch).
+			Build()
+
+		mmu.topSender.Send(rsp)
+	}
+
+	return true
+}
+
+func (mmu *MMU) getBaseVAddr(vAddr uint64) uint64 {
+	vpn := vAddr >> mmu.log2PageSize
+	baseVPN := (vpn >> 3) << 3
+	return baseVPN << mmu.log2PageSize
 }
 
 func (mmu *MMU) toRemove(index int) bool {
@@ -444,22 +603,93 @@ func unique(intSlice []uint64) []uint64 {
 }
 
 func (mmu *MMU) sendToGMMU(now sim.VTimeInSec, walking transaction) bool {
-	if !mmu.topSender.CanSend(1) {
-		return false
+	madeProgress := false
+
+	cacheLine := mmu.getCacheLine(walking.req.VAddr)
+
+	for i := 0; i < 8; i++ {
+		vpn := cacheLine[i]
+		newVAddr := vpn << mmu.log2PageSize
+
+		page, found := mmu.pageTable.Find(walking.req.PID, newVAddr)
+		if !found {
+			page = vm.Page{
+				PID:      walking.req.PID,
+				VAddr:    newVAddr,
+				Valid:    false,
+				IsPinned: false,
+			}
+		}
+
+		taskID := sim.GetIDGenerator().Generate()
+
+		rsp := vm.TranslationRspBuilder{}.
+			WithSendTime(now).
+			WithSrc(mmu.topPort).
+			WithDst(mmu.TopModule).
+			WithPage(page).
+			WithOriginPort(walking.req.OriginPort).
+			WithPrefetch(walking.req.IsPrefetch).
+			WithTaskID(taskID).
+			Build()
+
+		if !mmu.topSender.CanSend(1) {
+			return madeProgress
+		}
+		mmu.topSender.Send(rsp)
+		madeProgress = true
+
+		// fmt.Printf("sendToGMMU %d\n", page.VAddr>>12)
+	}
+	return madeProgress
+}
+
+func (mmu *MMU) getCacheLine(vaddr uint64) []uint64 {
+	currentVPN := vaddr >> mmu.log2PageSize
+	// baseVPN := currentVPN &^ 0x8 // 8 entries per cache line
+	baseVPN := currentVPN &^ 0x7 // 8 entries per cache line
+	return []uint64{baseVPN, baseVPN + 1, baseVPN + 2, baseVPN + 3, baseVPN + 4, baseVPN + 5, baseVPN + 6, baseVPN + 7}
+}
+
+func (mmu *MMU) isInTheSameLastLevel(vAddr1, vAddr2 uint64) bool {
+	baseVPN1 := (vAddr1 >> mmu.log2PageSize)
+	baseVPN2 := (vAddr2 >> mmu.log2PageSize)
+
+	baseLastLevel1 := baseVPN1 >> 6
+	baseLastLevel2 := baseVPN2 >> 6
+
+	return baseLastLevel1 == baseLastLevel2
+}
+
+func (mmu *MMU) isInTheSameTwoLevels(vAddr1, vAddr2 uint64) bool {
+	baseVPN1 := vAddr1 >> mmu.log2PageSize
+	baseVPN2 := vAddr2 >> mmu.log2PageSize
+
+	return (baseVPN1 >> 12) == (baseVPN2 >> 12)
+}
+
+func (mmu *MMU) coalescedUpperLatency(req *vm.TranslationReq) uint64 {
+	upperLatency := req.TransLatency
+	if !mmu.walkCoalescingEnabled {
+		return upperLatency
 	}
 
-	taskID := sim.GetIDGenerator().Generate()
+	for _, walking := range mmu.walkingTranslations {
+		if walking.req == nil || walking.req.PID != req.PID {
+			continue
+		}
 
-	rsp := vm.TranslationRspBuilder{}.
-		WithSendTime(now).
-		WithSrc(mmu.topPort).
-		WithDst(mmu.TopModule).
-		WithPage(walking.page).
-		WithOriginPort(walking.req.OriginPort).
-		WithTaskID(taskID).
-		Build()
+		if mmu.isInTheSameLastLevel(req.VAddr, walking.req.VAddr) {
+			mmu.lastLevelCoalescedCount++
+			return 0
+		}
 
-	mmu.topSender.Send(rsp)
+		if mmu.isInTheSameTwoLevels(req.VAddr, walking.req.VAddr) &&
+			upperLatency > 100 {
+			mmu.twoLevelCoalescedCount++
+			upperLatency = 100
+		}
+	}
 
-	return true
+	return upperLatency
 }

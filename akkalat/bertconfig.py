@@ -38,6 +38,14 @@ PROFILES = {
         "layers": 24,
         "intermediate": 4096,
     },
+	"bert-7b-proxy": {
+		"batch": 1,
+		"seq_len": 5120,
+		"hidden": 4096,
+        "heads": 32,
+        "layers": 32,
+        "intermediate": 11008,
+    },
 }
 
 

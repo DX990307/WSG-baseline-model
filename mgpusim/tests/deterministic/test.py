@@ -17,7 +17,7 @@ cases = [
 def compile(dir):
     """Get into the test case directory and run `go build`."""
     os.chdir(dir)
-    subprocess.check_call(["go build -buildvcs=false"], shell=True)
+    subprocess.check_call(["go build"], shell=True)
     os.chdir(cwd)
 
 

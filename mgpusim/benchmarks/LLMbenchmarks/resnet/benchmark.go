@@ -21,7 +21,7 @@ var (
 	batchSizeFlag = flag.Int(
 		"resnet-batch-size", 1, "ResNet synthetic batch size.")
 	imageSizeFlag = flag.Int(
-		"resnet-image-size", 32, "ResNet synthetic square image size.")
+		"resnet-image-size", 528, "ResNet synthetic square image size.")
 	logSubtasksFlag = flag.Bool(
 		"resnet-log-subtasks", false, "Print ResNet subtask progress.")
 )

@@ -8,21 +8,30 @@ import (
 
 // A Builder can build TLBs
 type Builder struct {
-	engine              sim.Engine
-	freq                sim.Freq
-	numReqPerCycle      int
-	numSets             int
-	numWays             int
-	pageSize            uint64
-	log2PageSize        uint64
-	lowModule           sim.Port
-	numMSHREntry        int
-	mshrEntryDepth      int
-	isPrediction        bool
-	bloomFilterSize     int
-	gmmuCacheTable      *mem.MultiPageFinder
-	pagetable           vm.PageTable
-	lookupLatencyCycles int
+	engine                      sim.Engine
+	freq                        sim.Freq
+	numReqPerCycle              int
+	numSets                     int
+	numWays                     int
+	pageSize                    uint64
+	log2PageSize                uint64
+	lowModule                   sim.Port
+	numMSHREntry                int
+	mshrEntryDepth              int
+	isPrediction                bool
+	bloomFilterSize             int
+	gmmuCacheTable              *mem.MultiPageFinder
+	pagetable                   vm.PageTable
+	perVPNMSHRBaseline          bool
+	demandPTEOnly               bool
+	setAsLineTLBEnabled         bool
+	lookupLatencyCycles         int
+	prefetchEnabled             bool
+	prefetchDemandPTCLReturn    bool
+	prefetchAdmissionThreshold  int
+	prefetchMaxLearners         int
+	prefetchLookahead           int
+	prefetchMaxCandidatesPerReq int
 
 	maxInflightTransactions int
 	inflightTransactions    int
@@ -32,20 +41,24 @@ type Builder struct {
 // MakeBuilder returns a Builder
 func MakeBuilder() Builder {
 	return Builder{
-		freq:                    1 * sim.GHz,
-		numReqPerCycle:          4,
-		numSets:                 1,
-		numWays:                 32,
-		pageSize:                4096,
-		numMSHREntry:            64,
-		mshrEntryDepth:          64,
-		isPrediction:            false,
-		bloomFilterSize:         64,
-		maxInflightTransactions: 17,
-		inflightTransactions:    0,
-		log2PageSize:            12,
-		translationRequests:     make(map[uint64]map[vm.PID]*vm.TranslationReq),
-		lookupLatencyCycles:     80,
+		freq:                        1 * sim.GHz,
+		numReqPerCycle:              4,
+		numSets:                     1,
+		numWays:                     32,
+		pageSize:                    4096,
+		numMSHREntry:                64,
+		mshrEntryDepth:              64,
+		isPrediction:                false,
+		bloomFilterSize:             64,
+		maxInflightTransactions:     17,
+		inflightTransactions:        0,
+		log2PageSize:                12,
+		translationRequests:         make(map[uint64]map[vm.PID]*vm.TranslationReq),
+		lookupLatencyCycles:         80,
+		prefetchAdmissionThreshold:  6,
+		prefetchMaxLearners:         4,
+		prefetchLookahead:           2,
+		prefetchMaxCandidatesPerReq: 4,
 	}
 }
 
@@ -69,13 +82,58 @@ func (b Builder) WithGMMUCacheTable(gmmuCacheTable *mem.MultiPageFinder) Builder
 	return b
 }
 
-func (b Builder) WithL2TLBTable(l2TLBTable *mem.MultiPageFinder) Builder {
-	b.gmmuCacheTable = l2TLBTable
+func (b Builder) WithTranslationPrefetcher(enabled bool) Builder {
+	b.prefetchEnabled = enabled
+	return b
+}
+
+func (b Builder) WithDemandPTEOnly(enabled bool) Builder {
+	b.demandPTEOnly = enabled
+	return b
+}
+
+func (b Builder) WithSetAsLineTLB(enabled bool) Builder {
+	b.setAsLineTLBEnabled = enabled
+	return b
+}
+
+func (b Builder) WithPTCLReturnLatencyCycles(cycles int) Builder {
+	b.lookupLatencyCycles = cycles
 	return b
 }
 
 func (b Builder) WithLookupLatencyCycles(cycles int) Builder {
 	b.lookupLatencyCycles = cycles
+	return b
+}
+
+func (b Builder) WithPerVPNMSHRBaseline(enabled bool) Builder {
+	b.perVPNMSHRBaseline = enabled
+	return b
+}
+
+func (b Builder) WithPrefetchDemandPTCLReturn(enabled bool) Builder {
+	b.prefetchDemandPTCLReturn = enabled
+	return b
+}
+
+func (b Builder) WithPrefetchAdmissionThreshold(threshold int) Builder {
+	b.prefetchAdmissionThreshold = threshold
+	return b
+}
+
+func (b Builder) WithPrefetchMaxLearners(maxLearners int) Builder {
+	b.prefetchMaxLearners = maxLearners
+	return b
+}
+
+func (b Builder) WithPrefetchLookahead(lookahead int) Builder {
+	b.prefetchLookahead = lookahead
+	return b
+}
+
+func (b Builder) WithPrefetchMaxCandidatesPerReq(limit int) Builder {
+	b.prefetchMaxCandidatesPerReq = limit
 	return b
 }
 
@@ -156,12 +214,35 @@ func (b Builder) Build(name string) *TLB {
 	tlb.gmmuCacheTable = b.gmmuCacheTable
 	tlb.log2PageSize = b.log2PageSize
 	tlb.pageTable = b.pagetable
+	tlb.vpnMSHRBaseline = b.perVPNMSHRBaseline
+	tlb.demandPTEOnly = b.demandPTEOnly
+	tlb.setAsLineTLBEnabled = b.setAsLineTLBEnabled
 	tlb.lookupLatencyCycles = b.lookupLatencyCycles
+	tlb.prefetcher = newTranslationPrefetcher(
+		b.prefetchEnabled,
+		b.prefetchDemandPTCLReturn,
+		b.prefetchAdmissionThreshold,
+		b.prefetchMaxLearners,
+		b.prefetchLookahead,
+		b.prefetchMaxCandidatesPerReq,
+	)
+	tlb.inflightPrefetches = make(map[prefetchTargetKey]struct{})
+	tlb.prefetchReqStates = make(map[string]*prefetchReqState)
+	tlb.completedPrefetches = make(map[prefetchTargetKey]*completedPrefetchState)
+	tlb.inflightPrefetchStateByKey = make(map[prefetchTargetKey]*prefetchReqState)
+	tlb.prefetchOutcomeByBlock = make(map[uint64]*prefetchOutcomeCounts)
+	tlb.prefetchFeedbackByTarget = make(map[prefetchFeedbackKey]*prefetchFeedbackCounters)
 	tlb.lookupReadyTimes = make(map[string]sim.VTimeInSec)
+
+	if b.isPrediction {
+		tlb.BloomFilter = NewBloomFilter(b.bloomFilterSize)
+	}
 
 	tlb.mshr = newMSHR(
 		b.numMSHREntry,
 		b.mshrEntryDepth,
+		b.log2PageSize,
+		b.perVPNMSHRBaseline,
 	)
 
 	b.createPorts(name, tlb)

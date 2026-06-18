@@ -6,12 +6,10 @@ its own benchmark process, and the per-op metrics can be summed afterward.
 """
 
 import argparse
-import concurrent.futures
 import csv
+from dataclasses import dataclass
 from pathlib import Path
 import shlex
-import subprocess
-import sys
 
 import bertconfig
 import gptconfig
@@ -22,22 +20,98 @@ CONFIG_FLAGS = {name: flags for name, flags in runall2.CONFIGS}
 PROFILE_NAMES = sorted(set(bertconfig.PROFILES) | set(gptconfig.PROFILES))
 
 
+@dataclass
+class ResultID:
+    target: str
+    benchmark: str
+    model: str
+    profile: str
+    op_index: int
+    op_name: str
+    config: str
+
+
+@dataclass
+class MetricRecord:
+    result_id: ResultID
+    metrics_path: Path
+    stdout_path: Path
+    driver_kernel_time: float = 0.0
+    driver_total_time: float = 0.0
+    command_processor_kernel_time: float = 0.0
+    max_command_processor_kernel_time: float = 0.0
+    stdout_elapsed_seconds: float = 0.0
+    return_code: str = ""
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Run decomposed BERT/GPT through the llmop benchmark.")
     parser.add_argument("--model", choices=["bert", "gpt"], default="bert")
     parser.add_argument(
+        "--target",
+        default="400latency",
+        help="akkalat target binary to run. Default: 400latency.",
+    )
+    parser.add_argument(
         "--profile", choices=PROFILE_NAMES, default="tiny")
     parser.add_argument(
         "--configs", default="baseline",
-        help="Comma-separated runall2 configs, e.g. baseline,sample_all_loop.")
+        help=(
+            "Comma-separated configs. Supports Photon configs such as "
+            "baseline,sample_all_loop and PTCL configs such as "
+            "baseline,ptcl_mode,camsat."
+        ))
+    parser.add_argument(
+        "--timeout-minutes",
+        type=float,
+        default=runall2.DEFAULT_TIMEOUT_MINUTES,
+        help="Kill an operator experiment after this many minutes. 0 disables timeout.")
+    parser.add_argument(
+        "--adaptive-threshold-low",
+        type=int,
+        default=runall2.DEFAULT_ADAPTIVE_LOW,
+        help="Low threshold for adaptive PTCL configs.")
+    parser.add_argument(
+        "--adaptive-threshold-high",
+        type=int,
+        default=runall2.DEFAULT_ADAPTIVE_HIGH,
+        help="High threshold for adaptive PTCL configs.")
     parser.add_argument("--max-workers", type=int, default=1)
+    parser.add_argument(
+        "--max-workloads",
+        type=int,
+        default=runall2.DEFAULT_MAX_WORKLOADS,
+        help="Hard cap on concurrently running decomposed operator workloads.")
+    parser.add_argument(
+        "--min-free-ram-gb",
+        type=float,
+        default=runall2.DEFAULT_MIN_FREE_RAM_GB,
+        help="Minimum MemAvailable, in GiB, required before launching an operator.")
+    parser.add_argument(
+        "--memory-scan-interval-minutes",
+        type=float,
+        default=runall2.DEFAULT_MEMORY_SCAN_INTERVAL_MINUTES,
+        help="How often to check MemAvailable after initial fill.")
     parser.add_argument(
         "--limit", type=int, default=0,
         help="Run only the first N ops. 0 means all ops.")
     parser.add_argument(
         "--layers", type=int, default=0,
         help="Override the profile layer count. 0 uses the profile default.")
+    parser.add_argument(
+        "--seq-len",
+        type=int,
+        default=0,
+        help="Override the profile sequence length. 0 uses the profile default.")
+    parser.add_argument(
+        "--max-wg",
+        type=int,
+        default=None,
+        help=(
+            "Pass -max-wg to each decomposed llmop benchmark. "
+            "Default uses runall2.py's cap. Use 0 to disable."
+        ))
     parser.add_argument(
         "--split-k", default="1",
         help=(
@@ -55,6 +129,17 @@ def parse_args():
         help="Maximum per-op split count used by --split-k auto.")
     parser.add_argument("--sampled-warmup", type=int, default=128)
     parser.add_argument("--sampled-granularity", type=int, default=512)
+    parser.add_argument(
+        "--photon",
+        dest="photon",
+        action="store_true",
+        default=True,
+        help="Enable Photon sampled execution for decomposed ops by default.")
+    parser.add_argument(
+        "--no-photon",
+        dest="photon",
+        action="store_false",
+        help="Disable default Photon sampled execution.")
     parser.add_argument("--log-subtasks", action="store_true")
     parser.add_argument(
         "--include-transfers", action="store_true",
@@ -70,10 +155,10 @@ def parse_args():
         help="Page size log2 used for per-GPU output-memory estimates.")
     parser.add_argument(
         "--summarize", action="store_true",
-        help="Run summarize_llm_decomposed.py after all ops finish.")
+        help="Write decomposed summary CSVs after all ops finish.")
     parser.add_argument(
         "--enable-servers", action="store_true",
-        help="Do not pass -disable-servers to the benchmark binary.")
+        help="Deprecated no-op. Servers are always left enabled.")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -89,6 +174,140 @@ def config_flags(name, args):
             f"-sampled-granularity={args.sampled_granularity}",
         ]
     return flags
+
+
+def benchmark_flags(args):
+    if args.max_wg is not None:
+        if args.max_wg <= 0:
+            return []
+        return [f"-max-wg={args.max_wg}"]
+    return runall2.DEFAULT_BENCHMARK_FLAGS[:]
+
+
+def has_photon_flags(flags):
+    photon_flags = {
+        "-sampled",
+        "-branch-sampled",
+        "-kernel-sampled",
+        "-loop-sampled",
+    }
+    return any(
+        flag in photon_flags
+        or flag.startswith("-sampled-warmup=")
+        or flag.startswith("-sampled-granularity=")
+        for flag in flags
+    )
+
+
+def default_photon_flags(args):
+    if not args.photon:
+        return []
+    return [
+        "-sampled",
+        "-branch-sampled",
+        "-kernel-sampled",
+        "-loop-sampled",
+        f"-sampled-warmup={args.sampled_warmup}",
+        f"-sampled-granularity={args.sampled_granularity}",
+    ]
+
+
+def add_default_photon_flags(args, flags):
+    if has_photon_flags(flags):
+        return flags
+    return flags + default_photon_flags(args)
+
+
+def parse_csv(value):
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def adaptive_flags(args):
+    low = args.adaptive_threshold_low
+    high = args.adaptive_threshold_high
+    if low > high:
+        low, high = high, low
+    return [
+        "-gmmu-initial-ptcl-mode=false",
+        f"-gmmu-ptcl-threshold-low={low}",
+        f"-gmmu-ptcl-threshold-high={high}",
+    ]
+
+
+def ptcl_config_map(args):
+    adaptive = adaptive_flags(args)
+    return {
+        "baseline": runall2.VPN_MSHR_BASELINE_FLAGS[:],
+        "gmmu_prefetch": (
+            runall2.VPN_MSHR_BASELINE_FLAGS[:] + runall2.GMMU_PREFETCH_FLAGS[:]
+        ),
+        "ptcl_mode": adaptive,
+        "pasta": adaptive + runall2.GMMU_PREFETCH_FLAGS[:],
+        "coalescing": (
+            runall2.VPN_MSHR_BASELINE_FLAGS[:] + runall2.COALESCING_FLAGS[:]
+        ),
+        "camsat": adaptive + runall2.COALESCING_FLAGS[:],
+    }
+
+
+def unique_preserving_config_names(configs):
+    seen = set()
+    unique = []
+    for name, flags in configs:
+        if name in seen:
+            continue
+        seen.add(name)
+        unique.append((name, flags))
+    return unique
+
+
+def selected_config_flags(args, op_flags):
+    requested = parse_csv(args.configs) or ["baseline"]
+    ptcl_configs = ptcl_config_map(args)
+    selected = []
+    explicit_ptcl = any(
+        name == "ptcl_all" or (name in ptcl_configs and name != "baseline")
+        for name in requested
+    )
+
+    for name in requested:
+        if name == "ptcl_all":
+            selected += [
+                (config_name, ptcl_configs[config_name])
+                for config_name in runall2.PTCL_CONFIG_NAMES
+            ]
+            continue
+
+        if name in ("all", "photon_all"):
+            selected += [
+                (config_name, config_flags(config_name, args))
+                for config_name, _ in runall2.CONFIGS
+            ]
+            continue
+
+        if name == "baseline" and explicit_ptcl:
+            selected.append(("baseline", ptcl_configs["baseline"]))
+            continue
+
+        if name in ptcl_configs and name != "baseline":
+            selected.append((name, ptcl_configs[name]))
+            continue
+
+        actual_name = llm_mixed_config_name(name, op_flags)
+        if actual_name in CONFIG_FLAGS:
+            selected.append((name, config_flags(actual_name, args)))
+            continue
+
+        allowed = sorted(
+            set(CONFIG_FLAGS)
+            | set(ptcl_configs)
+            | {"llm_mixed", "ptcl_all", "photon_all", "all"}
+        )
+        raise ValueError(
+            f"unknown config: {name}. Allowed: {', '.join(allowed)}"
+        )
+
+    return unique_preserving_config_names(selected)
 
 
 def op_kind(flags):
@@ -218,7 +437,7 @@ def estimated_wg(flags):
     if op == "embedding":
         return ceil_div(rows * hidden, 64)
     if op == "layernorm":
-        return rows
+        return ceil_div(rows * hidden, 64)
     if op in {"linear", "split-linear", "mlp"}:
         output_dim = int_flag(flags, "output-dim")
         split_k = int_flag(flags, "split-k", 1)
@@ -481,24 +700,27 @@ def build_exps(args, ops=None):
     if ops is None:
         ops = prepare_ops(args)
 
-    common_flags = runall2.BASE_COMMON_FLAGS[:] + [
-        f"-mmutlb-lookup-latency={runall2.DEFAULT_MMUTLB_LOOKUP_LATENCY}",
-    ]
-    if not args.enable_servers:
-        common_flags.append("-disable-servers")
-
+    common_flags = runall2.BASE_COMMON_FLAGS[:]
+    if args.target == "400latency":
+        common_flags.append(
+            f"-mmutlb-ptcl-return-latency={runall2.DEFAULT_MMUTLB_PTCL_RETURN_LATENCY}"
+        )
+        common_flags.append(
+            f"-gmmu-pte-lookup-latency={runall2.DEFAULT_GMMU_PTE_LOOKUP_LATENCY}"
+        )
+    else:
+        common_flags.append(
+            f"-mmutlb-lookup-latency={runall2.DEFAULT_MMUTLB_LOOKUP_LATENCY}"
+        )
     exps = []
     for index, (label, flags) in enumerate(ops):
-        for config in args.configs.split(","):
-            config = config.strip()
-            if not config:
-                continue
-            actual_config = llm_mixed_config_name(config, flags)
-            exp_flags = config_flags(actual_config, args) + flags
+        for config, selected_flags in selected_config_flags(args, flags):
+            exp_flags = benchmark_flags(args) + selected_flags + flags
+            exp_flags = add_default_photon_flags(args, exp_flags)
             if args.log_subtasks:
                 exp_flags.append("-llmop-log-subtasks")
             exps.append({
-                "target": "baseline",
+                "target": args.target,
                 "benchmark": "llmop",
                 "config_name": (
                     f"{args.model}_{args.profile}_{index:03d}_{label}_{config}"
@@ -513,6 +735,8 @@ def prepare_ops(args):
     split_k = parse_split_k(args.split_k)
     if args.layers < 0:
         raise ValueError("--layers must be non-negative")
+    if args.seq_len < 0:
+        raise ValueError("--seq-len must be non-negative")
     if args.target_gpus <= 0:
         raise ValueError("--target-gpus must be positive")
     if args.cu_per_gpu <= 0:
@@ -525,13 +749,19 @@ def prepare_ops(args):
     config_split_k = 1 if split_k == "auto" else split_k
 
     if args.model == "bert":
-        benchmarks = bertconfig.init_bert(
-            args.profile, config_split_k, layers=args.layers or None)
-        ops = bertconfig.run_bert(benchmarks)
+        profile_config = dict(bertconfig.profile(args.profile))
+        if args.layers > 0:
+            profile_config["layers"] = args.layers
+        if args.seq_len > 0:
+            profile_config["seq_len"] = args.seq_len
+        ops = bertconfig.bert_ops(profile_config, config_split_k)
     else:
-        benchmarks = gptconfig.init_gpt(
-            args.profile, config_split_k, layers=args.layers or None)
-        ops = gptconfig.run_gpt(benchmarks)
+        profile_config = dict(gptconfig.profile(args.profile))
+        if args.layers > 0:
+            profile_config["layers"] = args.layers
+        if args.seq_len > 0:
+            profile_config["seq_len"] = args.seq_len
+        ops = gptconfig.gpt_ops(profile_config, config_split_k)
     if split_k == "auto":
         ops = [
             (label, auto_split_linear_flags(flags, args))
@@ -545,18 +775,283 @@ def prepare_ops(args):
 
 
 def summarize_output(args):
-    cmd = [
-        sys.executable,
-        f"{runall2.ROOT_DIR}/summarize_llm_decomposed.py",
-        runall2.output_dir,
-        "--model",
-        args.model,
-        "--profile",
-        args.profile,
-        "--show",
-    ]
-    print(shlex.join(cmd))
-    subprocess.run(cmd, check=True)
+    summarize_results(Path(runall2.output_dir), args.model, args.profile, True)
+
+
+def parse_result_id(path):
+    suffix = "_metrics.csv"
+    name = path.name
+    if not name.endswith(suffix):
+        raise ValueError(f"not a metrics file: {name}")
+
+    stem = name[: -len(suffix)]
+    parts = stem.split("_")
+    if len(parts) < 7:
+        raise ValueError(f"cannot parse decomposed llmop filename: {name}")
+
+    target = parts[0]
+    benchmark = parts[1]
+    model = parts[2]
+    profile = parts[3]
+    try:
+        op_index = int(parts[4])
+    except ValueError as err:
+        raise ValueError(f"invalid op index in {name}") from err
+
+    rest = "_".join(parts[5:])
+    config_names = sorted(CONFIG_FLAGS, key=len, reverse=True)
+    for config in config_names:
+        marker = "_" + config
+        if rest.endswith(marker):
+            op_name = rest[: -len(marker)]
+            if op_name:
+                return ResultID(
+                    target, benchmark, model, profile, op_index, op_name,
+                    config)
+
+    raise ValueError(f"cannot find config suffix in {name}")
+
+
+def parse_metrics(path):
+    driver_kernel_time = 0.0
+    driver_total_time = 0.0
+    cp_kernel_time = 0.0
+    max_cp_kernel_time = 0.0
+
+    with path.open(newline="") as f:
+        reader = csv.reader(f, skipinitialspace=True)
+        for row in reader:
+            if len(row) < 4:
+                continue
+
+            where = row[1].strip()
+            what = row[2].strip()
+            try:
+                value = float(row[3].strip())
+            except ValueError:
+                continue
+
+            if where == "Driver" and what == "kernel_time":
+                driver_kernel_time = value
+            elif where == "Driver" and what == "total_time":
+                driver_total_time = value
+            elif where.endswith(".CommandProcessor") and what == "kernel_time":
+                cp_kernel_time += value
+                max_cp_kernel_time = max(max_cp_kernel_time, value)
+
+    return (
+        driver_kernel_time,
+        driver_total_time,
+        cp_kernel_time,
+        max_cp_kernel_time,
+    )
+
+
+def elapsed_to_seconds(text):
+    parts = text.strip().split(":")
+    if len(parts) != 3:
+        return 0.0
+    hours, minutes, seconds = parts
+    return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+
+
+def parse_stdout(path):
+    elapsed = 0.0
+    return_code = ""
+    if not path.exists():
+        return elapsed, return_code
+
+    with path.open(errors="replace") as f:
+        for line in f:
+            if line.startswith("Return code:"):
+                return_code = line.split(":", 1)[1].strip()
+            elif line.startswith("Elapsed time:"):
+                elapsed = elapsed_to_seconds(line.split(":", 1)[1].strip())
+
+    return elapsed, return_code
+
+
+def matching_records(results_dir, model_filter, profile_filter):
+    records = []
+    skipped = []
+    for metrics_path in sorted(results_dir.glob("*_llmop_*_metrics.csv")):
+        try:
+            result_id = parse_result_id(metrics_path)
+        except ValueError as err:
+            skipped.append((metrics_path.name, str(err)))
+            continue
+
+        if model_filter and result_id.model != model_filter:
+            continue
+        if profile_filter and result_id.profile != profile_filter:
+            continue
+        if result_id.benchmark != "llmop":
+            continue
+
+        stdout_path = metrics_path.with_name(
+            metrics_path.name.replace("_metrics.csv", "_out.stdout"))
+        metrics = parse_metrics(metrics_path)
+        elapsed, return_code = parse_stdout(stdout_path)
+        records.append(MetricRecord(
+            result_id=result_id,
+            metrics_path=metrics_path,
+            stdout_path=stdout_path,
+            driver_kernel_time=metrics[0],
+            driver_total_time=metrics[1],
+            command_processor_kernel_time=metrics[2],
+            max_command_processor_kernel_time=metrics[3],
+            stdout_elapsed_seconds=elapsed,
+            return_code=return_code,
+        ))
+
+    return records, skipped
+
+
+def summarize_records(records):
+    groups = {}
+    for record in records:
+        rid = record.result_id
+        key = (rid.model, rid.profile, rid.config)
+        group = groups.setdefault(key, {
+            "ops": 0,
+            "driver_total_time": 0.0,
+            "driver_kernel_time": 0.0,
+            "command_processor_kernel_time": 0.0,
+            "max_command_processor_kernel_time_sum": 0.0,
+            "stdout_elapsed_seconds": 0.0,
+            "ok": 0,
+            "missing_return_code": 0,
+        })
+        group["ops"] += 1
+        group["driver_total_time"] += record.driver_total_time
+        group["driver_kernel_time"] += record.driver_kernel_time
+        group["command_processor_kernel_time"] += (
+            record.command_processor_kernel_time)
+        group["max_command_processor_kernel_time_sum"] += (
+            record.max_command_processor_kernel_time)
+        group["stdout_elapsed_seconds"] += record.stdout_elapsed_seconds
+        if record.return_code == "0":
+            group["ok"] += 1
+        elif record.return_code == "":
+            group["missing_return_code"] += 1
+    return groups
+
+
+def write_per_op_summary(path, records):
+    with path.open("w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "model",
+            "profile",
+            "config",
+            "op_index",
+            "op_name",
+            "driver_total_time",
+            "driver_kernel_time",
+            "command_processor_kernel_time_sum",
+            "max_command_processor_kernel_time",
+            "stdout_elapsed_seconds",
+            "return_code",
+            "metrics_file",
+            "stdout_file",
+        ])
+        for record in records:
+            rid = record.result_id
+            writer.writerow([
+                rid.model,
+                rid.profile,
+                rid.config,
+                rid.op_index,
+                rid.op_name,
+                f"{record.driver_total_time:.12f}",
+                f"{record.driver_kernel_time:.12f}",
+                f"{record.command_processor_kernel_time:.12f}",
+                f"{record.max_command_processor_kernel_time:.12f}",
+                f"{record.stdout_elapsed_seconds:.6f}",
+                record.return_code,
+                record.metrics_path.name,
+                record.stdout_path.name,
+            ])
+
+
+def write_config_summary(path, groups):
+    with path.open("w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "model",
+            "profile",
+            "config",
+            "ops",
+            "driver_total_time_sum",
+            "driver_total_time_us",
+            "driver_kernel_time_sum",
+            "command_processor_kernel_time_sum",
+            "command_processor_kernel_time_us",
+            "max_command_processor_kernel_time_sum",
+            "stdout_elapsed_seconds_sum",
+            "return_code_0_count",
+            "missing_return_code_count",
+        ])
+        for (model, profile, config), group in sorted(groups.items()):
+            writer.writerow([
+                model,
+                profile,
+                config,
+                group["ops"],
+                f"{group['driver_total_time']:.12f}",
+                f"{group['driver_total_time'] * 1e6:.3f}",
+                f"{group['driver_kernel_time']:.12f}",
+                f"{group['command_processor_kernel_time']:.12f}",
+                f"{group['command_processor_kernel_time'] * 1e6:.3f}",
+                f"{group['max_command_processor_kernel_time_sum']:.12f}",
+                f"{group['stdout_elapsed_seconds']:.6f}",
+                group["ok"],
+                group["missing_return_code"],
+            ])
+
+
+def print_summary(groups):
+    print("model profile config ops driver_total_us cp_kernel_us stdout_elapsed_s ok")
+    for (model, profile, config), group in sorted(groups.items()):
+        print(
+            f"{model} {profile} {config} {group['ops']} "
+            f"{group['driver_total_time'] * 1e6:.3f} "
+            f"{group['command_processor_kernel_time'] * 1e6:.3f} "
+            f"{group['stdout_elapsed_seconds']:.3f} "
+            f"{group['ok']}/{group['ops']}"
+        )
+
+
+def summarize_results(results_dir, model_filter="", profile_filter="", show=False):
+    if not results_dir.is_dir():
+        raise ValueError(f"results directory does not exist: {results_dir}")
+
+    records, skipped = matching_records(results_dir, model_filter, profile_filter)
+    if not records:
+        raise RuntimeError(f"no decomposed llmop metrics found in {results_dir}")
+
+    records.sort(key=lambda r: (
+        r.result_id.model,
+        r.result_id.profile,
+        r.result_id.config,
+        r.result_id.op_index,
+        r.result_id.op_name,
+    ))
+    groups = summarize_records(records)
+
+    summary_path = results_dir / "llm_decomposed_summary.csv"
+    per_op_path = results_dir / "llm_decomposed_per_op_summary.csv"
+    write_config_summary(summary_path, groups)
+    write_per_op_summary(per_op_path, records)
+
+    print(f"Results dir: {results_dir}")
+    print(f"Wrote summary: {summary_path}")
+    print(f"Wrote per-op summary: {per_op_path}")
+    print(f"Matched metrics: {len(records)}")
+    if skipped:
+        print(f"Skipped files: {len(skipped)}")
+    if show:
+        print_summary(groups)
 
 
 def print_dry_run(exps):
@@ -572,10 +1067,28 @@ def print_dry_run(exps):
         print(shlex.join(cmd))
 
 
+def validate_scheduler_args(args):
+    if args.max_workers < 0:
+        raise ValueError("--max-workers must be non-negative")
+    if args.max_workloads <= 0:
+        raise ValueError("--max-workloads must be greater than 0")
+    if args.max_workloads > runall2.DEFAULT_MAX_WORKLOADS:
+        raise ValueError(
+            f"--max-workloads cannot exceed {runall2.DEFAULT_MAX_WORKLOADS}"
+        )
+    if args.min_free_ram_gb < 0:
+        raise ValueError("--min-free-ram-gb must be non-negative")
+    if args.memory_scan_interval_minutes <= 0:
+        raise ValueError("--memory-scan-interval-minutes must be greater than 0")
+    if args.timeout_minutes < 0:
+        raise ValueError("--timeout-minutes must be non-negative")
+
+
 def main():
     args = parse_args()
     ops = prepare_ops(args)
     exps = build_exps(args, ops)
+    validate_scheduler_args(args)
 
     if args.dry_run:
         print_dry_run(exps)
@@ -592,20 +1105,13 @@ def main():
             )
         return
 
-    runall2.install_signal_handlers()
     runall2.create_output_dir()
     write_placement_report(args, ops)
+    timeout_seconds = int(args.timeout_minutes * 60)
+    for exp in exps:
+        exp["timeout_seconds"] = timeout_seconds
     runall2.build_targets(exps)
-
-    try:
-        with concurrent.futures.ThreadPoolExecutor(
-            max_workers=args.max_workers,
-        ) as executor:
-            futures = [executor.submit(runall2.run_exp, exp) for exp in exps]
-            for future in concurrent.futures.as_completed(futures):
-                print(future.result())
-    finally:
-        runall2.terminate_all_processes()
+    runall2.memory_gated_run(exps, args)
 
     if args.summarize:
         summarize_output(args)

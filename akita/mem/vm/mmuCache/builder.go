@@ -84,11 +84,6 @@ func (b Builder) WithGMMUCacheTable(gmmuCacheTable *mem.MultiPageFinder) Builder
 	return b
 }
 
-func (b Builder) WithL2TLBTable(l2TLBTable *mem.MultiPageFinder) Builder {
-	b.gmmuCacheTable = l2TLBTable
-	return b
-}
-
 // WithEngine sets the engine that the TLBs to use
 func (b Builder) WithEngine(engine sim.Engine) Builder {
 	b.engine = engine
